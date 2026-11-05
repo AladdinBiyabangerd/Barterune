@@ -6,6 +6,9 @@ import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.drawWithContent
+import androidx.compose.ui.geometry.Offset
+import androidx.compose.ui.geometry.Size
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.FilterQuality
 import androidx.compose.ui.graphics.ImageBitmap
 import androidx.compose.ui.graphics.drawscope.DrawScope
@@ -16,9 +19,13 @@ import barterune.core.designsystem.token.BarteruneColors
 import barterune.core.designsystem.token.BarteruneSpacing
 import com.aladdin.barterune.core.designsystem.R
 
-/** Paper surface with the stretched wooden frame edges (v15 `frame()`). */
+/** Paper surface with the stretched wooden frame edges (v15 `frame()`); [innerFill] paints inside the edges. */
 @Composable
-fun ParchmentPanel(modifier: Modifier = Modifier, content: @Composable BoxScope.() -> Unit = {}) {
+fun ParchmentPanel(
+    modifier: Modifier = Modifier,
+    innerFill: Color? = null,
+    content: @Composable BoxScope.() -> Unit = {},
+) {
     val top = ImageBitmap.imageResource(R.drawable.frame_top)
     val bottom = ImageBitmap.imageResource(R.drawable.frame_bottom)
     val left = ImageBitmap.imageResource(R.drawable.frame_left)
@@ -27,8 +34,9 @@ fun ParchmentPanel(modifier: Modifier = Modifier, content: @Composable BoxScope.
         modifier = modifier
             .background(BarteruneColors.Surface)
             .drawWithContent {
-                drawContent()
                 val e = BarteruneSpacing.FrameEdge.toPx().toInt()
+                innerFill?.let { drawRect(it, Offset(e.toFloat(), e.toFloat()), Size(size.width - 2 * e, size.height - 2 * e)) }
+                drawContent()
                 val w = size.width.toInt()
                 val h = size.height.toInt()
                 stretch(top, 0, 0, w, e)

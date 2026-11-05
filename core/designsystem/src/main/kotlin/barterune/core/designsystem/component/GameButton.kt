@@ -1,9 +1,6 @@
 package barterune.core.designsystem.component
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicText
@@ -25,10 +22,8 @@ fun GameButton(text: String, onClick: () -> Unit, modifier: Modifier = Modifier,
         modifier = modifier
             .heightIn(min = BarteruneSpacing.Target)
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick),
+        innerFill = if (enabled) BarteruneColors.ActionFill else null,
     ) {
-        if (enabled) {
-            Box(Modifier.fillMaxSize().padding(BarteruneSpacing.FrameEdge).background(BarteruneColors.ActionFill))
-        }
         BasicText(
             text = text,
             style = BarteruneTypography.Label.copy(color = if (enabled) BarteruneColors.OnAction else BarteruneColors.TextPrimary),
