@@ -9,7 +9,7 @@ import barterune.engine.model.RunState
 /** Builds [MarketUiState] from a run snapshot. Previews use the same rules as the engine commands. */
 class MarketStateMapper(private val content: ContentPack, private val engine: TradeEngine) {
 
-    fun map(state: RunState, selectedGoodId: String, quantity: Int): MarketUiState {
+    fun map(state: RunState, selectedGoodId: String, quantity: Int, selectedBatchId: String? = null): MarketUiState {
         val load = engine.load(state)
         val rows = content.goods.map { good ->
             val market = state.market.good(good.id)!!
@@ -18,6 +18,9 @@ class MarketStateMapper(private val content: ContentPack, private val engine: Tr
                 buyUnit = engine.pricing.buyUnit(state.cityId, market),
                 sellUnit = engine.pricing.sellUnit(state.cityId, market, TradeEngine.FRESH_QUALITY),
                 selected = good.id == selectedGoodId,
+                stock = market.stock,
+                owned = state.cargo.filter { it.goodId == good.id }.sumOf { it.quantity },
+                unitLoad = good.unitLoad,
             )
         }
         return MarketUiState(
@@ -27,16 +30,16 @@ class MarketStateMapper(private val content: ContentPack, private val engine: Tr
             load = load,
             capacity = state.capacity,
             rows = rows,
-            detail = detail(state, selectedGoodId, quantity, load),
+            detail = detail(state, selectedGoodId, quantity, load, selectedBatchId),
         )
     }
 
-    private fun detail(state: RunState, goodId: String, quantity: Int, load: Int): GoodDetail {
+    private fun detail(state: RunState, goodId: String, quantity: Int, load: Int, selectedBatchId: String?): GoodDetail {
         val good = content.good(goodId)
         val market = state.market.good(goodId)!!
         val buyUnit = engine.pricing.buyUnit(state.cityId, market)
         val batches = state.cargo.filter { it.goodId == goodId }.sortedByDescending { it.quality }
-        val selected = batches.firstOrNull()
+        val selected = batches.firstOrNull { it.batchId == selectedBatchId } ?: batches.firstOrNull()
         val sellUnit = engine.pricing.sellUnit(state.cityId, market, selected?.quality ?: TradeEngine.FRESH_QUALITY)
         val buyTotal = buyUnit * quantity
         val buyLoad = quantity * good.unitLoad
@@ -59,7 +62,11 @@ class MarketStateMapper(private val content: ContentPack, private val engine: Tr
             owned = batches.sumOf { it.quantity },
             unitLoad = good.unitLoad,
             sellBatch = selected?.let { BatchInfo(it.batchId, it.quantity, it.quality, it.averageCost, sellUnit - it.averageCost) },
-            otherBatchUnits = batches.drop(1).sumOf { it.quantity },
+            otherBatchUnits = batches.filter { it != selected }.sumOf { it.quantity },
+            batches = batches.map {
+                val unit = engine.pricing.sellUnit(state.cityId, market, it.quality)
+                BatchInfo(it.batchId, it.quantity, it.quality, it.averageCost, unit - it.averageCost)
+            },
             quantity = quantity,
             buyMax = TradeLimits.buyMax(state.gold, buyUnit, state.capacity - load, good.unitLoad, market.stock),
             sellMax = TradeLimits.sellMax(selected?.quantity ?: 0),

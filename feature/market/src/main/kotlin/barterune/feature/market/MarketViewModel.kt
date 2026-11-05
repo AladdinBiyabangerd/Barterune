@@ -28,14 +28,34 @@ class MarketViewModel(
     private var quantity = 1
     private var keypad: KeypadState? = null
     private var busy = false
+    private var selectedBatchId: String? = null
+    private var section = CompactSection.LIST
+    private var lastTrade: TradeOutcome? = null
 
     init {
         viewModelScope.launch { run = repository.loadOrCreate(slotId); publish() }
     }
 
-    fun selectGood(goodId: String) { selectedGoodId = goodId; publish() }
+    fun selectGood(goodId: String) { selectedGoodId = goodId; selectedBatchId = null; publish() }
 
-    fun openKeypad() { keypad = KeypadState(quantity.toString()); publish() }
+    /** Phone: list → good detail. */
+    fun openGood(goodId: String) { selectGood(goodId); navigate(CompactSection.GOOD) }
+
+    fun selectBatch(batchId: String) { selectedBatchId = batchId; navigate(CompactSection.SELL_PREVIEW) }
+
+    fun navigate(target: CompactSection) {
+        if (target != CompactSection.QUANTITY) keypad = null
+        section = target
+        publish()
+    }
+
+    /** "Bazara qayıt": keeps selection and committed quantity, drops an unapplied draft (navigation.json back). */
+    fun backToMarket() { keypad = null; section = CompactSection.LIST; publish() }
+
+    /** Max rows only change the quantity (designResolutions); 0 is never applied. */
+    fun applyMax(max: Int) { if (max > 0) { quantity = max; publish() } }
+
+    fun openKeypad() { keypad = KeypadState(quantity.toString()); section = CompactSection.QUANTITY; publish() }
 
     fun keypadDigit(digit: Char) {
         val k = keypad ?: return
@@ -46,13 +66,14 @@ class MarketViewModel(
     fun keypadBackspace() { keypad = keypad?.let { it.copy(raw = it.raw.dropLast(1)) }; publish() }
 
     /** Cancel/back restores the last applied quantity. */
-    fun keypadCancel() { keypad = null; publish() }
+    fun keypadCancel() { keypad = null; if (section == CompactSection.QUANTITY) section = CompactSection.GOOD; publish() }
 
     /** Applies the quantity only; buying/selling stays a separate action. */
     fun keypadApply() {
         val value = keypad?.value ?: return
         quantity = value
         keypad = null
+        if (section == CompactSection.QUANTITY) section = CompactSection.BUY_PREVIEW
         publish()
     }
 
@@ -73,8 +94,12 @@ class MarketViewModel(
         publish()
         viewModelScope.launch {
             try {
-                repository.execute(slotId, command)
+                val result = repository.execute(slotId, command)
                 run = repository.loadOrCreate(slotId)
+                if (result is barterune.engine.command.CommandResult.Accepted) {
+                    lastTrade = TradeOutcome(bought = command is BuyGoods)
+                    if (section != CompactSection.LIST) section = CompactSection.TRADE_SAVED
+                }
             } finally {
                 busy = false
                 publish()
@@ -84,7 +109,8 @@ class MarketViewModel(
 
     private fun publish() {
         val current = run ?: return
-        _state.value = mapper.map(current, selectedGoodId, quantity).copy(keypad = keypad, busy = busy)
+        _state.value = mapper.map(current, selectedGoodId, quantity, selectedBatchId)
+            .copy(keypad = keypad, busy = busy, section = section, lastTrade = lastTrade)
     }
 
     private companion object { const val KEYPAD_MAX_CHARS = 7 }
