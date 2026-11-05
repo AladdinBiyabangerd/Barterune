@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- AZ copy from design/states/D1-render-localization.json and D1-D6-screen-fixtures.json. TR/RU/EN are M6. -->
+<resources>
+    <string name="market_hud">Gün %1$d/%2$d · Qızıl %3$d · Yük %4$d/%5$d</string>
+    <string name="market_row_prices">Al %1$d · Sat %2$d</string>
+    <string name="market_selected_prefix">✓ %1$s</string>
+    <string name="market_detail_prices">Alış %1$d · Satış %2$d · Ehtiyat %3$d\nSəndə %4$d · Vahid yük %5$d</string>
+    <string name="market_batch_healthy_title">Sağlam partiya</string>
+    <string name="market_batch_title">Partiya · Keyfiyyət %1$d%%</string>
+    <string name="market_batch_body">%1$d ədəd · Keyfiyyət %2$d%% · Maya %3$d\nMarja %4$s</string>
+    <string name="market_batch_other">%1$s · Zədəli partiya ayrıca: %2$d ədəd</string>
+    <string name="market_batches_title">Partiyalar</string>
+    <string name="market_batches_empty">Satılacaq mal yoxdur. Alışdan sonra yeni partiya yaranır.</string>
+    <string name="market_quantity_title">Miqdar %1$d</string>
+    <string name="market_quantity_limits">Alış maksimumu %1$d · Satış maksimumu %2$d</string>
+    <string name="market_buy_preview_title">Alış baxışı</string>
+    <string name="market_sell_preview_title">Satış baxışı</string>
+    <string name="market_preview_body">Cəm %1$d · Qızıl %2$d → %3$d · Yük %4$d → %5$d</string>
+    <string name="market_buy">Al %1$d</string>
+    <string name="market_sell">Sat %1$d</string>
+    <string name="market_buy_blocked">Al %1$d — %2$s</string>
+    <string name="market_buy_many">Al — %1$d səbəb</string>
+    <string name="market_sell_blocked">Sat — %1$s</string>
+    <string name="reason_out_of_stock">ehtiyat yoxdur</string>
+    <string name="reason_gold">pul çatmır</string>
+    <string name="reason_capacity">yer yoxdur</string>
+    <string name="reason_no_batch">partiya yoxdur</string>
+    <string name="reason_batch_quantity">partiyada azdır</string>
+    <string name="reason_quantity">miqdar etibarsızdır</string>
+    <string name="reason_stale">qiymət yeniləndi</string>
+    <string name="keypad_back">← Geri</string>
+    <string name="keypad_title">Miqdar: %1$s</string>
+    <string name="keypad_valid">Tətbiq miqdarı dəyişir. Alış ayrıca təsdiqlənir.</string>
+    <string name="keypad_invalid">1–999999 arası tam müsbət ədəd daxil et.</string>
+    <string name="keypad_backspace">Son rəqəmi sil</string>
+    <string name="keypad_apply">Tətbiq et</string>
+    <string name="good_grain">Taxıl</string>
+    <string name="good_wood">Odun</string>
+    <string name="good_cloth">Parça</string>
+    <string name="good_spices">Ədviyyat</string>
+    <string name="good_iron">Dəmir</string>
+    <string name="good_salt">Duz</string>
+    <string name="good_wool">Yun</string>
+    <string name="good_herbs">Otlar</string>
+    <string name="good_mana_crystal">Mana kristalı</string>
+    <string name="good_dragon_resin">Əjdaha qatranı</string>
+</resources>
