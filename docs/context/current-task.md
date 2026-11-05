@@ -2951,3 +2951,29 @@
 
 ### Exact next step
 - Yeni chatdə bu son bölmə və iki D2 scope/spec sənədi oxunsun. İstifadəçi harness implementasiyasını istəsə yalnız toolchain/cihaz inventarı və minimal confirm/pending spike vahidindən başla; oyun koduna toxunma.
+
+
+## M1 — skeleton + engine (feat/m1-skeleton-engine) — 5 noyabr 2026
+
+### Completed
+- Root Gradle (AGP 8.9.1, Kotlin 2.1.10, Gradle 8.13, version catalog). Modullar: `:app` (com.aladdin.barterune, target/compile 36, minSdk 24 müvəqqəti), `:engine` (saf JVM), `:content` (schema + `classic-v1.json`, B01–B03), `:core:designsystem`, `:core:database` (Room), `:core:data` (GameRepository), `:feature:market`.
+- Engine: `BuyGoods`/`SellBatch`, revision yoxlaması, bütün imtina səbəbləri, B03 qiymət/təsir/ehtiyat tavanı, Long pul + overflow yoxlaması.
+- Room: `save_slot` (versiyalı JSON snapshot) + `command_log` (eyni commandId iki dəfə tətbiq olunmur).
+- UI: D1-P3 master/detail bazar + D1-keypad miqdar ekranı; tokenlər D6 proposal + D1 composition geometry (2 px = 1 dp); art `design/tools/export-m1-drawables.swift` ilə kəsilib.
+### Current state
+- `android-billing` toxunulmayıb, ayrıca build kimi qalır (host inteqrasiyası M5).
+- `config/firebase/google-services.json` varsa app build-i onu `app/`-a kopyalayıb google-services plugin-i tətbiq edir (gitignored). Firebase SDK hələ əlavə edilməyib.
+### Decisions
+- Hilt əvəzinə M1-də manual `AppContainer`. Telefon üçün P3 düzülüşü: siyahı eni = min(580dp, yarı en) — telefon master/detail PNG-si yoxdur.
+- `feature:market` compileSdk 35 (Paparazzi 1.3.5 + android-36 crash; Arrowz ilə eyni workaround).
+### Remaining work
+- M1.5 playtest (iki şəhər, səyahət); WaitDay/gün dalğalanması; batch seçimi UI; TR/RU/EN; real cihaz/emulator yoxlaması; minSdk qərarı.
+### Relevant files
+- engine/src/main/kotlin/barterune/engine/TradeEngine.kt, content/src/main/resources/content/classic-v1.json
+- core/data/src/main/kotlin/barterune/core/data/RoomGameRepository.kt
+- feature/market/src/main/kotlin/barterune/feature/market/MarketScreen.kt
+### Checks performed
+- `./gradlew clean assembleDebug testDebugUnitTest :engine:test :content:test :feature:market:verifyPaparazziDebug` — BUILD SUCCESSFUL; 22 test, 0 xəta. Restart testi (Robolectric, DB bağla/yenidən aç) eyni RunState verdi.
+- Paparazzi render-ləri D1-P3 və D1-keypad PNG-ləri ilə yan-yana müqayisə edildi (output/m1/, commit edilmir). Emulator/cihazda yoxlanmayıb.
+### Exact next step
+- İstifadəçi branch-ı nəzərdən keçirib OK versin; sonra M1.5 üçün ayrıca branch.
