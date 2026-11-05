@@ -1,0 +1,1322 @@
+{
+  "basis": [
+    "docs/decisions.json#/balanceDecisions/confirmed/B05"
+  ],
+  "scope": "Synthetic static AZ P1 1x; 8 nonempty none/road/term combinations × 5 payment states. No game implementation. Existing V11/V12 source fixtures remain historical. Pending/unknown shows last confirmed cash, not proof of failed payment. Term begins on successful payment day4 and expires at day8 start. Road coverage begins at departure and includes return arrival.",
+  "modes": [
+    {
+      "id": "guard-road",
+      "guide": "none",
+      "guard": "road",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 0,
+      "guardCost": 10,
+      "total": 10,
+      "cashAfterSuccess": 90,
+      "operationId": "v15-pay-guard-road",
+      "captures": {
+        "confirm": "confirm-guard-road",
+        "pending": "pending-guard-road",
+        "paid-success": "paid-success-guard-road",
+        "failed": "failed-guard-road",
+        "unknown": "unknown-guard-road"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "none",
+          "start": null,
+          "expiryDay": null,
+          "end": null
+        },
+        "guard": {
+          "mode": "road",
+          "start": "departure",
+          "expiryDay": null,
+          "end": "destination-or-return-arrival"
+        }
+      }
+    },
+    {
+      "id": "guard-term",
+      "guide": "none",
+      "guard": "term",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 0,
+      "guardCost": 28,
+      "total": 28,
+      "cashAfterSuccess": 72,
+      "operationId": "v15-pay-guard-term",
+      "captures": {
+        "confirm": "confirm-guard-term",
+        "pending": "pending-guard-term",
+        "paid-success": "paid-success-guard-term",
+        "failed": "failed-guard-term",
+        "unknown": "unknown-guard-term"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "none",
+          "start": null,
+          "expiryDay": null,
+          "end": null
+        },
+        "guard": {
+          "mode": "term",
+          "start": "payment-confirmed-day4",
+          "expiryDay": 8,
+          "end": "day8-start"
+        }
+      }
+    },
+    {
+      "id": "guide-road",
+      "guide": "road",
+      "guard": "none",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 4,
+      "guardCost": 0,
+      "total": 4,
+      "cashAfterSuccess": 96,
+      "operationId": "v15-pay-guide-road",
+      "captures": {
+        "confirm": "confirm-guide-road",
+        "pending": "pending-guide-road",
+        "paid-success": "paid-success-guide-road",
+        "failed": "failed-guide-road",
+        "unknown": "unknown-guide-road"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "road",
+          "start": "departure",
+          "expiryDay": null,
+          "end": "destination-or-return-arrival"
+        },
+        "guard": {
+          "mode": "none",
+          "start": null,
+          "expiryDay": null,
+          "end": null
+        }
+      }
+    },
+    {
+      "id": "both",
+      "guide": "road",
+      "guard": "road",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 4,
+      "guardCost": 10,
+      "total": 14,
+      "cashAfterSuccess": 86,
+      "operationId": "v15-pay-both",
+      "captures": {
+        "confirm": "confirm",
+        "pending": "pending",
+        "paid-success": "paid-success",
+        "failed": "failed",
+        "unknown": "unknown"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "road",
+          "start": "departure",
+          "expiryDay": null,
+          "end": "destination-or-return-arrival"
+        },
+        "guard": {
+          "mode": "road",
+          "start": "departure",
+          "expiryDay": null,
+          "end": "destination-or-return-arrival"
+        }
+      }
+    },
+    {
+      "id": "mixed-guard-term",
+      "guide": "road",
+      "guard": "term",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 4,
+      "guardCost": 28,
+      "total": 32,
+      "cashAfterSuccess": 68,
+      "operationId": "v15-pay-mixed-guard-term",
+      "captures": {
+        "confirm": "confirm-mixed-guard-term",
+        "pending": "pending-mixed-guard-term",
+        "paid-success": "paid-success-mixed-guard-term",
+        "failed": "failed-mixed-guard-term",
+        "unknown": "unknown-mixed-guard-term"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "road",
+          "start": "departure",
+          "expiryDay": null,
+          "end": "destination-or-return-arrival"
+        },
+        "guard": {
+          "mode": "term",
+          "start": "payment-confirmed-day4",
+          "expiryDay": 8,
+          "end": "day8-start"
+        }
+      }
+    },
+    {
+      "id": "guide-term",
+      "guide": "term",
+      "guard": "none",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 12,
+      "guardCost": 0,
+      "total": 12,
+      "cashAfterSuccess": 88,
+      "operationId": "v15-pay-guide-term",
+      "captures": {
+        "confirm": "confirm-guide-term",
+        "pending": "pending-guide-term",
+        "paid-success": "paid-success-guide-term",
+        "failed": "failed-guide-term",
+        "unknown": "unknown-guide-term"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "term",
+          "start": "payment-confirmed-day4",
+          "expiryDay": 8,
+          "end": "day8-start"
+        },
+        "guard": {
+          "mode": "none",
+          "start": null,
+          "expiryDay": null,
+          "end": null
+        }
+      }
+    },
+    {
+      "id": "mixed-guide-term",
+      "guide": "term",
+      "guard": "road",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 12,
+      "guardCost": 10,
+      "total": 22,
+      "cashAfterSuccess": 78,
+      "operationId": "v15-pay-mixed-guide-term",
+      "captures": {
+        "confirm": "confirm-mixed-guide-term",
+        "pending": "pending-mixed-guide-term",
+        "paid-success": "paid-success-mixed-guide-term",
+        "failed": "failed-mixed-guide-term",
+        "unknown": "unknown-mixed-guide-term"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "term",
+          "start": "payment-confirmed-day4",
+          "expiryDay": 8,
+          "end": "day8-start"
+        },
+        "guard": {
+          "mode": "road",
+          "start": "departure",
+          "expiryDay": null,
+          "end": "destination-or-return-arrival"
+        }
+      }
+    },
+    {
+      "id": "both-term",
+      "guide": "term",
+      "guard": "term",
+      "day": 4,
+      "distance": 1,
+      "cashBefore": 100,
+      "guideCost": 12,
+      "guardCost": 28,
+      "total": 40,
+      "cashAfterSuccess": 60,
+      "operationId": "v15-pay-both-term",
+      "captures": {
+        "confirm": "confirm-both-term",
+        "pending": "pending-both-term",
+        "paid-success": "paid-success-both-term",
+        "failed": "failed-both-term",
+        "unknown": "unknown-both-term"
+      },
+      "contracts": {
+        "guide": {
+          "mode": "term",
+          "start": "payment-confirmed-day4",
+          "expiryDay": 8,
+          "end": "day8-start"
+        },
+        "guard": {
+          "mode": "term",
+          "start": "payment-confirmed-day4",
+          "expiryDay": 8,
+          "end": "day8-start"
+        }
+      }
+    }
+  ],
+  "variants": [
+    {
+      "id": "confirm-guard-road",
+      "modeId": "guard-road",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-guard-road",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 10 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 90",
+        "Bələdçi: yoxdur",
+        "Mühafizəçi: çıxış → gəliş"
+      ],
+      "primary": "10 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-guard-road",
+      "modeId": "guard-road",
+      "paymentState": "pending",
+      "operationId": "v15-pay-guard-road",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 10 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-guard-road",
+      "modeId": "guard-road",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-guard-road",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 10 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 90",
+        "Bələdçi: yoxdur",
+        "Mühafizəçi: çıxış → gəliş"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 90,
+      "resolvedCash": 90,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-guard-road",
+      "modeId": "guard-road",
+      "paymentState": "failed",
+      "operationId": "v15-pay-guard-road",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 10 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-guard-road",
+      "modeId": "guard-road",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-guard-road",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 10 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm-guard-term",
+      "modeId": "guard-term",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-guard-term",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 28 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 72",
+        "Bələdçi: yoxdur",
+        "Mühafizəçi: gün 8-də bitir"
+      ],
+      "primary": "28 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-guard-term",
+      "modeId": "guard-term",
+      "paymentState": "pending",
+      "operationId": "v15-pay-guard-term",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 28 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-guard-term",
+      "modeId": "guard-term",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-guard-term",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 28 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 72",
+        "Bələdçi: yoxdur",
+        "Mühafizəçi: gün 8-də bitir"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 72,
+      "resolvedCash": 72,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-guard-term",
+      "modeId": "guard-term",
+      "paymentState": "failed",
+      "operationId": "v15-pay-guard-term",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 28 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-guard-term",
+      "modeId": "guard-term",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-guard-term",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Yoxdur · 0",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 28 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm-guide-road",
+      "modeId": "guide-road",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-guide-road",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 4 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 96",
+        "Bələdçi: çıxış → gəliş",
+        "Mühafizəçi: yoxdur"
+      ],
+      "primary": "4 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-guide-road",
+      "modeId": "guide-road",
+      "paymentState": "pending",
+      "operationId": "v15-pay-guide-road",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 4 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-guide-road",
+      "modeId": "guide-road",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-guide-road",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 4 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 96",
+        "Bələdçi: çıxış → gəliş",
+        "Mühafizəçi: yoxdur"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 96,
+      "resolvedCash": 96,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-guide-road",
+      "modeId": "guide-road",
+      "paymentState": "failed",
+      "operationId": "v15-pay-guide-road",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 4 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-guide-road",
+      "modeId": "guide-road",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-guide-road",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 4 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm",
+      "modeId": "both",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-both",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 14 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 86",
+        "Bələdçi: çıxış → gəliş",
+        "Mühafizəçi: çıxış → gəliş"
+      ],
+      "primary": "14 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending",
+      "modeId": "both",
+      "paymentState": "pending",
+      "operationId": "v15-pay-both",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 14 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success",
+      "modeId": "both",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-both",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 14 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 86",
+        "Bələdçi: çıxış → gəliş",
+        "Mühafizəçi: çıxış → gəliş"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 86,
+      "resolvedCash": 86,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed",
+      "modeId": "both",
+      "paymentState": "failed",
+      "operationId": "v15-pay-both",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 14 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown",
+      "modeId": "both",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-both",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 14 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm-mixed-guard-term",
+      "modeId": "mixed-guard-term",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-mixed-guard-term",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 32 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 68",
+        "Bələdçi: çıxış → gəliş",
+        "Mühafizəçi: gün 8-də bitir"
+      ],
+      "primary": "32 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-mixed-guard-term",
+      "modeId": "mixed-guard-term",
+      "paymentState": "pending",
+      "operationId": "v15-pay-mixed-guard-term",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 32 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-mixed-guard-term",
+      "modeId": "mixed-guard-term",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-mixed-guard-term",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 32 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 68",
+        "Bələdçi: çıxış → gəliş",
+        "Mühafizəçi: gün 8-də bitir"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 68,
+      "resolvedCash": 68,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-mixed-guard-term",
+      "modeId": "mixed-guard-term",
+      "paymentState": "failed",
+      "operationId": "v15-pay-mixed-guard-term",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 32 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-mixed-guard-term",
+      "modeId": "mixed-guard-term",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-mixed-guard-term",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: Bir yol · 4",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 32 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm-guide-term",
+      "modeId": "guide-term",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-guide-term",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 12 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 88",
+        "Bələdçi: gün 8-də bitir",
+        "Mühafizəçi: yoxdur"
+      ],
+      "primary": "12 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-guide-term",
+      "modeId": "guide-term",
+      "paymentState": "pending",
+      "operationId": "v15-pay-guide-term",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 12 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-guide-term",
+      "modeId": "guide-term",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-guide-term",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 12 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 88",
+        "Bələdçi: gün 8-də bitir",
+        "Mühafizəçi: yoxdur"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 88,
+      "resolvedCash": 88,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-guide-term",
+      "modeId": "guide-term",
+      "paymentState": "failed",
+      "operationId": "v15-pay-guide-term",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 12 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-guide-term",
+      "modeId": "guide-term",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-guide-term",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Yoxdur · 0",
+        "Cəm: 12 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm-mixed-guide-term",
+      "modeId": "mixed-guide-term",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-mixed-guide-term",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 22 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 78",
+        "Bələdçi: gün 8-də bitir",
+        "Mühafizəçi: çıxış → gəliş"
+      ],
+      "primary": "22 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-mixed-guide-term",
+      "modeId": "mixed-guide-term",
+      "paymentState": "pending",
+      "operationId": "v15-pay-mixed-guide-term",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 22 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-mixed-guide-term",
+      "modeId": "mixed-guide-term",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-mixed-guide-term",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 22 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 78",
+        "Bələdçi: gün 8-də bitir",
+        "Mühafizəçi: çıxış → gəliş"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 78,
+      "resolvedCash": 78,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-mixed-guide-term",
+      "modeId": "mixed-guide-term",
+      "paymentState": "failed",
+      "operationId": "v15-pay-mixed-guide-term",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 22 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-mixed-guide-term",
+      "modeId": "mixed-guide-term",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-mixed-guide-term",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: Bir yol · 10",
+        "Cəm: 22 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "confirm-both-term",
+      "modeId": "both-term",
+      "paymentState": "confirm",
+      "operationId": "v15-pay-both-term",
+      "title": "Xidmət alışını təsdiqlə",
+      "status": "Gün 4 · Hələ ödənməyib",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 40 qızıl"
+      ],
+      "right": [
+        "Ödənişdən sonra",
+        "Qızıl: 100 → 60",
+        "Bələdçi: gün 8-də bitir",
+        "Mühafizəçi: gün 8-də bitir"
+      ],
+      "primary": "40 qızıl ödə",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "pending-both-term",
+      "modeId": "both-term",
+      "paymentState": "pending",
+      "operationId": "v15-pay-both-term",
+      "title": "Ödəniş saxlanır…",
+      "status": "Gün 4 · Eyni əməliyyat · Təkrar toxunma bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 40 qızıl"
+      ],
+      "right": [
+        "Nəticə gözlənilir",
+        "Son təsdiqli qızıl: 100",
+        "Əhatə təsdiqlənməyib",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Saxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    },
+    {
+      "id": "paid-success-both-term",
+      "modeId": "both-term",
+      "paymentState": "paid-success",
+      "operationId": "v15-pay-both-term",
+      "title": "Ödəniş tamamlandı",
+      "status": "Gün 4 · Bir dəfə ödənib · Yeni xərc 0",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 40 qızıl"
+      ],
+      "right": [
+        "Pul və əhatə",
+        "Qızıl: 100 → 60",
+        "Bələdçi: gün 8-də bitir",
+        "Mühafizəçi: gün 8-də bitir"
+      ],
+      "primary": "Marşruta qayıt",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 60,
+      "resolvedCash": 60,
+      "paymentApplications": 1
+    },
+    {
+      "id": "failed-both-term",
+      "modeId": "both-term",
+      "paymentState": "failed",
+      "operationId": "v15-pay-both-term",
+      "title": "Saxlanmadı · Yenidən cəhd et",
+      "status": "Gün 4 · Təsdiqlənmiş uğursuzluq · Yenidən cəhd açıqdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 40 qızıl"
+      ],
+      "right": [
+        "Pul tutulmayıb",
+        "Qızıl: 100 → 100",
+        "Yeni əhatə yoxdur",
+        "Gün 4 · Seçim saxlanıb"
+      ],
+      "primary": "Yenidən cəhd et",
+      "enabled": true,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": 100,
+      "paymentApplications": 0
+    },
+    {
+      "id": "unknown-both-term",
+      "modeId": "both-term",
+      "paymentState": "unknown",
+      "operationId": "v15-pay-both-term",
+      "title": "Ödəniş nəticəsi yoxlanır",
+      "status": "Gün 4 · Nəticə naməlum · Yeni alış bağlıdır",
+      "left": [
+        "Seçilmiş xidmətlər",
+        "Bələdçi: 4 gün · 12",
+        "Mühafizəçi: 4 gün · 28",
+        "Cəm: 40 qızıl"
+      ],
+      "right": [
+        "Nəticə yoxlanır",
+        "Son təsdiqli qızıl: 100",
+        "Qızıl və əhatə yoxlanır",
+        "Yeni ödəniş bağlıdır"
+      ],
+      "primary": "Yoxlanır…",
+      "enabled": false,
+      "compact": true,
+      "confirmedCash": 100,
+      "resolvedCash": null,
+      "paymentApplications": null
+    }
+  ]
+}

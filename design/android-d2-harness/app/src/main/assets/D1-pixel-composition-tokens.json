@@ -1,0 +1,73 @@
+{
+  "status": "static_art_composition_trial_not_runtime",
+  "colorSource": "D6-canonical-token-proposal.json#/referenceColors",
+  "geometrySource": "D5-entry-trial-tokens.json",
+  "geometry": {
+    "width": 1280,
+    "height": 720,
+    "safeTop": 48,
+    "safeBottom": 48,
+    "margin": 24,
+    "gap": 24,
+    "inset": 24,
+    "target": 96,
+    "artWidth": 352,
+    "artHeight": 104,
+    "frameEdge": 12,
+    "maxTextWidth": 1160
+  },
+  "art": {
+    "source": "design/choices/51-variants.png",
+    "panorama": [
+      90,
+      600,
+      914,
+      100
+    ],
+    "frameTop": [
+      110,
+      749,
+      150,
+      5
+    ],
+    "frameBottom": [
+      110,
+      967,
+      150,
+      5
+    ],
+    "frameLeft": [
+      89,
+      780,
+      5,
+      150
+    ],
+    "frameRight": [
+      1000,
+      780,
+      5,
+      150
+    ],
+    "cloth": [
+      294,
+      246,
+      52,
+      43
+    ],
+    "grain": [
+      32,
+      292,
+      30,
+      25
+    ],
+    "wood": [
+      32,
+      326,
+      38,
+      28
+    ],
+    "iconSource": "design/states/D1-market-trades-v2.png"
+  },
+  "note": "Named local composition geometry. Existing palette/type/48dp targets retained; no production token approval. Reference crops are decorations, no reference text is reused.",
+  "largeFontArtPolicy": "At 2x collapse panorama and move bottom navigation into scroll flow; current HUD remains fixed."
+}

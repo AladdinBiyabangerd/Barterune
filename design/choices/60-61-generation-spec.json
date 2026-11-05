@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      60,
+      "CREDITOR",
+      "A: full creditor screen, small portrait of friendly fantasy lender left, debt summary and actions right, city scene background. B: centered parchment creditor modal over darkened map, lender portrait at upper left, debt summary top and action cards below. C: illustrated lender office panorama top quarter, ledger and three action cards in full-width lower area. Same overdue debt state everywhere: Gold40, Debt120, Due Day6, Today Day7. Actions Request extension (fee20, new due Day10), Pay with goods (opens cargo chooser), Work off debt (1 day, reduces debt30). No Pay120 button enabled with only40 gold. Show separate details/check step before committing. Amounts are sample UI data, not final rules. No real-money prompts, no threats or violence. Three actions must fit and be readable."
+    ],
+    [
+      61,
+      "TRAVEL SERVICES",
+      "A: departure route panel expanded with two stacked service rows Guide and Armed Guard, independent checkboxes, each has Trip / 3 days selector, selected Trip; Guide8, Guard15; total23. B: separate full-screen town hiring scene with two large character cards Guide and Armed Guard; each has independent checkbox and Trip / 3 days selector; both selected Trip, total23; bottom Hire23 button and Back to route. C: centered parchment hiring modal over map with side-by-side Guide/Armed Guard cards, independent checkboxes and duration selectors, both Trip selected; total23; confirm Hire23. All same content Guide helps avoid route obstacles, Guard helps against bandits. Neither promises protection from every event. Top HUD Day4/20 Gold240 Load12/20. State shows both services can be hired together. Keep service duration options visible; no exact percentages invented. No renewal dialog on this board; dedicated later."
+    ]
+  ]
+}

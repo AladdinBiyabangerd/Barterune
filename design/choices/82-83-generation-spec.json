@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      82,
+      "NEW EXPEDITION",
+      "A: centered parchment New expedition setup modal over dim save-slot screen, empty Slot3 selected, small caravan illustration and fixed summary Starting town Karvansara / Duration20days / Starting gold240 / Capacity20, primary Begin expedition, secondary Cancel. B: full-page departure preparation scene top quarter with wagon and morning town, lower parchment same summary and Begin/Back. C: two-column setup screen, left four-town map overview all towns open, right same fixed start summary and Begin/Back. Same data, no character builder, difficulty selection, seed input, permanent mode or map selection; these are not confirmed. Gold240 and capacity20 placeholder for balance. No gold/day HUD before run exists. Player is filling EMPTY slot, no overwrite confirmation needed here. Starting city is a proposed placeholder to be explicitly confirmed separately; do not add choose town feature. Brief subtitle A20-day trading expedition. Readable strong hierarchy."
+    ],
+    [
+      83,
+      "TAKE A LOAN",
+      "A: centered parchment loan-terms modal over creditor office, friendly lender small portrait, amount selector minus100plus, term5days, fee20, total repayment120, todayDay4, dueDay9, current debt0; Review and Cancel buttons. B: full creditor office screen top-third scene and lower ledger form with same fields and actions. C: creditor screen split two columns, amount/term form left and live contract preview right with same total/due, same actions. Same illustrative terms all choices, numeric amount selector no real-money currency. Review opens explicit Accept loan confirmation, does not issue loan instantly. No invented interest compounding or loan limit claims. Existing debt0 in example, no late fees being charged in this initial loan screen. Fixed5-day term shown (not user-selectable unless later confirmed). Every cost displayed before acceptance, no premium rescue offers."
+    ]
+  ]
+}

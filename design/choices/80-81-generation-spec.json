@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      80,
+      "EMPTY STATE STYLE",
+      "Compare an empty Cargo screen in three presentation styles, preserving selected57A grouped inventory layout structure (list area left, detail area right) but no items. A: small centered illustration of open empty wagon crate within list area, title Your cargo is empty, line Visit the market to buy goods, one Go to market button, details right show No item selected and Load0/20. B: illustrated friendly merchant helper portrait and speech bubble within empty list area, same text/button and right details. C: minimal text and small crate icon near upper left of empty list area, same text/button, lots of clean parchment space. Same state Gold240 Day4/20 Load0/20, bottom Cargo selected. Empty is normal, not error; no red alert, no automatic recovery job unless low funds, no free goods. Do NOT redesign actual filled inventory layout. These styles will be applied consistently to empty news/history as appropriate, each with its own context-specific message."
+    ],
+    [
+      81,
+      "SAVE SLOT MANAGEMENT",
+      "Three alternatives for management of Slot1 Karvansara Day4 Gold240, selected three-slot-list layout63A in background with horizontal stacked cards. A: small anchored menu from Slot1 Manage button with Return to checkpoint, Replace with new expedition, Delete this slot, Cancel. B: centered parchment management modal with Slot1 preview and three clearly separated action rows same actions, plus Close. C: right-side management drawer with Slot1 preview, same action rows and Close; other slots visible behind. For EACH option include a SMALL separate inset confirmation labelled Delete confirmation: Delete Slot1? Other slots, records and shared unlocks are kept. Cancel / Delete. No destructive change on menu tap; Replace has separate confirmation too, not shown here. No name/rename feature invented, no cloud export. Checkpoint action has separate confirmation already selected68B. Neutral Delete is irreversible, local mock UI only. Do not show source-code implementation terms. No global day/gold HUD outside slot preview."
+    ]
+  ]
+}

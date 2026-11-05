@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      68,
+      "PAUSE AND REWIND",
+      "A: compact central parchment pause modal over dimmed map, vertical actions Continue, Settings, Return to checkpoint, Main menu. Checkpoint subtitle Karvansara Day4. A small SEPARATE connected inset shows rewind confirmation: Return to Karvansara Day4? Current progress in this slot will be replaced. Record will be marked Rewind used. Buttons Cancel / Return. B: wide two-column pause modal: actions left Continue Settings Main menu, checkpoint illustrated card right Karvansara Day4 and Return to checkpoint button, same small separate confirmation inset. C: full pause screen with map parchment illustration left, menu and checkpoint info right, same separate confirmation inset. Same content across options. Not arbitrary save/load, only last city checkpoint. Returning only affects selected slot, not shared unlocks. No new mechanics. Confirm inset should be clearly separate and not obscure main screen."
+    ],
+    [
+      69,
+      "ARRIVAL SUMMARY",
+      "A: compact centered parchment arrival modal over world map, Welcome to Frostgate, Day7, 3 days travelled, event toll -10 gold, Cargo damaged: Cloth 2 units now60% quality, Continue to market button. B: large landscape full-page arrival illustration upper third snowy gate and wagon, lower ledger with same travel summary and button. C: narrow parchment right-side arrival panel while most world map remains visible, same summary and button. Same state Gold230, Load12/20. IMPORTANT damage means quality reduction not quantity disappearance. This summary happens after each route, not end of20-day expedition, no record score. No automatic buy/sell. Readable short labels, no new claim of price certainty."
+    ]
+  ]
+}

@@ -1,0 +1,37 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "purpose": "Layout choice sketches, not final gameplay specifications",
+  "prompts": [
+    [
+      51,
+      "MARKET LAYOUT",
+      "A: left half cozy pixel-art caravanserai city scene, right half parchment market and selected good trade panel. B: upper third city panorama, lower two thirds wide parchment market with trade controls. C: world map fills background with a large parchment market overlay; no separate city scene."
+    ],
+    [
+      52,
+      "GOODS DISPLAY",
+      "A: compact icon-led market list with clear columns Good / Buy / Sell / Stock / Owned and several goods visible. B: large illustrated goods cards in a grid, prices and stock, selected card detail panel. C: same market with a clearly highlighted List / Cards toggle and a split illustrative inset showing both views, not a mixture without a toggle."
+    ],
+    [
+      53,
+      "BUY AND SELL",
+      "A: selected Cloth details with Buy / Sell tabs at top, Buy active and one Buy action at bottom. B: selected Cloth details, quantity and TWO equally visible side-by-side Buy and Sell action buttons. C: market screen only has Buy actions; a clearly connected smaller Cargo screen inset has Sell actions. Make distinctions unmistakable."
+    ],
+    [
+      54,
+      "QUANTITY CONTROLS",
+      "A: selected Cloth trade panel with minus / quantity / plus, horizontal slider, Max button and total. B: identical panel but ONLY minus / quantity / plus and Max, no slider or keyboard. C: same panel with editable numeric field focused and visible in-game numeric keypad popup, plus Max. Use quantity 5 and total 175 throughout."
+    ],
+    [
+      55,
+      "EVENT PRESENTATION",
+      "A: large centered illustrated bandit encounter modal over darkened but visible world map, text and three choice buttons. B: full-screen cozy forest-road bandit illustration with dialogue and three choices in a bottom panel, no modal. C: world map stays visible and dominant, small compact text-led encounter card docked right with three choices, no large illustration. Choices Pay / Negotiate / Escape. Gentle humorous bandits, no violence."
+    ],
+    [
+      56,
+      "MAP CONTROLS",
+      "A: four-town map with visible plus/minus and Fit map controls and a small inset zoomed area, visible draggable map. B: fixed full four-town map, all towns visible, absolutely no zoom or pan controls. C: two clearly labeled device-view insets within this row: Phone has zoom/pan controls; Tablet shows the same map fixed and fully visible without controls."
+    ]
+  ]
+}

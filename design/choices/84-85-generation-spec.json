@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      84,
+      "TOWN SERVICES ACCESS",
+      "A: selected market layout top-quarter town panorama has three small labeled building hotspots Workshop / Creditor / Hire, opening already chosen dedicated screens; bottom main navigation stays Market Map Cargo. B: same market layout with Town services button near city name, expanded small anchored menu listing Workshop Creditor Hire. C: same market layout with three labeled compact service shortcut buttons in horizontal strip immediately below town panorama Workshop Creditor Hire. All same city Karvansara Day4/20 Gold240 Load12/20. Preserve lower full-width goods list with List/Cards toggle and selected Cloth trade details right with side-by-side Buy35 Sell28; do not cover trading panel. Same three actions, no new shops or currencies. Clearly readable navigation with labels, not only icons. No assumed extra top-level tab. Choice is access pattern only."
+    ],
+    [
+      85,
+      "EVENT OUTCOME",
+      "A: inside already-approved central illustrated event modal over dim world map, choice UI replaced by clear outcome heading Deal struck, friendly bandit illustration upper half, consequence rows Paid10gold / Cargo unchanged / No extra days, Continue journey button. B: same central illustrated event modal, left illustration and narrative 'The bandits accept a small toll and let you pass', right compact consequence ledger and same button. C: same central illustrated event modal with small banner illustration top, large coin-change callout Gold240 to230, compact badges Cargo unchanged / No extra days, same button. All same outcome after confirmed negotiation; NOT another decision or new random roll. Current HUD Gold230, Day4/20, Load12/20; before240 after230. Consequences already applied once, Continue only advances presentation. No reroll, no reward ads, no real money. Light humorous hopeful tone, no combat."
+    ]
+  ]
+}

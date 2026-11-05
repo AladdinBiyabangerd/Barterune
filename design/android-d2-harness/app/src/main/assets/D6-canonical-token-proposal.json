@@ -1,0 +1,243 @@
+{
+  "group": "D6",
+  "status": "canonical_token_proposal_not_approved_not_implemented",
+  "version": 1,
+  "sources": [
+    "design/states/D6-adaptation-spec.json",
+    "design/states/D1-board-tokens.json"
+  ],
+  "scope": "Kanonik oyun tokenləri üçün semantik müqavilə təklifi. Mövcud review-board palitrası yalnız namizəddir; istifadəçi təsdiqi və işlək UI sübutu deyil.",
+  "resolutionPolicy": {
+    "layers": [
+      "reference → mövcud mənbə rəngi",
+      "semantic → məqsəd bildirən alias",
+      "component → semantik token istinadı"
+    ],
+    "unresolvedValue": null,
+    "rule": "null həll edilməmiş qərardır; default, sıfır və ya implementasiya dəyəri deyil. Komponent daxilində yeni literal və board px → dp/sp çevrilməsi yoxdur."
+  },
+  "referenceColors": {
+    "paper": {
+      "value": "#FCECD0",
+      "source": "design/states/D1-board-tokens.json#/colors/paper",
+      "status": "candidate_from_review_board"
+    },
+    "ink": {
+      "value": "#882316",
+      "source": "design/states/D1-board-tokens.json#/colors/ink",
+      "status": "candidate_from_review_board"
+    },
+    "nav": {
+      "value": "#1A3546",
+      "source": "design/states/D1-board-tokens.json#/colors/nav",
+      "status": "candidate_from_review_board"
+    }
+  },
+  "semanticColors": {
+    "surface": {
+      "ref": "referenceColors.paper",
+      "status": "proposed",
+      "usage": "Mətn və idarəetmə üçün düz, qeyri-şəffaf əsas səth."
+    },
+    "textPrimary": {
+      "ref": "referenceColors.nav",
+      "status": "proposed",
+      "usage": "Əsas mətn və məlumat."
+    },
+    "actionFill": {
+      "ref": "referenceColors.nav",
+      "status": "proposed",
+      "usage": "Aktiv əməliyyat düyməsinin səthi."
+    },
+    "onAction": {
+      "ref": "referenceColors.paper",
+      "status": "proposed",
+      "usage": "actionFill üzərində mətn və ikon."
+    },
+    "emphasisText": {
+      "ref": "referenceColors.ink",
+      "status": "proposed",
+      "usage": "Vurğu; avtomatik xəta, itki və ya satış mənası daşımır."
+    }
+  },
+  "pendingColorRoles": {
+    "surfaceRaised": {
+      "value": null,
+      "requirement": "Kart/modal və əsas səthin münasibəti; teksturalı fonla yoxlanmalıdır."
+    },
+    "textSecondary": {
+      "value": null,
+      "requirement": "Ayrıca zəif rəngə ehtiyac renderdə əsaslandırılmalıdır; opacity uydurulmur."
+    },
+    "focusIndicator": {
+      "value": null,
+      "requirement": "Real qonşu səthlərə qarşı ən azı 3:1; yalnız rəngdən asılı olmayan fokus."
+    },
+    "selectedIndicator": {
+      "value": null,
+      "requirement": "Seçim ikon/mətn və ya forma ilə də bildirilir; partiya avtomatik dəyişmir."
+    },
+    "disabledContent": {
+      "value": null,
+      "requirement": "Səbəb oxunaqlı mətnlə verilir; disabled opacity hələ seçilməyib."
+    },
+    "pressedFill": {
+      "value": null,
+      "requirement": "Normaldan fərqlənmə, mətn kontrastını qoruma."
+    },
+    "error": {
+      "value": null,
+      "requirement": "Xəta mətn/ikonla; ink avtomatik error alias deyil."
+    },
+    "warning": {
+      "value": null,
+      "requirement": "Risk və naməlum nəticə xəta/uğurdan mətnlə ayrılır."
+    },
+    "success": {
+      "value": null,
+      "requirement": "Lokal və cloud uğuru ayrı mətnlə; yalnız rəngə bağlı deyil."
+    },
+    "scrim": {
+      "value": null,
+      "requirement": "Modal arxa fonu və şəffaflıq real kompozisiyadan sonra."
+    }
+  },
+  "dimensionAndTypeProposal": {
+    "spacing": {
+      "unit": "dp",
+      "values": null,
+      "rule": "Bir adlandırılmış şkala; inset, gap və padding həmin şkalaya istinad etməlidir. Board layout.space=24 daşınmır."
+    },
+    "radius": {
+      "unit": "dp",
+      "values": null,
+      "roles": [
+        "control",
+        "card",
+        "dialog"
+      ],
+      "rule": "Eyni rol D1–D5-də eyni tokenə istinad edir; board geometriyası mənbə deyil."
+    },
+    "typography": {
+      "unit": "sp",
+      "families": null,
+      "roles": [
+        "screenTitle",
+        "sectionTitle",
+        "body",
+        "label",
+        "supporting",
+        "numeric"
+      ],
+      "sizes": null,
+      "weights": null,
+      "lineHeights": null,
+      "rule": "Ə/ə, ı/İ, ş/ğ və kiril qlifləri; pul/miqdar üçün rəqəm hizası yoxlanır. Kritik mətn kəsilmir, böyük şriftdə komponent böyüyür."
+    },
+    "touchTargetMin": {
+      "value": 48,
+      "unit": "dp",
+      "source": "design/states/D6-adaptation-spec.json#/states/V06",
+      "status": "existing_requirement_not_measured",
+      "rule": "Vizual ölçüdən ayrı; qonşu toxunma sahələri üst-üstə düşmür."
+    },
+    "layout": {
+      "breakpoints": null,
+      "viewports": null,
+      "insets": null,
+      "contentMaxWidth": null,
+      "rule": "Kiçik telefonda lazım olarsa master/detail; Al/Sat yanaşı və bütün 10 mal/preview əlçatan; planşetdə nəzarətli mətn eni."
+    },
+    "motion": {
+      "durations": null,
+      "easing": null,
+      "rule": "Normal və reduced eyni saxlanmış nəticəni göstərir; reduced statik statusdan istifadə edir. Animasiya iqtisadi effekt yaratmır."
+    }
+  },
+  "componentBindings": {
+    "Action": {
+      "container": "semanticColors.actionFill",
+      "content": "semanticColors.onAction",
+      "states": [
+        "normal",
+        "focused",
+        "pressed",
+        "loading",
+        "disabled"
+      ],
+      "pending": [
+        "focusIndicator",
+        "pressedFill",
+        "disabledContent"
+      ],
+      "rule": "Loading təkrar əməliyyat yaratmır; disabled səbəbi mətnlə."
+    },
+    "Quantity": {
+      "content": "semanticColors.textPrimary",
+      "rule": [
+        "6 rəqəm həddi; ayrı alış/satış maksimumu; boş/0/etibarsız ayrı",
+        "Tətbiq miqdarı dəyişir; Al/Sat ayrıca əməliyyatdır"
+      ]
+    },
+    "Batch": {
+      "content": "semanticColors.textPrimary",
+      "selected": "pendingColorRoles.selectedIndicator",
+      "rule": [
+        "keyfiyyət, say, maya və seçilmiş partiya; bitən partiyadan avtomatik keçid yoxdur"
+      ]
+    },
+    "Slot": {
+      "content": "semanticColors.textPrimary",
+      "rule": [
+        "boş/dolu/oxunur/xəta; şəhər/gün/pul yalnız yuvaya aiddir"
+      ]
+    },
+    "Status": {
+      "content": "semanticColors.textPrimary",
+      "rule": [
+        "lokal saxlanıb / buludda saxlanıb / offline / konflikt / xəta",
+        "Online göndərilir/yoxlanır/təsdiqlənib/rədd mətnlə ayrıdır"
+      ]
+    },
+    "Dialog": {
+      "surface": "pendingColorRoles.surfaceRaised",
+      "content": "semanticColors.textPrimary",
+      "rule": [
+        "başlıq → izah → nəticə → təsdiq/ləğv; back ləğv edir, pending əməliyyatı geri almır",
+        "Bağlananda fokus açan düyməyə qayıdır; üst-üstə modallar yoxdur"
+      ]
+    }
+  },
+  "validation": {
+    "status": "pending_real_component_render",
+    "textContrastMin": 4.5,
+    "meaningfulStateContrastMin": 3,
+    "candidatePairs": [
+      "textPrimary/surface",
+      "onAction/actionFill",
+      "emphasisText/surface"
+    ],
+    "rule": "Düz rəng cütü testi teksturalı fonu, vəziyyətləri və real cihazı təsdiqləmir. Şrift/ölçü/viewport seçiləndən sonra D6 validationMatrix icra edilməlidir.",
+    "render": "Bu sənəd mərhələsində yeni ekran render edilməyib.",
+    "measuredCandidateContrast": {
+      "textPrimary/surface": 10.99,
+      "onAction/actionFill": 10.99,
+      "emphasisText/surface": 7.85
+    },
+    "measurementScope": "ui-craft contrast.py; mənbə JSON rənglərindən yaradılan müvəqqəti CSS, düz qeyri-şəffaf cütlər; bütün üç cüt 4.5:1 həddini keçdi."
+  },
+  "preservedOpenQuestions": [
+    "Teksturalı fon üzrə rəng rolları",
+    "Seçilmiş/passiv/fokus/xəta vəziyyətlərinin tam palitrası",
+    "AZ/TR/RU/EN qlifli əsas və dekorativ şrift",
+    "dp/sp spacing/type/radius ölçüləri; review-board piksel ölçüləri daşınmır",
+    "Dark mode əhatəsi təsdiqlənməyib; avtomatik inversiya yoxdur",
+    "Kanonik ekranların D1–D5 üzrə birləşdirilməsi; mövcud lövhələr onu əvəz etmir",
+    "Kanonik tokenlər, şrift və konkret supported viewport/minSdk",
+    "Real cihaz/emulator, toxunma, dörd dil və böyük şrift render matrisi",
+    "Animasiya müddətləri və asset storyboard kadrları",
+    "D2–D4 açıq məhsul qaydaları dəyişmir"
+  ],
+  "otherOpenWork": "docs/context/current-task.md — D5 sistem və D6 ilkin uyğunlaşma qeydinə əsasən D1 iqtisadiyyat/10 mal; D2 yol/risk/müqavilə; D3 borc/iş/son gün; D4 kataloq/bazar/itki; D5 sistem/privacy/mağaza və Spark texniki açıq məsələləri dəyişmir.",
+  "nextStep": "D1 tam 10 mal + detal + preview üçün konkret viewport/insets/şrift namizədlərini və dil/fontScale matrisini dəqiqləşdir; sonra statik kanonik ekran renderi ilə token qərarlarını yoxla. Implementasiyaya başlama."
+}

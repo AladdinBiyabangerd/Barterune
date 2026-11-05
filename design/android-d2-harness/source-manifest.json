@@ -1,0 +1,10 @@
+{
+  "design/states/D2-payment-modes-v15-fixtures.json": "deaf194d700f3ae0463b48f56fa3520ec30ac88a30f3c11060f55b0f540b1cac",
+  "design/states/D2-payment-localization-v15.json": "9b6c1eda3f6d9e34fe13ff72ca53663da5c849b86843d1d08ac0b98f7c9298e9",
+  "design/states/D6-canonical-token-proposal.json": "5e7e8cacc69836dfbb1bf94f7761a499644f0e16a3c29102264020753d05dd30",
+  "design/states/D1-pixel-composition-tokens.json": "9152dff3fda157e238a1da665f7a4583a1c724f20e8b088e0e692005face1927",
+  "design/states/D1-canonical-render-matrix.json": "74ecda654f1acf0940126d6c2e186e1a0f43dcd1c2933da54f864648cf0dcf8b",
+  "design/states/D2-payment-control-matrix-v15/decision.json": "611de11a5c2ed3601a9db81039cce539bd52712f13a48fb21e13f3fe7c416738",
+  "design/fonts/notosans/NotoSans[wdth,wght].ttf": "bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d",
+  "design/fonts/notosanssymbols/NotoSansSymbols[wght].ttf": "f7e7e04b4a24b6c78893d50cbfd2b2f6cae49617ab047bfef668d252adb128f7"
+}

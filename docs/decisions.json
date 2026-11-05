@@ -1,0 +1,841 @@
+{
+  "project": "Barterune — Merchant Adventure",
+  "status": "discovery_in_progress",
+  "language": "az",
+  "visualReference": "design/reference/selected-pixel-map.png",
+  "planReference": "/Users/mac/My Workspace/arrowz/design/PLAN.md",
+  "purchaseAccountDecision": {
+    "id": "DT07",
+    "date": "2026-11-03",
+    "choice": "1",
+    "status": "binding_and_deletion_policy_confirmed_enforcement_pending",
+    "decision": "Pulla alınmış daimi kosmetika alış zamanı daxil olunmuş ilk Firebase UID-yə daimi bağlanır; eyni Play hesabının başqa Firebase UID-si üçün avtomatik açılmır.",
+    "sameAccountRestore": "Eyni Firebase UID üçün Play alışının uyğunluğu yoxlanaraq bərpa nəzərdə tutulur; cloud cache təkbaşına alış sübutu deyil.",
+    "postDeletion": "Hesab silindikdən sonra alış yeni Firebase UID-yə bərpa edilmir və köçürülmür; support istisnası yoxdur. Bu məhdudiyyət alışdan əvvəl və hesab silmə təsdiqində aydın bildirilməlidir. Bu siyasət Google Play sifarişinin silinməsi və ya avtomatik refund demək deyil.",
+    "enforcement": "Spark/client-only sərhədində qlobal etibarlı tək-UID bağlanması sübut edilməyib. Server verification və saxlanılan alış reyestri ehtiyacı ayrıca texniki qərardır; Blaze və əlavə server bu seçimlə icazələndirilmir.",
+    "remaining": [
+      "Qəbul edilmiş post-deletion qadağasının DT04 silmə/retention ilə uyğun icrası; saxlanılan bağlanma məlumatının minimumu və müddəti açıqdır.",
+      "Bağlanmanın etibarlı icrası, account switch və interrupted/pending alış sınaqları.",
+      "SKU/kataloq/qiymət, acknowledge retry və Play query reconcile sınaqları."
+    ]
+  },
+  "backupRestoreDecision": {
+    "id": "DT08",
+    "date": "2026-11-03",
+    "status": "policy_confirmed_implementation_and_validation_pending",
+    "choice": "2",
+    "decision": "Ən son cloud save-dən adi davam geri dönüş sayılmır və mövcud rewind statusunu qoruyur. Köhnə backup və ya konflikt nüsxəsindən bərpa geri dönüş sayılır; lineage üzrə rewindUsed=true qalır və sonrakı bərpa ilə silinmir.",
+    "records": "Mövcud vaxtında/gecikmiş × geri dönüşsüz/geri dönüşlü kateqoriyaları saxlanır; ayrıca backup kateqoriyası yaradılmır.",
+    "achievements": "Bərpadan sonra digər şərtlər ödənən nailiyyətlər mümkündür; geri dönüşlü səfər geri dönüşsüz bitir nailiyyətini vermir. Əvvəldən açılmış hesab nailiyyətləri geri alınmır.",
+    "onlineEligibility": "İlkin online-start və bir completion/lineage qaydaları dəyişmir. Yeni run ID bərpa edilmiş səfərə yeni ranked start və ya ikinci online completion hüququ vermir; offline start sonradan ranked olmur.",
+    "retention": "DT02 retention parametrləri dəyişmir.",
+    "validation": "Yalnız məhsul siyasəti təsdiqlənib; Rules/schema, iki cihaz, restore və completion sınaqları aparılmayıb. Implementasiyaya başlama icazəsi deyil."
+  },
+  "technologyDecision": {
+    "id": "DT09",
+    "date": "2026-11-03",
+    "status": "stack_and_target_policy_confirmed_min_sdk_deferred",
+    "stack": "Kotlin + Jetpack Compose",
+    "lightAnimation": "Yüngül xəritə və at arabası hərəkətləri Compose Canvas/animasiya vasitələri ilə qurulacaq.",
+    "targetSdkPolicy": "Buraxılış vaxtındakı Google Play tələbinə uyğun.",
+    "minSdk": null,
+    "minSdkPolicy": "Seçilən SDK-ların uyğunluğu və cihaz sınaqlarına görə sonra seçiləcək; API26 təsdiqlənməyib.",
+    "scope": "Digər kitabxana seçimlərini təsdiqləmir və implementasiyaya başlama icazəsi deyil."
+  },
+  "confirmed": {
+    "1": {
+      "choice": "A",
+      "decision": "Yalnız üfüqi ekran."
+    },
+    "2": {
+      "choice": "C",
+      "decision": "20 günlük səfərlər və qalıcı açılışlar."
+    },
+    "3": {
+      "choice": "A",
+      "decision": "Şəhərə toxun, marşrut seç, qısa araba animasiyası ilə səyahət et."
+    },
+    "4": {
+      "choice": "A",
+      "decision": "Dörd şəhər əvvəldən açıqdır."
+    },
+    "5": {
+      "choice": "AB",
+      "decision": "Bərpa işi və borc imkanlarının hər ikisi mövcuddur."
+    },
+    "6": {
+      "choice": "C",
+      "decision": "Daimi inkişaf ayrıca rejimdədir; 20 günlük səfərlərdə başlanğıc şərtləri bərabərdir."
+    },
+    "7": {
+      "choice": "A",
+      "decision": "20-ci gün son şəhərdə satış mümkündür, sonra nəticə açılır; qalan vaxta sığmayan marşrut seçilmir."
+    },
+    "8": {
+      "choice": "B",
+      "decision": "Müddətli borc; gecikmə əlavə xərc yaradır. Rəqəmlər və səfər sonu hesablaşma hələ açıqdır."
+    },
+    "9": {
+      "choice": "A",
+      "decision": "Bərpa işi yalnız pul az və satıla bilən yük olmadıqda mümkündür. Dəqiq hədlər hələ açıqdır."
+    },
+    "10": {
+      "choice": "A",
+      "decision": "Alış qiyməti satış qiymətindən yüksəkdir."
+    },
+    "11": {
+      "choice": "A",
+      "decision": "Orta alış qiyməti, cari satış qiyməti və vahid başına fərq göstərilir; yol xərcləri ayrıca hesablanır."
+    },
+    "12": {
+      "choice": "A",
+      "decision": "Əvvəl 20 günlük səfər prototipi; daimi inkişaf rejimi sonrakı mərhələdir, indidən planda göstərilir."
+    },
+    "13": {
+      "choice": "A",
+      "decision": "Məqsəd maksimum xalis sərvətdir: pul + yükün satış dəyəri − borclar; şəxsi rekordla müqayisə edilir. Yekun satış və təkmilləşdirmələrin qiymətləndirilməsi dəqiqləşdirilməlidir."
+    },
+    "14": {
+      "choice": "C",
+      "decision": "Gecikmiş borc üçün kreditor əlavə haqqla uzatma və ya müəyyən malı təhvil vermə seçimi təklif edir. Uyğun mal və pul olmadıqda davranış açıqdır."
+    },
+    "15": {
+      "choice": "AB",
+      "decision": "Quldur hadisəsində ödəniş, qaçış, mühafizəçidən istifadə və yükə/xəbərlərə bağlı danışıq seçimləri var; ayrıca döyüş sistemi yoxdur."
+    },
+    "16": {
+      "choice": "A",
+      "decision": "Bir hadisədə itki məhduddur; təsadüfi bir hadisə bütün sərvəti silmir. Dəqiq limit açıqdır."
+    },
+    "17": {
+      "choice": "C",
+      "decision": "Marşrutda risk səviyyəsi əsas görünüşdə, dəqiq faiz və izah detallarda göstərilir."
+    },
+    "18": {
+      "choice": "C",
+      "decision": "Ucuz bələdçi və bahalı silahlı mühafizəçi var; fərqli risklərə kömək edirlər. Effektlər və birlikdə tutulma qaydası açıqdır."
+    },
+    "19": {
+      "choice": "A",
+      "decision": "Digər şəhərlərin yalnız son görülmüş qiymətləri və müşahidə günü göstərilir; bunlar cari qiymət zəmanəti deyil."
+    },
+    "20": {
+      "choice": "AB",
+      "decision": "Etibarlı fakt xəbərləri və aydın işarələnmiş şayiələr mövcuddur; doğru fakt da qazanca zəmanət vermir. Şayiə etibarlılığının təqdimatı və model dəqiqləşdirilməlidir."
+    },
+    "21": {
+      "choice": "A",
+      "decision": "Hər malın fərqli yük ölçüsü var; tutum vahid sayına deyil, malın ölçüsü ilə miqdarına əsaslanır."
+    },
+    "22": {
+      "choice": "A",
+      "decision": "Bazar ehtiyatı məhduddur; şəhərə və oyundaxili günlərə görə yenilənir, aldıqca azalır. Bərpa sürəti və satışın ehtiyata təsiri açıqdır."
+    },
+    "23": {
+      "choice": "A",
+      "decision": "Böyük alış-satış qiyməti əməliyyatdan sonra dəyişir. Təsdiqdən əvvəl bütün məbləğ göstərilir; həmin əməliyyat təsdiqlənmiş qiymətlə başa çatır."
+    },
+    "24": {
+      "choice": "CUSTOM",
+      "decision": "İlk versiyada müddətdən xarab olma yoxdur. Bəzi hadisələr bəzi yükləri zədələyə bilər. Sonrakı mərhələdə xarab olan mallara qalan istifadə müddəti göstərilməlidir. Zədələnmənin miqdar/keyfiyyətə təsiri açıqdır."
+    },
+    "25": {
+      "choice": "AC",
+      "decision": "Şəhərdə alış-satış gün sərf etmir. Səyahət, bərpa işi və xüsusi seçimlər gün sərf edir. Ayrıca bir gün gözlə əməliyyatı var; iqtisadiyyat, xəbərlər və borc vaxtı irəliləyir. 20-ci gün davranışı dəqiqləşdirilməlidir."
+    },
+    "26": {
+      "choice": "A_CLARIFIED_BC",
+      "decision": "Sağlam və zədəli mallar ayrı partiyalarda saxlanır. Partiyanın keyfiyyət faizi göstərilir və satış dəyərinə təsir edir. Dəqiq qiymət düsturu açıqdır."
+    },
+    "27": {
+      "choice": "B_CLARIFIED_AB",
+      "decision": "İlk versiyada 10 ticarət malı: taxıl, odun, parça, ədviyyat, dəmir, duz, yun, dərman otları və əlavə 2 fantaziya malı. Fantaziya mallarının adları açıqdır."
+    },
+    "28": {
+      "choice": "A",
+      "decision": "Şəhərlərin sabit iqtisadi ixtisaslaşmaları var; hadisələr qiymətləri müvəqqəti dəyişir."
+    },
+    "29": {
+      "choice": "C",
+      "decision": "Çanta, araba və yük zədəsi riskini azaldan qoruyucu avadanlıq təkmilləşdirmələri var. Prototip mərhələlərinə bölgü açıqdır."
+    },
+    "31": {
+      "choice": "A_CLARIFIED_AC",
+      "decision": "Bələdçi və silahlı mühafizəçi ayrı və birlikdə tutula bilər. Həm bir yol üçün xidmət, həm bir neçə günlük müqavilə var; gün müddəti, yenilənmə və effektlər açıqdır."
+    },
+    "32": {
+      "choice": "A",
+      "decision": "Bir gün gözlə əməliyyatının ayrıca pul xərci yoxdur; gün keçir və borc müddəti yaxınlaşır."
+    },
+    "30": {
+      "choice": "A",
+      "decision": "Səfər nəticəsində təkmilləşdirmələrə ayrıca qalıq dəyəri verilmir; onların faydası səfər ərzindədir."
+    },
+    "33": {
+      "choice": "C",
+      "decision": "20 günü aşdıra bilən hadisədə əlavə gün əvəzinə pul və ya yük sərfi seçimi verilir. Heç birini ödəmək mümkün olmadıqda ehtiyat qayda açıqdır."
+    },
+    "34": {
+      "choice": "C_CUSTOM",
+      "decision": "Müqavilə yolda bitən anda xidmətin təsiri dayanır və həmin anda uzatma təklifi göstərilir. Yola çıxmazdan əvvəl müddət xəbərdarlığı var. Uzatma qiyməti, pul çatışmazlığı və imtina axını açıqdır."
+    },
+    "35": {
+      "choice": "A",
+      "decision": "Yol bağlananda gözləmək, əlavə xərclə yan yola keçmək və geri qayıtmaq seçimləri verilir; gün/pul xərcləri görünür. Son günlə uyğunluq açıqdır."
+    },
+    "36": {
+      "choice": "A",
+      "decision": "Nəticəyə keçəndə qalan yük yerli satış qiymətinə avtomatik satılır; əvvəlcədən məbləğ göstərilir. Keyfiyyət və kütləvi satışın qiymətə təsiri qaydası açıqdır."
+    },
+    "37": {
+      "choice": "ABC",
+      "decision": "Kreditor qarşısında çatışmazlıq olduqda məhdud artımla möhlət, gün sərf edən bərpa işi və başqa malların aşağı qiymətlə qəbul edilməsi imkanları var. Seçim şərtləri və son gün davranışı açıqdır."
+    },
+    "38": {
+      "choice": "A",
+      "decision": "Hadisə zamanı tətbiq bağlanıb açılanda eyni hadisə və seçimlərdən davam edir; nəticə yenidən təsadüfiləşmir. Hadisə və qərarın atomik saxlanması planlaşdırılmalıdır."
+    },
+    "39": {
+      "choice": "AB",
+      "decision": "Pulsuz təhlükəsiz çıxışın nəticədə yardım borcu yaratması və vaxt limitinin istisna aşılması birlikdə seçilib. İkisinin alternativ və ya birlikdə işləməsi dəqiqləşdirilməlidir."
+    },
+    "40": {
+      "choice": "ABC",
+      "decision": "Müqavilə uzatmağa pul çatmayanda xidmətin bitməsi ilə davam, xidmət haqqını borca yazmaq və mallarla ödəniş imkanları seçilib. Uyğun mal, borc limiti və yeni risk əvvəlcədən göstərilməlidir."
+    },
+    "41": {
+      "choice": "C",
+      "decision": "Keçilə bilən qısa təlim səfəri və sonradan ilk dəfə görünən funksiyalar üçün kontekstual izahlar var."
+    },
+    "42": {
+      "choice": "B",
+      "decision": "İlk versiya Azərbaycan, ingilis, türk və rus dillərini dəstəkləyir."
+    },
+    "43": {
+      "choice": "B",
+      "decision": "Üç ayrı saxlama yuvası var; müxtəlif səfərlər növbə ilə davam etdirilə bilər."
+    },
+    "44": {
+      "choice": "C",
+      "decision": "Hər şəhərə çatanda yaddaş nöqtəsi yaradılır və oradan yenidən başlamaq mümkündür. Yaddaş nöqtəsinin əhatəsi, yuvaya təsiri və təsadüfi nəticələrin təkrarlanması açıqdır."
+    },
+    "45": {
+      "choice": "A",
+      "decision": "Son gün çıxılmaz vəziyyətdə oyunçu yardım borcu ilə vaxtında çatmaq və ya vaxtı aşaraq yolu tamamlamaq arasında seçim edir. Gecikmənin dəqiq nəticə qaydası açıqdır."
+    },
+    "46": {
+      "choice": "A",
+      "decision": "Şəhər yaddaş nöqtəsinə qayıdanda eyni hərəkətlər eyni nəticələri verir; fərqli yol/qərar nəticəni dəyişə bilər. Tətbiqi yenidən açmaq nəticəni dəyişmir. Deterministik vəziyyət və təsadüfi generator vəziyyəti saxlanmalıdır."
+    },
+    "47": {
+      "choice": "B",
+      "decision": "Geri dönüş istifadə edilmiş səfərlər işarələnir və geri dönüşsüz şəxsi rekorddan ayrı göstərilir. Geri dönüş bayrağı əvvəlki yaddaş nöqtəsi ilə silinməməlidir."
+    },
+    "48": {
+      "choice": "A",
+      "decision": "Üç yuva üçün qalıcı açılışlar, kosmetikalar və ayarlar ortaqdır; səfərin pulu, yükü və günü ayrıdır. Rekordlar rejimə və geri dönüş istifadəsinə görə ayrılır."
+    },
+    "49": {
+      "choice": "A",
+      "decision": "İki fantaziya malı mana kristalı və əjdaha qatranıdır. İlk versiyada səkkiz adi və iki fantaziya malı var."
+    },
+    "50": {
+      "choice": "AC",
+      "decision": "Ümumi hava rahat, ümidli və yüngül yumorludur; təhlükələr var, ağır və qorxulu təqdimat yoxdur."
+    },
+    "51": {
+      "choice": "B",
+      "decision": "Bazar ekranının yuxarısında şəhər panoraması, aşağısında geniş bazar və əməliyyat paneli var."
+    },
+    "52": {
+      "choice": "C",
+      "decision": "Siyahı və kart görünüşləri arasında keçid var; eyni anda ikisi göstərilmir. Seçim yadda saxlanır."
+    },
+    "53": {
+      "choice": "B",
+      "decision": "Seçilmiş mal panelində Al və Sat düymələri yanaşı görünür. Onların fərqli qiymətləri ayrıca göstərilməlidir."
+    },
+    "54": {
+      "choice": "C",
+      "decision": "Miqdar sahəsinə toxunanda rəqəm klaviaturası açılır; miqdarı birbaşa yazmaq və Maksimum seçmək mümkündür. Boş, sıfır, limitdən yuxarı və ləğv halları dizayn edilməlidir."
+    },
+    "55": {
+      "choice": "A",
+      "decision": "Hadisə qaraldılmış xəritə üzərində böyük illüstrasiyalı pəncərədə göstərilir; mətn və seçimlər pəncərədədir."
+    },
+    "56": {
+      "choice": "A",
+      "decision": "Xəritədə yaxınlaşdırma, sürüşdürmə və xəritəni sığdır idarələri var. İlk görünüşdə dörd şəhər də görünür."
+    },
+    "57": {
+      "choice": "A",
+      "decision": "İnventar mal növünə görə qruplaşır. Mal açıldıqda keyfiyyət üzrə partiyalar görünür; seçilmiş partiyanın detalları sağ paneldə göstərilir."
+    },
+    "58": {
+      "choice": "C",
+      "decision": "Xəbərlər xəritə üzərində açılan pəncərədədir; solda xəbərlər siyahısı, sağda seçilmiş xəbərin detalları görünür."
+    },
+    "59": {
+      "choice": "B",
+      "decision": "Təkmilləşdirmə ekranında yuxarıda emalatxana mənzərəsi, aşağıda çanta/araba/yük qorunması kartları və seçilmiş təkmilləşdirmənin detalları göstərilir."
+    },
+    "60": {
+      "choice": "C",
+      "decision": "Kreditor ekranında yuxarıda ofis mənzərəsi və kreditor, aşağıda borc xülasəsi və üç seçim kartı göstərilir: möhlət, malla ödəniş, işləyərək azaltmaq."
+    },
+    "61": {
+      "choice": "B",
+      "decision": "Bələdçi və silahlı mühafizəçi ayrıca şəhər ekranında iki personaj kartı ilə seçilir. Hərəsində müstəqil seçim və müqavilə müddəti var; ümumi məbləğ və marşruta qayıt düyməsi göstərilir."
+    },
+    "62": {
+      "choice": "B",
+      "decision": "Nəticə ekranında yuxarıda şəhərə dönüş illüstrasiyası, böyük xalis sərvət göstəricisi, hesablaşma kartları, ayrıca detallı dəftər keçidi və ayrılmış rekord kateqoriyaları var."
+    },
+    "63": {
+      "choice": "A",
+      "decision": "Üç saxlama yuvası alt-alta üfüqi kartlarla göstərilir; hər kartda öz şəhəri, günü, pulu, davam/yeni səfər və uyğun idarəetmə düyməsi var."
+    },
+    "64": {
+      "choice": "A",
+      "decision": "Əsas menyuda karvansara mənzərəsi, solda oyun adı və sağda şaquli menyu paneli var."
+    },
+    "65": {
+      "choice": "A",
+      "decision": "Təlimdə tələb olunan sahə işıqlandırılır, qalan hissə qaralır; sahənin yanında personajlı qısa izah, addım göstəricisi və təlimi keç keçidi var."
+    },
+    "66": {
+      "choice": "B",
+      "decision": "Ayarlar oyun/menyu fonu qaraldılmaqla mərkəzi pəncərədə açılır; yuxarıda səs/dil/görünüş bölmələri var."
+    },
+    "67": {
+      "choice": "A",
+      "decision": "Rekordlar geri dönüşsüz və geri dönüş istifadə edilmiş ayrı tablarla göstərilir. Solda seçilmiş kateqoriyanın ən yaxşı nəticəsi, sağda yalnız həmin kateqoriyanın səfərləri var."
+    },
+    "68": {
+      "choice": "B",
+      "decision": "Pauza geniş iki sütunlu pəncərədir: solda davam/ayarlar/əsas menyu, sağda şəhər yaddaş nöqtəsi və qayıt düyməsi; qayıdış ayrıca təsdiqlənir."
+    },
+    "69": {
+      "choice": "B",
+      "decision": "Şəhərə çatmada yuxarıda gəliş illüstrasiyası, aşağıda gün, yol müddəti, xərclər və yük keyfiyyətində dəyişiklik xülasəsi, bazara davam düyməsi göstərilir."
+    },
+    "70": {
+      "choice": "A",
+      "decision": "Müqavilə bitəndə qaraldılmış səyahət fonu üzərində mərkəzi illüstrasiyalı pəncərə göstərilir. Nağd yeniləmə, malla ödəniş, borc şərtlərinə baxış və xidmətsiz davam seçimləri var; əlçatmaz seçim səbəbi görünür."
+    },
+    "71": {
+      "choice": "A",
+      "decision": "Bazar məhdudiyyətləri miqdarın yanında inline izah olunur. Pul və tutum çatışmazlığı ayrıca səbəblərlə, mümkün maksimum və miqdarı uyğunlaşdır əməliyyatı ilə göstərilir; alış avtomatik edilmir."
+    },
+    "72": {
+      "choice": "B",
+      "decision": "Yol bağlanması mərkəzi illüstrasiyalı hadisə pəncərəsində üç yanaşı seçim kartı ilə göstərilir: gözlə, yan yol, geri qayıt; gün/pul nəticələri və ayrıca təsdiq var."
+    },
+    "73": {
+      "choice": "A",
+      "decision": "Son gün çıxılmaz vəziyyətdə mərkəzi illüstrasiyalı hadisə pəncərəsində yardım borcu ilə vaxtında çatmaq və gecikərək yolu bitirmək yanaşı kartlarla göstərilir; ayrıca təsdiq var. Eskizdəki rəqəmlər və gecikmə qaydası yekunlaşdırılmayıb."
+    },
+    "74": {
+      "choice": "B",
+      "decision": "Marşrut riski xəritə qaraldılmaqla mərkəzi detal pəncərəsində göstərilir: yol, müddət, ehtimal bölgüsü, bələdçi və mühafizəçinin aid təsirləri. Dəqiq faiz modeli açıqdır."
+    },
+    "75": {
+      "choice": "B",
+      "decision": "Çıxılmaz vəziyyətdə bərpa işi ayrıca ekranda şəhər mənzərəsi və bir iş kartı ilə təqdim olunur; gün xərci və qazanc qəbuldan əvvəl görünür."
+    },
+    "76": {
+      "choice": "A",
+      "decision": "Satış üçün keyfiyyət partiyası seçilmiş malın detal panelində açılan inline siyahıdan seçilir; miqdar, keyfiyyət, vahid satış qiyməti və yekun məbləğ görünür. Partiya seçimi özü satış etmir."
+    },
+    "77": {
+      "choice": "B",
+      "decision": "Lokal yaddaş oxunma problemi aid yuvanın kartında inline göstərilir; ehtiyat nüsxəyə bax, yenidən yoxla və geri seçimləri var. Bərpa ayrıca baxış və təsdiqdən sonra edilir; problemli fayl avtomatik silinmir."
+    },
+    "78": {
+      "choice": "A",
+      "decision": "Bir gün gözləmə mərkəzi təsdiq pəncərəsində gün keçidi, sıfır pul xərci və varsa borc müddəti ilə göstərilir; ləğv gün sərf etmir."
+    },
+    "79": {
+      "choice": "B",
+      "decision": "Səfərsonu satışdan əvvəl ayrıca tam ekran dəftər açılır: solda keyfiyyət üzrə yük partiyaları və satış cəmi, sağda pul, yük satışı, borc və xalis sərvət; bazara geri və satıb bitir düymələri var. Tətbiq bir dəfə atomik edilir."
+    },
+    "80": {
+      "choice": "A",
+      "decision": "Boş inventar vəziyyətində kiçik boş araba/sandıq illüstrasiyası, qısa izah və bazara keçid var; sağ detal panelində mal seçilməyib və tutum göstəricisi görünür. Digər boş vəziyyətlərə uyğun mətnlə eyni ailə tətbiq edilir."
+    },
+    "81": {
+      "choice": "A",
+      "decision": "Yuva idarəetməsi Manage düyməsinə bağlı kiçik menyudur: yaddaş nöqtəsinə qayıt, yeni səfərlə əvəzlə, yuvanı sil, ləğv. Silmə/əvəzləmə ayrıca təsdiqlənir və digər yuvalar, rekordlar, ortaq açılışlar saxlanır."
+    },
+    "82": {
+      "choice": "A",
+      "decision": "Boş yuvada yeni səfər mərkəzi pəncərədən başlanır; başlanğıc şəhər,20gün,pul,tutum xülasəsi və başla/ləğv var. Rəqəmlər ayrıca balans qərarı gözləyir."
+    },
+    "83": {
+      "choice": "C",
+      "decision": "Borc götürmədə iki sütun var: solda məbləğ forması və müddət/haqq, sağda canlı müqavilə xülasəsi, yekun geriödəmə və tarix. Baxışdan sonra ayrıca qəbul təsdiqi tələb olunur."
+    },
+    "84": {
+      "choice": "A",
+      "decision": "Şəhər xidmətlərinə şəhər panoramasındakı işarələnmiş və yazılı bina nöqtələrindən keçilir: emalatxana, kreditor, yol xidmətləri. Əsas aşağı naviqasiya Bazar/Xəritə/İnventar olaraq qalır."
+    },
+    "85": {
+      "choice": "B",
+      "decision": "Hadisə nəticəsi mərkəzi pəncərədə iki sütunda göstərilir: solda illüstrasiya və qısa narrativ, sağda pul/yük/gün dəyişiklikləri və səyahətə davam düyməsi. Nəticə artıq bir dəfə tətbiq edilmiş olur; davam yenidən tətbiq etmir."
+    },
+    "86": {
+      "choice": "CUSTOM",
+      "decision": "Miqdar klaviaturasında OK yalnız miqdarı sahəyə tətbiq edir və klaviaturanı bağlayır. Alış ayrıca Al düyməsi ilə edilir; OK alış etmir."
+    }
+  },
+  "open": [
+    "Bütün ekranların və vəziyyətlərin dizayn kataloqu",
+    "Texnologiya, cihaz dəstəyi, yaddaş və bərpa, dillər, səs və monetizasiya",
+    "Daimi inkişaf rejimində gün limiti",
+    "B09-a uyğun yekun yük hesablaşması və nəticə ekranının dizaynı",
+    "Üç yuvada silmə, əvəzləmə və daimi açılışların əhatəsi",
+    "Dörd dildə lokalizasiya və uzun mətn dizaynları",
+    "Yaddaş nöqtəsinin əhatəsi, ortaq açılışların təkrar verilməməsi və atomik yükləmə",
+    "Əsas ekranların panel quruluşu, xəritə idarəsi və modal davranışı"
+  ],
+  "deliveryRequirement": "Implementasiyadan əvvəl detallı icra planı, ekran və vəziyyət dizaynları, keçidlər, dizayn referansları və qəbul meyarları hazırlanmalıdır. Açıq qərarlar təsdiqlənmiş sayılmamalıdır.",
+  "pendingClarifications": {},
+  "visualChoicePreference": "Vizual seçimlər mətn variantları əvəzinə A/B/C kodlu PNG-lərlə təqdim edilməlidir.",
+  "visualChoiceBoards": {
+    "51": {
+      "path": "design/choices/51-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "52": {
+      "path": "design/choices/52-variants.png",
+      "status": "selected",
+      "selected": "C"
+    },
+    "53": {
+      "path": "design/choices/53-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "54": {
+      "path": "design/choices/54-variants.png",
+      "status": "selected",
+      "selected": "C"
+    },
+    "55": {
+      "path": "design/choices/55-variants.png",
+      "status": "selected",
+      "selected": "A"
+    },
+    "56": {
+      "path": "design/choices/56-variants.png",
+      "status": "selected",
+      "selected": "A"
+    },
+    "57": {
+      "path": "design/choices/57-variants.png",
+      "status": "selected",
+      "selected": "A"
+    },
+    "58": {
+      "path": "design/choices/58-variants.png",
+      "status": "selected",
+      "selected": "C"
+    },
+    "59": {
+      "path": "design/choices/59-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "60": {
+      "path": "design/choices/60-variants.png",
+      "status": "selected",
+      "selected": "C"
+    },
+    "61": {
+      "path": "design/choices/61-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "62": {
+      "path": "design/choices/62-variants.png",
+      "status": "selected",
+      "reviewNotes": "Yerləşdirmə eskizidir. Şəhər üzrə əlavə nümunə məbləğləri yekun hesablaşma sayılmır; yekun sərvət düsturu 500+180-120=560. Son dizaynda səfər statistikası ayrıca və dəqiq adlandırılmalıdır.",
+      "selected": "B"
+    },
+    "63": {
+      "path": "design/choices/63-variants.png",
+      "status": "selected",
+      "reviewNotes": "Yuvalar siyahısında qlobal gün/pul göstəricisi çıxarılmalı; məlumat hər yuvaya aid göstərilməlidir.",
+      "selected": "A"
+    },
+    "64": {
+      "path": "design/choices/64-variants.png",
+      "status": "selected",
+      "reviewNotes": "Alt başlıq Merchant Adventure olmalıdır; Opens three slots kimi texniki izahlar yekun interfeysdən çıxarılmalıdır.",
+      "selected": "A"
+    },
+    "65": {
+      "path": "design/choices/65-variants.png",
+      "status": "selected",
+      "selected": "A"
+    },
+    "66": {
+      "path": "design/choices/66-variants.png",
+      "status": "selected",
+      "reviewNotes": "Dil preview yazısı yekun interfeysdə yoxdur; bölmələr və kontrollerlərin dəqiq yerləşməsi yekunda təmizlənəcək. Səs, vibrasiya və azaldılmış hərəkət təklif olunan seçimlərdir.",
+      "selected": "B"
+    },
+    "67": {
+      "path": "design/choices/67-variants.png",
+      "status": "selected",
+      "reviewNotes": "67A-da No rewind seçiləndə Rewind used sətri gizlənməlidir; eskizdə filtr xətası var. Yekun dizaynda düzəldiləcək.",
+      "selected": "A"
+    },
+    "68": {
+      "path": "design/choices/68-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "69": {
+      "path": "design/choices/69-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "70": {
+      "path": "design/choices/70-variants.png",
+      "status": "selected",
+      "selected": "A"
+    },
+    "71": {
+      "path": "design/choices/71-variants.png",
+      "status": "selected",
+      "reviewNotes": "Yekunda əlavə Buy/Sell tabları çıxarılmalıdır: seçilmiş53B qaydası yanaşı iki əməliyyat düyməsidir. Ore adı Iron ilə dəyişməlidir. Maksimum1 ədəd tutuma görədir; pul ayrıca maksimum2 ədədə çatır.",
+      "selected": "A"
+    },
+    "72": {
+      "path": "design/choices/72-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "73": {
+      "path": "design/choices/73-variants.png",
+      "status": "selected",
+      "reviewNotes": "Arxa fondakı Depart və xidmət paneli yolda göstərilməməlidir; səyahət vəziyyəti ilə əvəz olunmalıdır. Cancel yalnız seçim baxışından geri dönür, hadisəni ötürmür. Late marker və borc30 nümunədir; gecikmənin yekun qaydası hələ açıqdır.",
+      "selected": "A"
+    },
+    "74": {
+      "path": "design/choices/74-variants.png",
+      "status": "selected",
+      "reviewNotes": "Faizlər və hadisələrin qarşılıqlı istisnalığı yalnız nümunədir, təsdiqlənməyib. Yekunda texniki nümunə mətni çıxarılmalı; xidmət tutma61B qaydası ilə uyğunlaşmalı, seçilməmiş xidmət üçün pul tutulmamalı; seçilmiş yolun başlıq və paneldə uyğunluğu düzəlməlidir.",
+      "selected": "B"
+    },
+    "75": {
+      "path": "design/choices/75-variants.png",
+      "status": "selected",
+      "selected": "B"
+    },
+    "76": {
+      "path": "design/choices/76-variants.png",
+      "status": "selected",
+      "reviewNotes": "Yekunda bütün mal adları təsdiqlənmiş siyahıya uyğunlaşdırılmalı; adi alış vəziyyətində Al aktiv qalır, yalnız açıq partiya seçimi rejimində müvəqqəti bloklanma təklif olunur və yekunlaşdırılmalıdır.",
+      "selected": "A"
+    },
+    "77": {
+      "path": "design/choices/77-variants.png",
+      "status": "selected",
+      "reviewNotes": "Arxa fondakı yuva siyahısı yekunda63A alt-alta tam-en kartlarla uyğunlaşdırılmalıdır. Digər yuvalar təhlükəsizdir mətni yalnız onların yoxlanması uğurlu olduqda göstərilməlidir. DT08 qəbul edilib: ən son cloud save-dən davam geri dönüş deyil; köhnə backup/konflikt nüsxəsindən bərpa geri dönüşdür.",
+      "selected": "B"
+    },
+    "78": {
+      "path": "design/choices/78-variants.png",
+      "status": "selected",
+      "reviewNotes": "Yekunda uzun izahedici mətn qısaldılmalıdır.78C-də ayrıca ləğv/geri davranışı və təsdiq aydınlaşdırılmalıdır. Gözləmə yalnız şəhərdə mümkündür; borc tarixinin göstərilməsi borc olduqda şərtidir.",
+      "selected": "A"
+    },
+    "79": {
+      "path": "design/choices/79-variants.png",
+      "status": "selected",
+      "reviewNotes": "HUD gold240 yanlış nümunədir: hesablaşmada cash500 ilə uyğunlaşdırılmalıdır. Məbləğlər yalnız bir dəfə tətbiq olunur. Bəzi variantlarda yekun satış+180 ayrıca sətri əlavə edilməlidir.",
+      "selected": "B"
+    },
+    "80": {
+      "path": "design/choices/80-variants.png",
+      "status": "selected",
+      "selected": "A"
+    },
+    "81": {
+      "path": "design/choices/81-variants.png",
+      "status": "selected",
+      "reviewNotes": "Fon yuva siyahısı seçilmiş63A quruluşuna uyğunlaşdırılmalıdır. Yekunda texniki Anchored Menu/Centered Modal/Right Drawer başlıqları yoxdur. Delete confirmation yalnız növbəti addımın eskizidir, eyni anda göstərilmir.",
+      "selected": "A"
+    },
+    "82": {
+      "path": "design/choices/82-variants.png",
+      "status": "selected",
+      "reviewNotes": "Yekunda device frame çıxarılmalı; başlanğıc şəhər/pul/tutum ayrıca qərar gözləyir. Arxa yuva siyahısı63A ilə uyğunlaşdırılmalıdır.",
+      "selected": "A"
+    },
+    "83": {
+      "path": "design/choices/83-variants.png",
+      "status": "selected",
+      "reviewNotes": "Borrow goods ifadəsi yanlışdır, qızıl borcudur. Məbləğ,5gün və20haqq nümunədir; kredit limiti/faiz qaydası açıqdır. Review borcu yaratmır, təsdiq ayrıca göstəriləcək.",
+      "selected": "C"
+    },
+    "84": {
+      "path": "design/choices/84-variants.png",
+      "status": "selected",
+      "reviewNotes": "Bazar fonunda Map deyil Market aktiv olmalıdır. Miqdar və qiymət detalları yekun bazar51B53B54C qaydaları ilə tamamlanacaq; bu eskiz yalnız xidmətlərə giriş üçündür.",
+      "selected": "A"
+    },
+    "85": {
+      "path": "design/choices/85-variants.png",
+      "status": "selected",
+      "reviewNotes": "Hadisə səyahət zamanı olduğuna görə arxada Depart və xidmət tutma paneli çıxarılmalıdır; onun yerində aktiv səyahət göstəricisi olmalıdır.",
+      "selected": "B"
+    }
+  },
+  "marketComposite": {
+    "path": "design/screens/market-selected-draft.png",
+    "status": "draft_review",
+    "knownIssues": [
+      "Şəhər başlığı ilə bazar mətnində yer adı uyğunsuzdur.",
+      "Nümunə yük miqdarları tutumla uyğunlaşdırılmalıdır.",
+      "Klaviatura xarici izah hissəsindədir; son dizaynda oyun daxilində popup kimi göstərilməlidir.",
+      "Siyahı/kart keçidinin kart vəziyyəti və digər sərhəd halları ayrıca hazırlanmalıdır."
+    ]
+  },
+  "designResolutions": {
+    "D1-quantity-review": {
+      "status": "design_resolved_implementation_not_started",
+      "basis": "2026-11-02: istifadəçi D1 miqdar təkliflərini yekunlaşdırmağı tapşırdı; aşağıdakılar agentin yekun dizayn seçimləridir, ayrıca istifadəçi təsdiqi iddiası deyil.",
+      "reference": "design/states/D1-quantity-review-v2-spec.json",
+      "rules": [
+        "OK yalnız sintaktik etibarlı 1–999999 miqdarı tətbiq edir və klaviaturanı bağlayır; alış/satış etmir (86). Əməliyyat limitindən böyük miqdar saxlanır, uyğun əməliyyat səbəblə passiv olur.",
+        "Ləğv, geri və pəncərəni dismiss etmək son tətbiq edilmiş miqdarı bərpa edir; ilk açılışda da əvvəlki sahə dəyəri snapshot götürülür. Redaktə zamanı Al/Sat passivdir.",
+        "Boş, sıfır, mənfi, kəsr, hərfli və 6 rəqəmdən uzun giriş üçün OK passivdir, cəm — olur. Giriş düzəliş üçün saxlanır; gizli yuvarlaqlaşdırma/kəsmə yoxdur. Uzun mətn vizual ellipsislə göstərilir; 6 rəqəm iqtisadi balans limiti deyil.",
+        "Alış maksimumu = min(floor(pul/vahid alış qiyməti), floor(boş tutum/vahid yük), bazar ehtiyatı, 999999). Alış maksimumu adı açıq yazılır.",
+        "Satış maksimumu = min(seçilmiş keyfiyyət partiyasının miqdarı, 999999). Digər partiyalar, alış pulu/tutumu/ehtiyatı satış limitinə qatılmır. Satış maksimumu ayrıca adlanır.",
+        "Maksimum və miqdarı uyğunlaşdır hərəkətləri uyğun müsbət miqdarı tətbiq edib klaviaturanı bağlayır; əməliyyat etmir. Maksimum0 olduqda hərəkət passiv və səbəb görünür; 0 tətbiq edilmir.",
+        "Ortaq miqdar iki əməliyyat üçün ayrıca qiymətləndirilir. Satış limiti aşılarkən alış mümkündürsə Al aktiv qalır; əksi də eynidir. Redaktə kilidi hər ikisinə aiddir.",
+        "Partiya dəyişmək satış etmir və miqdarı gizli azaltmır; yeni partiyanın limiti ilə yenidən yoxlanır. Tətbiqdən sonra xəbərdarlıq və cəmlər yenilənir; HUD/pul/inventar/ehtiyat dəyişmir. Şərti alış və satış preview-ləri ayrılıqda adlanır."
+      ],
+      "supersedes": "Q/F/E PNG-lərində ümumi Max və digit cap still to confirm qeydləri tarixi eskizdir; bu qaydalar üstün mənbədir.",
+      "remainingOutsideScope": [
+        "D1 bazar əsas lövhəsinin düzəlişləri",
+        "faktiki alış/satış uğuru və partiyanın əməliyyatla tükənməsi",
+        "D2–D6 və kanonik token/cihaz/lokalizasiya yoxlamaları"
+      ]
+    },
+    "D1-trades": {
+      "status": "agent_design_draft_not_user_approved",
+      "reference": "design/states/D1-trade-spec.json",
+      "output": "design/states/D1-market-trades-v2.png",
+      "rules": [
+        "T03/T04/T05 are independent outcomes from T01, not a sequential chain.",
+        "Success appears only after transaction state is committed; one tap produces one transaction. Repeated taps are blocked while pending.",
+        "On failure keep last committed HUD and inventory; show inline retry with unchanged quantity; never show success before persistence.",
+        "Exhausted selected batch is removed; other batches remain unselected, quantity preserved, Sell disabled until explicit selection and limit validation.",
+        "After sale, stock/repricing is shown as refreshing until a consistent market quote is available; both Buy and Sell disabled until a consistent new quote is available. No sales restock formula approved.",
+        "Existing healthy batch and new purchase have separate cost basis in fixture; aggregation rules remain open.",
+        "List/cards share same data and selection; view choice persists.",
+        "Current quote and selected-batch average/margin are clearly distinct. Margin excludes journey costs.",
+        "Pending/failure/unknown outcomes follow O01–O06 in D1-remaining-spec.json; retry never repeats a transaction with unresolved commit status."
+      ],
+      "openRules": [
+        "Sale effect on market stock",
+        "Large-trade repricing thresholds and model",
+        "Batch aggregation and rounding",
+        "Maximum upgrade levels and effects"
+      ]
+    },
+    "D1-remaining": {
+      "status": "agent_design_draft_not_user_approved",
+      "reference": "design/states/D1-remaining-spec.json",
+      "output": "design/states/D1-remaining-board-v1.png",
+      "rules": [
+        "Bu lövhə kanonik tam bazar ekranı deyil; T01/T02 kompozisiyasına əlavə vəziyyət detallarıdır. 10 mal, siyahı/kart, ayrıca maksimumlar və preview-lər qorunmalıdır.",
+        "Yerli ticarət offline işləyir; şəbəkə yoxluğu alış-satışı bloklamır. Cloud sinxronizasiya xətası lokal saxlanmış ticarətin uğurunu geri almır.",
+        "Commit pul, yük, partiyalar, bazar və əməliyyat nəticəsini bir dəfə birlikdə saxlayır. Tamamlanmış əməliyyatın bərpası yenidən pul tutmur/vermir.",
+        "Xətadan sonra etibarlı köhnə quote bərpa olunarsa normal Al/Sat qaydaları işləyir; quote qeyri-müəyyəndirsə hər ikisi bağlıdır.",
+        "Yenilənmə zamanı seçilməmiş zədəli partiya, tətbiq edilmiş miqdar və görünüş seçimi qorunur.",
+        "Maksimum təkmilləşdirmə cari səfər üçündür; supported/daimi inkişaf V1 əhatəsinə əlavə edilmir.",
+        "Təkmilləşdirmə əməliyyatı da O01–O03 qaydalarını izləyir: effekt və pul birlikdə bir dəfə saxlanır. Yenidən yoxlamada səviyyə artıq maksimumdursa U01 göstərilir; ödəniş edilmir. Digər səbəbdən alınmırsa maksimum nişanı əvəzinə həqiqi səbəb göstərilir.",
+        "O01–O03 həm alış, həm satış üçün eyni axındır; lövhədə alış nümunəsi göstərilib. Satış xətasında partiya silinmir və pul artmır; qeyri-müəyyən nəticədə partiya yenidən satıla bilməz."
+      ],
+      "openRules": [
+        "Maksimum səviyyə sayı, qiymət və effekt cədvəli",
+        "Satışın ehtiyata təsiri və böyük əməliyyat qiymət modeli",
+        "Partiya birləşdirmə və yuvarlaqlaşdırma",
+        "Yekun kanonik kompozisiya, D6 cihaz/lokalizasiya/kontrast"
+      ]
+    },
+    "D2-travel": {
+      "status": "agent_design_draft_product_rules_open",
+      "reference": "design/states/D2-travel-spec.json",
+      "output": "design/states/D2-travel-board-v1.png",
+      "covered": [
+        "M01–M05 xəritə və yol seçimi",
+        "S01–S04 xidmət müqaviləsi və yeniləmə/imtina",
+        "T01–T05 səyahət, gün, yol bağlanması, son gün, nəticə",
+        "W01 gözləmə",
+        "A01 gəliş"
+      ],
+      "knownIssues": [
+        "Üçüncü yol, risk/qiymət/müddət və gecikmə qaydası açıqdır.",
+        "Vəziyyət lövhəsi tam kanonik ekran deyil; illüstrasiyalı kompozisiya, cihaz və lokalizasiya D6-da yoxlanmalıdır."
+      ],
+      "basis": "İstifadəçinin dizayn tapşırığı əsasında agent seçimi; ayrıca istifadəçi təsdiqi deyil."
+    },
+    "D3-debt": {
+      "status": "agent_design_draft_product_rules_open",
+      "reference": "design/states/D3-debt-spec.json",
+      "output": "design/states/D3-debt-board-v1.png",
+      "covered": [
+        "B01 Qızıl borcu forması",
+        "B02 Şərtlərin qəbulu",
+        "B03 Limit və tarix uyğun deyil",
+        "C01 Kreditor ofisi",
+        "P01 Qismən nağd ödəniş",
+        "P02 Tam ödəniş",
+        "G01 Malla ödəniş baxışı",
+        "G02 Uyğun mal yoxdur",
+        "E01 Möhlətə baxış",
+        "W01 Bərpa işi",
+        "L01 Son gün və çıxılmazlıq",
+        "X01 Saxlama və nəticə"
+      ],
+      "knownIssues": [
+        "Borc limiti, müddət, faiz/haqq, gecikmə hesablanması və qismən ödənişin faiz bazasına təsiri",
+        "Möhlət sayı/limit/haqq üsulu və son tarix sərhədi",
+        "Uyğun mallar, keyfiyyət qiymətləndirilməsi, yuvarlaqlaşdırma, artıq dəyər və çoxpartiyalı təhvil",
+        "İş üçün uyğunluq, gün xərci, qızıl qazancı ilə birbaşa borc azaltmanın ayrı qaydaları",
+        "Pul və uyğun mal olmayan son gün üçün ehtiyat qayda; yekun hesablaşmada borcun taleyi",
+        "D2 yardım borcunun limit istisnası, xidmət yenilənməsində borc/mal şərtləri; gecikmənin rekord qaydası",
+        "Vəziyyət lövhəsi kanonik ofis/iş ekranı deyil; D6 cihaz/lokalizasiya yoxlaması açıqdır."
+      ],
+      "basis": "Agent dizayn layihəsi; ayrıca istifadəçi təsdiqi deyil.",
+      "checks": [
+        "12 kart PNG render edildi və view_image ilə baxıldı; AZ mətnləri/sərhədlər yoxlandı.",
+        "Kontrast nav/paper10.99:1, ink/paper7.85:1. JSON və əlaqəli yollar yoxlandı.",
+        "Oyun/build/cihaz/toxunma/lokalizasiya matrisi yoxlanmayıb."
+      ]
+    },
+    "D4-news-events": {
+      "status": "agent_design_draft_product_rules_open",
+      "reference": "design/states/D4-news-events-spec.json",
+      "output": "design/states/D4-news-events-board-v1.png",
+      "covered": [
+        "N01 Xəbər siyahısı",
+        "N02 Şayiə detalları",
+        "N03 Köhnəlmiş xəbər",
+        "N04 Xəbər yoxdur",
+        "N05 Son görülmüş qiymət",
+        "E01 Hadisə seçimi",
+        "E02 Əlçatmaz seçim",
+        "E03 Təsdiq baxışı",
+        "E04 Hadisə nəticəsi",
+        "E05 Bərpa və saxlama",
+        "E06 Son gün sərhədi",
+        "E07 Zədələnən partiya",
+        "H01–H10 təklif kataloqu: seçimlər, nəticə və açıq qaydalar spec-də"
+      ],
+      "knownIssues": [
+        "10 hadisənin yekun kataloqu, trigger/tezlik və seçim/nəticə rəqəmləri",
+        "Şayiə mənbələri, doğrulanma/yanlış çıxma və köhnəlmə modeli",
+        "Fakt müddəti, qiymət effekti və bir neçə xəbərin üst-üstə təsiri",
+        "Hadisə üzrə itki həddi; partiya zədəsi, keyfiyyət, yuvarlaqlaşdırma",
+        "D2 üçüncü yol/risk/xidmət/son gün/gecikmə qaydaları dəyişməyib",
+        "D3 yardım borcu, mal dəyəri, limit/faiz/möhlət/iş və son gün qaydaları dəyişməyib",
+        "Kanonik xəbərlər/hadisə/nəticə kompozisiyası və D6 cihaz/dil yoxlamaları"
+      ],
+      "basis": "Agent dizayn layihəsi; ayrıca istifadəçi təsdiqi deyil.",
+      "checks": [
+        "55A/58C/85B seçim lövhələri açılıb baxıldı.",
+        "12 vəziyyətli PNG render edildi və view_image ilə baxıldı; AZ mətnləri və sərhədlər yoxlandı.",
+        "ui-craft kontrast: nav/paper10.99:1, ink/paper7.85:1.",
+        "JSON, əlaqəli fayllar və 240−10=230 nümunəsi yoxlandı.",
+        "Oyun/build/real cihaz/toxunma/dörd dil matrisi yoxlanmayıb."
+      ]
+    },
+    "D5-design-draft": {
+      "status": "agent_design_draft_backend_and_product_rules_open",
+      "reference": "design/states/D5-system-spec.json",
+      "output": "design/states/D5-system-board-v1.png",
+      "basis": "Agent dizayn layihəsi; ayrıca istifadəçi təsdiqi deyil.",
+      "openQuestions": [
+        "Spark daxilində cloud revision/konflikt/tombstone icazələri və server authority həlli",
+        "Ranked start/replay, purchase verification, SSV, deletion job üçün billing-siz etibarlı xidmət seçimi",
+        "DT08 rekord siyasəti qəbul edilib; restore/rewind və DT02 retention implementasiya/sınaqları qalır",
+        "Təlim ayrıca sınaq səfəri kimi təklifdir; başlanğıc fixture və normal səfərə keçid qərarı",
+        "İctimai ləqəb moderasiyası, nailiyyət trigger-ləri",
+        "Hesab silmə URL-si/əhatəsi/saxlama müddətləri və ödəniş hüquqlarının sonrakı taleyi",
+        "Kataloq, qiymətlər, könüllü reklam məhsulları; son pullu-download qərarı əvvəlki pulsuz məzmun sərhədini üstələyir",
+        "Kanonik 63A/64A/65A/66B/67A/68B və yeni sistem ekranlarının tam kompozisiyaları"
+      ]
+    },
+    "D6-design-draft": {
+      "status": "adaptation_contract_draft_canonical_tokens_and_device_validation_pending",
+      "reference": "design/states/D6-adaptation-spec.json",
+      "output": "design/states/D6-adaptation-board-v1.png",
+      "basis": "Agent dizayn layihəsi; ayrıca istifadəçi təsdiqi deyil.",
+      "openQuestions": [
+        "Kanonik ekranların D1–D5 üzrə birləşdirilməsi; mövcud lövhələr onu əvəz etmir",
+        "Kanonik tokenlər, şrift və konkret supported viewport/minSdk",
+        "Real cihaz/emulator, toxunma, dörd dil və böyük şrift render matrisi",
+        "Animasiya müddətləri və asset storyboard kadrları",
+        "D2–D4 açıq məhsul qaydaları dəyişmir"
+      ]
+    }
+  },
+  "balanceDecisions": {
+    "status": "B01_B10_user_confirmed",
+    "acceptedOn": "2026-11-03",
+    "basis": "İstifadəçi B01–B03 təklifini açıq qəbul etdi: 300 qızıl/30 tutum, şəhər və mal bölgüsü, qiymət modeli. İmplementasiya icazəsi deyil. İstifadəçi B04–B07-ni də açıq qəbul etdi (3 noyabr 2026). İstifadəçi B08–B10-u bütün şəhərlərdə gündəlik xəbər, yerli xəbər tarixçəsi, gün 20 əməliyyat məhdudiyyəti və gecikmiş/yardımlı səfərlərin nailiyyətləri dəqiqləşdirmələri ilə açıq qəbul etdi (3 noyabr 2026).",
+    "reference": "docs/BALANCE_PROPOSAL.az.md",
+    "confirmed": {
+      "B01": {
+        "title": "Başlanğıc və vaxt",
+        "rules": "Tövsiyə: **300 qızıl, 30 yük tutumu, boş yük, borcsuz, təkmilləşdirməsiz; Sünbülovada başlanğıc.** Xəritədə digər üç şəhər dərhal açıqdır. Şəhər adları da yeni təklifdir; dörd şəhərin açıq olması başlanğıc şəhərini seçmək öhdəliyi yaratmır.\n\nGün 1-dən gün 20-yə qədər oynanır: bir günlük yol gün 1 → gün 2-dir, cəmi 19 təqvim keçidi var. B09 dəqiqləşdirməsinə görə gün 20-də yalnız satış, mövcud borcun nağd/malla ödənməsi və səfəri bitirmə mümkündür; yeni alış, borc, xidmət, təkmilləşdirmə, gözləmə, iş və yol bağlıdır. Oyunçu satış dəftərindən bazara qayıda bilər; yalnız «satıb bitir» nəticəni atomik bağlayır. Həmin gün yenidən açmaq yeni bazar günü yaratmır."
+      },
+      "B02": {
+        "title": "Şəhərlər və mallar",
+        "rules": "Tövsiyə olunan adlar və ixtisaslar:\n\n- **Sünbülova:** taxıl, duz, yun istehsalı; parça və ədviyyata yüksək tələb.\n- **Yaşıldərə:** odun, dərman otları, əjdaha qatranı istehsalı; dəmir və mana kristalına yüksək tələb.\n- **Duzliman:** parça və ədviyyat istehsalı; odun, dərman otları və əjdaha qatranına yüksək tələb.\n- **Daşqala:** dəmir və mana kristalı istehsalı; taxıl, duz və yuna yüksək tələb.\n\nHər mal üçün rəqəmlər ardıcıllıqla **baza qiyməti / bir vahidin yük ölçüsü / normal bazar ehtiyatı / gündəlik bərpa** şəklindədir:\n\n- Taxıl: **20 / 2 / 60 / 12**.\n- Odun: **28 / 3 / 45 / 9**.\n- Parça: **60 / 1 / 24 / 5**.\n- Ədviyyat: **100 / 1 / 16 / 3**.\n- Dəmir: **75 / 3 / 20 / 4**.\n- Duz: **30 / 2 / 45 / 9**.\n- Yun: **40 / 2 / 30 / 6**.\n- Dərman otları: **55 / 1 / 24 / 5**.\n- Mana kristalı: **140 / 2 / 12 / 2**.\n- Əjdaha qatranı: **90 / 2 / 16 / 3**.\n\nBütün şəhərlərdə bütün mallar siyahıdadır; ehtiyat 0 ola bilər. Gün 1-də istehsalçı şəhərdə ehtiyat normalın 100%-i, yüksək tələbdə 50%-i, digərlərində 75%-idir; kəsr aşağı yuvarlaqlaşır. Gündəlik bərpa siyahıdakı miqdardır, normal ehtiyata qədər artır; normaldan yuxarı ehtiyat varsa artmır. Alış miqdarı azaldır, satış eyni malın ehtiyatını artırır. Ehtiyat tavanı normalın iki qatıdır; artıq satış yenə qəbul edilir, tavanı aşan mal oyunçuya geri qaytarılmır. Satışın maksimumu bazar ehtiyatı ilə məhdudlaşdırılmır."
+      },
+      "B03": {
+        "title": "Qiymət və bazar təsiri",
+        "rules": "Tövsiyə: istehsalçı əmsalı **0,75**, yüksək tələb **1,25**, digər şəhər **1,00**. Günlük yerli dalğalanma **−5%, 0%, +5%**, hərəsi bərabər ehtimalla; gün 1-də 0%-dir. Bu dalğalanma və gələcək hadisə cədvəli deterministik saxlanır; açıb-bağlama yenisini yaratmır.\n\nGünlük baza `P = malın baza qiyməti × şəhər əmsalı × günlük dalğalanma əmsalı × aktiv xəbər effekti` olur. Aralıq hesab dəqiq kəsr/tam əmsallarla saxlanır; yalnız yekun vahid qiymət yuvarlaqlaşır:\n\n- Vahid alış: `ceil(P × (1 + bazar təsiri) × 1,10)`.\n- Keyfiyyətli vahid satış: `floor(P × (1 + bazar təsiri) × 0,90 × keyfiyyət/100)`.\n- Satış qiyməti ən azı 1 qızıldır. Bu mal/əmsal hədlərində alış həmişə satışdan böyükdür.\n- Cəm = göstərilən tam vahid qiymət × miqdar. Ümumi məbləğə ayrıca gizli vergi əlavə edilmir.\n\nGünün xalis alış miqdarı `x = oyunçunun aldığı − satdığı` vahiddir. Böyük əməliyyat pilləsi `T = max(1, ceil(normal ehtiyat/4))`. Qiymət təsiri `işarə(x) × min(8, 5 × floor(abs(x)/T))` faizdir: 0%, ±5%, ±8%. Buna görə böyük alış sonrakı qiyməti artırır, böyük satış azaldır. Hissə-hissə əməliyyat da günün eyni xalis sayğacını dəyişir; hədd hər toxunuşda sıfırlanmır. Yeni gün sayğac 0 olur; ehtiyat isə davam edir.\n\nTəsir yalnız əməliyyat bitəndən sonra qüvvəyə minir. Yekun avtomatik satış bütün partiyalar üçün bir dondurulmuş quote ilə edilir; partiyaların sırası satış gəlirini dəyişmir. Sonrakı bazar təsiri nəticəyə geri tətbiq edilmir. Xəbər effekti də al/satla deyil, gün sərhədində dəyişir."
+      },
+      "B04": {
+        "title": "Yol şəbəkəsi və risk",
+        "rules": "Şəhər halqası **Sünbülova ↔ Daşqala ↔ Yaşıldərə ↔ Duzliman ↔ Sünbülova** olsun. Halqanın qonşu şəhərləri üçün məsafə vahidi 1, iki diaqonal üçün 2-dir. Hər cüt şəhər birbaşa bağlıdır; hər bağlantıda üç marşrut növü görünür.\n\nBir məsafə vahidi üçün seçimlər:\n\n- **Karvan yolu:** 2 gün, 8 qızıl; quldur 8%, yük hadisəsi 6%, gecikmə hadisəsi 6% — ümumi təhlükəli hadisə 20%.\n- **Kəsə yol:** 1 gün, 14 qızıl; quldur 15%, yük hadisəsi 8%, gecikmə hadisəsi 7% — ümumi 30%.\n- **Mühafizəli dolama:** 3 gün, 18 qızıl; quldur 2%, yük hadisəsi 4%, gecikmə hadisəsi 4% — ümumi 10%.\n\nGün və pul məsafə vahidinə vurulur. Faiz **bütün seçilmiş səfərə** aiddir, günə görə təkrar vurulmur; diaqonalın qiymət/gün fərqi görünür, ayrıca gizli gündəlik risk əlavə edilmir. Bir səfərdə ən çox bir təsadüfi yol hadisəsi olur. Ayrı 15% ehtimalla təhlükə əvəzinə H08 xəbər qarşılaşması olur; qalan ehtimal hadisəsiz keçiddir. Bunlar bir-birini istisna edən nəticələrdir. Müqavilə bitməsi H03 və son-gün çıxışı H04 təsadüfi hadisə sayılmır.\n\nRisk yoxlama sərhədi planlaşdırılan yolun gün keçidlərindən bərabər ehtimalla seçilir və saxlanır. Həmin sərhəddə qüvvədə olan xidmətlə ehtimal hesablanır; xidmətin azaltdığı ehtimal «hadisəsiz» hissəyə keçir. Müddətli xidmətin yalnız ilk günləri əhatə etdiyi yolda başlanğıc detalı sərhədlər üzrə orta ehtimalı göstərir və uzadılma daxil edilmədiyini bildirir. Uzatma gələcək riski yeniləyir; keçilmiş sərhəd yenidən yoxlanmır. Hadisə seçiləndən sonra tətbiqi açmaq və retry nəticəni dəyişmir.\n\nGün keçidinin sırası: yeni gün və iqtisadiyyat/borc yenilənməsi → bitən müddətli xidmətin dayandırılması və təklif → risk sərhədi/hadisə → yol davamı/gəliş. Xidmət eyni anda bitirsə, avtomatik köhnə təsir verilmir. Adi yola çıxışda `cari gün + yol müddəti ≤20` tələb olunur. Hər hadisədən yaranan əlavə vaxt ayrıca göstərilir."
+      },
+      "B05": {
+        "title": "Xidmət və təkmilləşdirmə",
+        "rules": "Bələdçi gecikmə hadisəsi ehtimalını **50%**, mühafizəçi quldur ehtimalını **50%** azaltsın. Birinin təsiri digər hadisə kateqoriyasına keçmir. İkisi birlikdə mümkündür. Mühafizəçi quldurla qarşılaşma yenə yaranarsa «mühafizəçi ilə keç» seçimini itkisiz açır; ayrıca döyüş yoxdur.\n\nBir yol üçün bələdçi **4 × məsafə**, mühafizəçi **10 × məsafə** qızıl; müddətli müqavilə **4 gün**, bələdçi **12**, mühafizəçi **28** qızıl. Müddətli müqavilə gün d-də alınanda `d+4` gününün başlanğıcında bitir; gözləmə və iş də müddəti sərf edir. Bir-yol xidməti təsdiqlənmiş çıxışda başlayır, seçilmiş səfərin təyinatına və ya geri qayıdış şəhərinə çatanda bitir; eyni səfərin yan yolu və məcburi dayanması əhatədədir. Yeni səfərə daşınmır.\n\nEyni xidmətin birdən çox müqaviləsi yığılmır. Mövcud əhatə göstərilir, alınacaq yol xidməti müddətli müqaviləni səssiz əvəz etmir. Müddətli yenilənmə eyni qiymətə yeni 4 gündür. Yolda nağd çatmırsa seçilmiş mallar B06 qəbul qiyməti ilə verilə bilər, yaxud B06 xidmət borcu nəzərdən keçirilər; hər ikisi uyğun deyilsə xidmət bitir və yeni risk göstərilər. Xidmətsiz davam həmişə ayrıca seçimdir.\n\nCari səfər üçün hər kateqoriyada bir səviyyə:\n\n- **Çanta:** 60 qızıl, +10 tutum.\n- **Araba:** 140 qızıl, +20 tutum.\n- **Qoruyucu örtük:** 70 qızıl, hadisənin keyfiyyət zədəsi faizini 50% azaldır; aşağı yuvarlaqlaşır. Quldur ödənişini və borcu azaltmır.\n\nÇanta və araba birlikdə maksimum 60 tutum verir; ayrı alınır, ilkin şərt yoxdur. Şəhərdə tətbiq dərhal olur, gün sərf etmir; geri satılmır və yekun dəyəri 0-dır. Kosmetika bu rəqəmlərə təsir etmir."
+      },
+      "B06": {
+        "title": "Borc və bərpa işi",
+        "rules": "Adi kredit: **20–200 qızıl**, 10 qızıl addımla; **5 gün**, bir dəfə **10% sabit haqq**, yuxarı yuvarlaqlaşır. Mövcud adi və xidmət borclarının tam ödənməmiş cəmi yeni kreditdən sonra **220 qızılı** keçməməlidir. Tarix gün 20-ni aşırsa yeni adi kredit verilmir. Faiz gündəlik mürəkkəb faiz deyil; xərc müqavilədə əvvəldən görünür.\n\nNağd qismən ödəniş əvvəl haqqı, sonra əsası azaldır; sabit haqq geri hesablanmır. Son tarix gününün axırına qədər gecikmə yoxdur; növbəti günə keçiddə qalıq borca **5% bir dəfə** gecikmə haqqı əlavə edilir. Sonrakı hər gün yenidən artmır. Müqavilədə bir dəfə **+2 gün möhlət**, qalıq borcun **10%-i, minimum 5 qızıl** haqqla, borca əlavə olunaraq mümkündür; yeni tarix `max(cari gün, əvvəlki son tarix)+2` olur və ≤20 olmalıdır. Artıq gecikmiş müqavilə də bir dəfə möhlət ala bilər, əvvəlki gecikmə haqqı silinmir və yenidən gecikmədə ikinci 5% tutulmur. Haqq borcu limitdən yuxarı çıxararsa yeni borc bağlanır; ödəniş bağlanmır.\n\nMalla ödəniş bütün on mal üçün açıqdır. Vahid qəbul qiyməti cari keyfiyyətli yerli satış qiymətinin **80%-i**, aşağı yuvarlaq, minimum 1 qızıldır. Bir və ya bir neçə partiya seçilir. Kreditora təhvil bazar ehtiyatını/qiymətini dəyişmir. Qalıq borcdan artıq dəyər nağd qaytarılmır: artığı təsdiqdən əvvəl göstərilir, miqdarı azaltmaq və imtina mümkündür. Şəhərdə bazarda satıb nağd ödəmək adətən daha sərfəlidir; malla ödənişin xüsusi faydası yolda xidmət yenilənməsidir.\n\nBərpa işi yalnız **pul <20 qızıl və satış dəyəri müsbət yük yoxdur** halında açılır (qərar 9). Müddət **1 gün**, qazanc **30 qızıl**; gün+1 ≤20 tələb olunur. İş borc tarixini keçirə bilər, əlavə haqq əvvəl göstərilir. Kreditorun «işləyərək azalt» seçimi də eyni uyğunluq həddini saxlayır; qazanc yerinə seçilmiş borcu **30 qızıladək** birbaşa azaldır, qalıqdan artıq hissə pula çevrilmir. Bu iki əməliyyat birlikdə mükafat vermir. Uyğun olmayan oyunçu üçün səbəb görünür; yükü gizlicə yox sayıb pulsuz borc azaltmaq olmur.\n\nYolda xidmət borcu: yalnız çatışmayan haqq qədər, **10% sabit haqq**, ən çox **3 gün**, son tarix `min(cari gün+3,20)`; ümumi 220 limitinə daxildir. Pul oyunçunun əlinə verilmədən xidmət haqqı və borc birlikdə tətbiq olunur. Həmin gün son tarix mümkündür; gecikmə qaydası yenə ertəsi gün işləyir. Borc/mal seçimi əlçatmazdırsa xidmətsiz davam qalır.\n\nSon-gün **yardım borcu** adi limitdən istisnadır; B09-dakı çıxış əməliyyatına bağlıdır, yeni ticarət kapitalı vermir və təkrar götürülmür. Son hesablaşma bütün ödənməmiş borcu çıxır; pul çatmırsa nəticə mənfi ola bilər. Borc səssiz silinmir və növbəti bərabər başlanğıclı səfərə daşınmır. Gün 20-də pul/yük yoxdursa yeni iş və borc dövrü əvəzinə mənfi yekunla bitirmək mümkündür."
+      },
+      "B07": {
+        "title": "Hadisələr və zədə",
+        "rules": "H01–H10 adları D4 eskiz kataloqu ilə uyğun saxlanır; aşağıdakı rəqəmlər və H05–H10 məhsul məzmunu yeni təklifdir. Yük hadisəsi H05/H07, gecikmə hadisəsi H02/H06 arasında bərabər bölünür.\n\nHər təsadüfi təhlükə üçün ümumi bir itki büdcəsi olsun: **L = floor(hadisədən əvvəlki ümumi aktivlərin 15%-i)**. Aktivlər = pul + yükün yol çıxışında yadda saxlanmış sağlam/keyfiyyətli satış dəyəri; borc çıxılmır, mənfi sərvət limitini pozmur. İtki hesabı eyni dondurulmuş qiymətlə aparılır; zədədən sonra yeni limit hesablanmır. Pul itkisi + yükün dəyər itkisi + hadisənin yaratdığı yardım/əlavə borc birlikdə L-ni aşmır. Adi əvvəlcədən seçilmiş yol haqqı/kredit haqqı bu təsadüfi itki büdcəsi deyil. Məcburi əlavə gözləmə/təmir itkisi ən çox +1 gündür; oyunçunun ayrıca seçdiyi geri dönüşün görünən yol müddəti buna daxil deyil; qazanılmamış mənfəət «itki» kimi hesablanmır.\n\nBir səfərdə bir təsadüfi təhlükə; təhlükəli yol hadisəsindən sonrakı səfər təsadüfi təhlükə vermir, amma vaxt/xərc əvvəlki kimidir. Bu qoruyucu sərhəd və hadisəsiz növbəti yol statusu görünür; müqavilə bitməsi/son-gün həlli yenə işləyir. İtki ardıcıl iki yolda yığılmır.\n\n- **H01 Quldurlar:** ödəniş `min(20,L)` qızıl, yalnız pul çatırsa; qaçış 70% itkisiz, 30% yükdə ən çox 25 faiz-bənd keyfiyyət itkisi; aktiv mühafizəçi ilə itkisiz keç; danışıq üçün 1 ədviyyat və ya 1 yun təhvil, yaxud son 2 gündə əldə edilmiş doğru/yalan fərq etmədən cari quldur xəbərinin mənbəsini bölüşmək. Mal dəyəri L-ni aşırsa həmin təhvil passivdir; mənbə bir qarşılaşmada işlənmiş sayılır. Xəbər «doğru fakt»a çevrilmir. Qaçış heç bir resurs olmadan da açıqdır; itiriləcək yük yoxdursa pul borcu gizlicə yaradılmır.\n- **H02 Bağlı yol:** +1 gün gözlə; `min(12 × məsafə,L)` pul ödəyib əlavə günsüz yan yol; başlanğıc şəhərinə geri dön. Geri dönüş artıq keçilmiş yol günləri qədər vaxt alır, ən az 1 gün; pul xərci 0, ilkin yol haqqı qaytarılmır. Adi sığmayan seçim yerinə B09 çıxışı tətbiq edilir. Eyni bağlanma yenidən roll edilmir.\n- **H03 Müqavilə bitdi:** təsadüfi deyil; B05/B06 yenilənməsi və ya xidmətsiz davam.\n- **H04 Son gün çıxılmazlığı:** təsadüfi deyil; B09 vaxtında yardım/gecikmiş çatma.\n- **H05 Yağış:** taxıl, parça, yun, dərman otlarında ən çox 20 faiz-bənd zədə ilə davam et və ya +1 gün sığın. Metal, duz, ədviyyat, kristal və qatran bu hadisədə zədələnmir. Uyğun yük yoxdursa dəyişikliksiz davam mümkündür.\n- **H06 Təkər:** `min(12,L)` pul ilə təmir et və ya +1 gün təmir işi. Araba təkmilləşdirməsi bu hadisəni avtomatik silmir; onun faydası tutumdur.\n- **H07 Tökülən yük:** bir partiyada ən çox 15 faiz-bənd zədə ilə davam et və ya +1 gün yığışdırıb itkisiz bərpa et. Tavan səbəbi ilə ayrıca vahid itirmək tələb olunmur.\n- **H08 Yol tacirinin xəbəri:** pulsuz dinlə və ya imtina et; yeni şayiə, pul/yük/gün dəyişikliyi yoxdur. Şayiə almaq cari şəhər qiymətini yeniləmir.\n- **H09 Məhsul bolluğu:** B08 üzrə bir şəhər/mal üçün 3 gün qiymət −20%, gündəlik ehtiyat bərpası ×2.\n- **H10 Bayram tələbi:** B08 üzrə bir şəhər/mal üçün 3 gün qiymət +20%; avtomatik satış yoxdur.\n\nZədə keyfiyyətin faiz-bənd azalmasıdır: 100 → 80, ikinci eyni zədə 80 → 60; keyfiyyət minimum **25%** olur. Qoruyucu örtük azalma faiz-bəndini yarıya endirir. Tam partiya zədəsi L-ni aşırsa yalnız uyğun miqdarda vahid ayrılır və/və ya azalma kiçildilir; seçilmiş alt-partiya və nəticə əvvəl göstərilir. 1 faiz-bənd/1 vahid addım belə büdcəni aşırsa həmin vahidə zədə tətbiq edilmir. Qüsursuz yükün öz-özünə zamanla keyfiyyət itirməsi yoxdur.\n\nPartiyalar yalnız eyni mal + keyfiyyət + alış günü + eyni vahid alış dəyərində birləşir; müxtəlif maya dəyəri qorunur. Alınma dəyəri tam cəm kimi saxlanır. Zədə ilə k vahid ayrılarkən maya dəyəri `floor(cəm × k/n)`, qalıq köhnə partiyada qalır; son hissə bütün qalıq dəyəri götürür. Satış və zədədə ümumi maya dəyəri itmir/çoxalmır, əvvəlki ortalama üzrə səssiz yenidən qiymətləmə yoxdur."
+      },
+      "B08": {
+        "title": "Xəbər və şayiə",
+        "rules": "Oyunçu orada olmasa da bütün şəhərlərdə hər oyun günü üzrə, hər şəhər üçün **10%** ehtimalla bir yeni H09/H10 bazar xəbəri yaransın; növ bərabər seçilsin, şəhərin təsadüfi bir malına aid olsun. Bir şəhərdə eyni anda ən çox iki aktiv xəbər, bir malda isə bir effekt var. Eyni malda mövcud xəbər bitmədən əvəzlənmir və effektlər üst-üstə vurulmur; yer yoxdursa o gün yeni xəbər yaranmır. Gün d-də başlayan təsir d, d+1, d+2 günlərində qüvvədədir, d+3-də bitir.\n\nFakt yerli şəhərin xəbər lövhəsindən pulsuz alınır: mal, şəhər, effekt və bitmə günü görünür. Uzaq şəhər barədə şayiə H08-dən gəlir. Uyğun aktiv və ya növbəti 2 gündə başlayacaq real bazar hadisəsi olduqda H08 məlumatının 2/3 hissəsi bazar şayiəsi, 1/3 hissəsi cari yolda quldurlarla bağlı danışıq məlumatıdır; uyğun real hadisə yoxdursa yol məlumatı verilir. Yol məlumatı 2 gün etibarlıdır, yalnız həmin yolun H01 danışıq şərtini açır; göstərilən risk faizini və bazar qiymətini dəyişmir. Bazar şayiəsi əsas hadisə cədvəli ilə bağlıdır: daxili modeldə 70% həqiqi yaxınlaşan/aktiv hadisəyə, 30% mövcud olmayan hadisəyə aid olsun. Bu rəqəm oyunçuya dəqiq etibarlılıq faizi kimi göstərilmir; «Şayiə — yol taciri, yoxlanmayıb» işarəsi qalır. Yalan bazar şayiəsi üçün həmin pəncərədə baş verməyən hadisə seçilir; reallıq cədvəli şayiəyə görə dəyişmir. 70% yalnız bazar şayiəsi verilən bu şərtli seçimə aiddir, bütün xəbərlərin ümumi dəqiqlik göstəricisi deyil.\n\nŞayiə iki gün sonra köhnəlir; şəhərdə uyğun faktı görmək onu təsdiqlənmiş və ya yanlış çıxmış kimi yeniləyir. Şəhərə çatmamış onun doğru/yalan olduğu UI-də uzaqdan açılmır. Gəlişədək hadisə bitibsə, şayiənin aid olduğu tarixdə doğru olub-olmadığı yerli xəbər tarixçəsindən yoxlanır. Son görülmüş qiymət və günü ayrıca qalır; xəbər oxumaq bu qiymət tarixini dəyişmir. Doğru xəbər də yol vaxtı, ehtiyat və qiymət aralığı səbəbi ilə qazanc zəmanəti deyil."
+      },
+      "B09": {
+        "title": "Son gün və yekun nəticə",
+        "rules": "Gün 20-də adi və ya yardımla gəlişdən sonra yalnız satış, mövcud borcun nağd/malla ödənməsi və səfəri bitirmə açıqdır. Yeni alış, borc, xidmət, təkmilləşdirmə, iş, gözləmə və yol bağlıdır. Bu dəqiqləşdirmə B01-dəki ümumi «ticarət» ifadəsini məhdudlaşdırır.\n\nAdi yol gün 20-yə sığır; əlavə gecikmə normal sərhədi aşırsa əvvəl mümkün əlavə günsüz pul/yük seçimi göstərilir. Hamısı əlçatmazdırsa H04 açılır. İki seçim:\n\n- **Yardım borcu ilə vaxtında çat:** çatışmayan əlavə günü xilasetmə həll edir; gün 20-də seçilmiş son şəhərə gəliş. Yeni yardım borcu `min(40, həmin hadisənin qalan L büdcəsi)` qızıldır, adi 220 limitindən istisnadır; ayrıca faiz/gecikmə haqqı yoxdur. Aktiv 0-dırsa yardımın borcu da 0 ola bilər. Yardım oyunçuya nağd pul vermir, bir məcburi çıxışa bağlıdır. Gəlişdən sonra gün 20 qaydaları ilə satış mümkündür.\n- **Gecikərək tamamla:** yalnız çıxılmazlığı həll etmək üçün +1 istisna gün, pul borcu yoxdur; gəlişdən sonra yeni alış/yol/iş yoxdur, yalnız yekun satış dəftəri açılır. `late=true` qalır. H02 geri dönüş bir neçə gün aşırsa bu seçim həmin budağı yox, artıq seçilmiş təyinat şəhərinə +1 gün gecikmiş tamamlanmanı əvəz edir; sonsuz gecikmə dövrü açılmır.\n\nL artıq xərclənibsə yardım ikinci itki büdcəsi yaratmır. Xidmətin müddəti əlavə gündə də bitir, amma yeni təsadüfi təhlükə çəkilmir. Yardım və gecikmə eyni hadisədə alternativdir; birlikdə avtomatik tətbiq edilmir (39/45-in açıq dəqiqləşdirməsi).\n\nYekun **xalis sərvət = pul + qalan yükün göstərilmiş yerli satış cəmi − bütün borc**. Təkmilləşdirmə, işlənməmiş xidmət müddəti və kosmetikanın qalıq dəyəri 0-dır. Satış B03-ün dondurulmuş quote-u ilə atomikdir; borc qədər çıxılır, mənfi nəticə mümkündür. Yekun satışa bazar alış ehtiyatı limiti qoyulmur.\n\nQəbul edilmiş rekord ayrımı: classic-də **vaxtında/gecikmiş × geri dönüşsüz/geri dönüşlü**, hər balans versiyası ayrıca. Bu ayrım mövcud rewind ayrımına late ölçüsünü əlavə edir. Yardım borcu nəticədən çıxdığı üçün vaxtında kateqoriyada qalır və dəftərdə ayrıca görünür. Eyni xalis sərvət eyni sıralama dəyəri olsun; serverin dəqiq completion vaxtı gameplay üstünlüyü yaratmasın. Online start şərti, client-reported rekord modeli və Spark qoruma məhdudiyyətləri dəyişmir."
+      },
+      "B10": {
+        "title": "Nailiyyətlər və sınaq meyarları",
+        "rules": "Qəbul edilmiş beş nailiyyət üçün dəqiq trigger-lər:\n\n- İlk uğurlu ticarət: təlimdən kənar səfərdə ilk commit edilmiş, miqdarı >0 olan alış və ya satış. Qazanc şərti yoxdur; «ticarət» gəlir zəmanəti deyil.\n- Dörd şəhər: bir classic səfərdə dörd fərqli şəhərdə olmaq; başlanğıc şəhəri sayılır. Sadəcə xəritəni açmaq sayılmır.\n- İlk 20 günlük səfər: gün 20-də və ya son-gün istisnasından sonra yekunlaşmış bir classic səfər; erkən çıxış/silmə sayılmır.\n- Borcu tam ödə: faktiki götürülmüş borcu oyun zamanı nağd/mal/işlə 0-a endir; başlanğıcda borcsuz olmaq sayılmır, final avtomatik çıxma nailiyyət vermir.\n- Geri dönüşsüz bitir: yuxarıdakı müddət tamamlanıb, lineage üzrə rewind heç işlənməyib. Tətbiqi açıb-bağlama geri dönüş sayılmır.\n\nGecikmiş və yardımla bitən səfərlər də şərtləri ödənən nailiyyətləri verir.\n\nNailiyyətlər kosmetik/hesab açılışıdır; növbəti classic start pul/tutumunu artırmır. Təlim ayrıca fixture-dir, bu balans üzrə reklam/rekord/nailiyyət farm-ı yaratmır. Təlimdən sonra yeni normal səfər eyni B01 şərtləri ilə başlayır; bu keçid də qəbul edilib və D5 dizaynında əhatə olunmalıdır."
+      }
+    },
+    "precedence": "B01–B10 qəbul edilmiş qaydaları D1–D5 eskizlərində eyni mövzudakı köhnə açıq qeydlərə üstün gəlir. B09-un gün 20 əməliyyat məhdudiyyəti B01-dəki ümumi ticarət ifadəsini dəqiqləşdirir. B06/B07-nin B08/B09-a istinadları bağlanıb. Bu, ekran dizaynının və ya implementasiyanın tamamlanması deyil.",
+    "validation": "B10 sınaq meyarları qəbul edilmiş yoxlama planıdır; oyunçulu balans testi və stochastic simulyasiya aparılmayıb. Alternativlər qəbul edilməyib; implementasiya icazəsi yoxdur."
+  }
+}

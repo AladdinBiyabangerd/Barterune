@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      70,
+      "CONTRACT EXPIRED",
+      "A: centered illustrated parchment modal on dimmed forest travel map, friendly guard portrait and 'Guard contract expired' title, current Gold5, renewal cost15 for3 days. Three equal actionable options Pay with goods (choose cargo), Add to debt (review terms), Continue without guard; cash renewal visibly disabled with 'Need10 more gold'. Warning 'Guard protection is inactive until renewed'. B: same content in a right-side parchment drawer on forest road travel scene, small portrait at top, stacked action buttons, map remains visible left. C: full-screen guard farewell scene upper third, lower parchment contract ledger and payment options, same exact content. Same data and protection status all choices. No implied automatic borrowing. No exact risk percentage invented. Return to same suspended travel state after decision. No departure button as travel already began."
+    ],
+    [
+      71,
+      "MARKET LIMIT FEEDBACK",
+      "Compare THREE feedback styles for SAME failed proposed Cloth buy. Game landscape underlying selected market layout top town panorama and lower list plus details with side-by-side Buy/Sell. Cloth buy35 each, Sell28 each, selected quantity5, total175, Gold100, load18/20, Cloth load2/unit, maximum buy1 due capacity. A: inline validation right under quantity: 'Not enough gold or cargo space', helper 'Can buy1', prominent secondary Set quantity to1, Buy175 disabled. B: small anchored parchment popover beside quantity showing same combined limit explanation and Set quantity to1 action, Buy175 disabled. C: centered small parchment modal over dimmed market with same explanation, 'Set quantity to1' primary and Cancel secondary; original invalid quantity remains behind until user chooses. All communicate BOTH limits, no automatic purchase or forced quantity change. Sell button for5 disabled if not owned; avoid showing inventory ownership numbers entirely. Clear error icons+text, not red alone. Same numbers and art throughout, no extra features."
+    ]
+  ]
+}

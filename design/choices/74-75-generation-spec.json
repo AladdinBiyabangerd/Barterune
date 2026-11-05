@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      74,
+      "ROUTE RISK DETAILS",
+      "A: compact info popover anchored to High risk label in right route-selection panel; popover says Any road event30%, Bandits12%, Obstacles18%, Without escort; note These categories are mutually exclusive in this example, losses capped. B: centered parchment risk detail modal on dim map, same probability breakdown as three rows, small route illustration, Guide helps with obstacles / Guard helps with bandits, close button. C: route panel expands inline below High risk with same three probability rows and two escort notes, pushes departure button lower within scrollable panel. All state Day4/20 Gold240, selected route Mountain Pass1 day, no escorts selected. Any road event30%=12%+18% exclusively for this illustrative example. Percentages and exclusive model are explanatory sample NOT confirmed economy; do not imply final implementation. Info display only, no new action or purchase. Keep map zoom controls + / - / Fit, four towns visible. Same content and route in all."
+    ],
+    [
+      75,
+      "RECOVERY WORK",
+      "A: centered parchment opportunity modal over dim town scene, friendly porter illustration, title A fresh start; Gold0, Cargo empty, Day8/20; option Help load the caravan: costs1 day, earns25gold; Accept job and Not now buttons. B: full-page town work board scene upper third, lower parchment one job card with same eligibility/state/reward, Accept job / Back. C: right-side parchment recovery-job drawer over town scene, same one job offer, duration reward and actions. Clearly shows available because low funds and no sellable cargo. This is emergency earning cash, NOT creditor debt work. No repeatable unlimited money implication, no real-time timer, no ad reward, no real money, no additional job catalogue. Cost1day reward25 is example not final balance. Preview before acceptance, no automatic day passage."
+    ]
+  ]
+}

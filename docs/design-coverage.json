@@ -1,0 +1,818 @@
+{
+  "status": "draft_not_complete",
+  "selectedLayoutRange": "51–85",
+  "nextDesignGroups": [
+    {
+      "id": "D1",
+      "name": "Bazar və inventar",
+      "states": [
+        "kart görünüşü",
+        "ehtiyat tükənib",
+        "satılacaq mal yoxdur",
+        "sıfır/boş/limitdən böyük miqdar",
+        "keyfiyyət partiyası bitib",
+        "alış-satış uğuru",
+        "maksimum təkmilləşdirmə"
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "Xəritə və səyahət",
+      "states": [
+        "üç marşrut növü",
+        "şəhər seçilməyib",
+        "cari şəhər seçilib",
+        "qalan gün çatmır",
+        "aktiv səyahət",
+        "gün keçidi",
+        "xidmət müqaviləsi yenilənib/imtina",
+        "sıfır risk iddiası olmadan effekt detalları"
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "Borc və ödəniş",
+      "states": [
+        "borc şərtlərini qəbul",
+        "qismən/tam ödəniş",
+        "malla ödəniş partiya seçimi",
+        "möhlət haqqı və tarix",
+        "uyğun mal yoxdur",
+        "borc limiti dolub",
+        "son gün borc işi mümkün deyil"
+      ]
+    },
+    {
+      "id": "D4",
+      "name": "Xəbərlər və hadisələr",
+      "states": [
+        "şayiə detalları",
+        "köhnəlmiş xəbər",
+        "boş xəbər siyahısı",
+        "seçim bağlı və səbəbi",
+        "təxminən10 hadisənin seçim və nəticələri",
+        "məlum son qiymət və müşahidə günü"
+      ]
+    },
+    {
+      "id": "D5",
+      "name": "Sistem və ilk açılış",
+      "states": [
+        "ilk açılış/dil",
+        "splash",
+        "yüklənir",
+        "yaddaşa yazma xətası",
+        "ehtiyat yoxdur",
+        "ehtiyat baxış və təsdiq",
+        "yuva əvəzləmə təsdiqi",
+        "boş rekordlar",
+        "təlimin bütün addımları və keçmə",
+        "dil/görünüş ayarları",
+        "məcburi ilk Google girişi: yüklənir/ləğv/xəta/yenidən cəhd; sonrakı offline açılış",
+        "cloud sinxronizasiya və konflikt: lokal/cloud baxış, seçim və əvəzləmə təsdiqi",
+        "online rekord: yüklənir/boş/offline/xəta/göndərilir/təsdiqlənib/rədd; geri dönüş filtrləri",
+        "hesab silmə: əhatə, yenidən giriş, təsdiq, göndərilir/uğur/xəta",
+        "mağaza: kataloq/yüklənir/offline/alış gözləyir/uğur/ləğv/xəta/bərpa; monetizasiya sərhədi açıq"
+      ]
+    },
+    {
+      "id": "D6",
+      "name": "Uyğunlaşma və vizual sistem",
+      "states": [
+        "kanonik tokenlər",
+        "komponentlər",
+        "kiçik üfüqi telefon",
+        "planşet",
+        "uzun AZ/TR/RU mətnləri",
+        "toxunma hədəfləri",
+        "kontrast ölçümü",
+        "azaldılmış hərəkət",
+        "animasiya storyboardları"
+      ]
+    }
+  ],
+  "openProductDecisions": [
+    "qalıcı açılışların dəqiq növləri",
+    "ilk pulsuz məzmun və sonrakı monetizasiya sərhədi",
+    "texnologiya seçimi və cihaz dəstəyi"
+  ],
+  "rule": "Bu siyahı ilkin auditdir; bütün hallar hazır və təsdiqlənmiş sayılmır. Seçilmiş eskizlər son kanonik ekranlar deyil. İcradan əvvəl axınlar, dəqiq qaydalar, dizaynlar və qəbul meyarları bir-birinə bağlanmalıdır.",
+  "stateBoards": {
+    "D1": {
+      "path": "design/states/D1-market-draft.png",
+      "status": "draft_needs_correction",
+      "covered": [
+        "normal list",
+        "cards",
+        "stock zero",
+        "insufficient gold",
+        "cargo full",
+        "quality batch selection"
+      ],
+      "knownIssues": [
+        "D1.1/D1.2 Al/Sat düymələri yanaşı olmalıdır53B; şəkildə şaqulidir.",
+        "Siyahı və kartlarda alış/satış qiymətləri və lazım olan müqayisə sütunları tamamlanmalıdır52C.",
+        "D1.6 owned3 ümumi8 ilə uyğunlaşmır; keyfiyyət partiyası üzrə alış qiyməti/marja yenilənməlidir.",
+        "Rəqəmlər balans deyil; mal yük ölçüləri ilə tutum uyğunlaşdırılmalıdır."
+      ]
+    },
+    "D1-quantity": {
+      "path": "design/states/D1-quantity-input-v2.png",
+      "status": "draft_reviewed_not_approved",
+      "covered": [
+        "Q01 direct entry 12 with in-game keypad",
+        "Q02 quantity12 ready preview",
+        "Q03 empty",
+        "Q04 zero"
+      ],
+      "knownIssues": [
+        "English mockup; AZ/TR/RU, canonical tokens, contrast and device sizing pending.",
+        "Legacy generic Max and unspecified digit cap are superseded by designResolutions: separate buy/sell maximum, 6-digit cap. Existing PNG is historical, not canonical."
+      ],
+      "confirmedInteraction": "86: OK applies quantity only and closes keypad; purchase uses Al separately",
+      "checks": [
+        "PNG visually inspected: all Owned0 match Load0/40; empty/zero OK disabled; quantity12 total420 and preview80/24 correct."
+      ],
+      "relatedBoards": [
+        "D1-quantity-actions",
+        "D1-quantity-invalid"
+      ],
+      "interactionStatus": "resolved_in_docs/decisions.json designResolutions.D1-quantity-review",
+      "historicalProposals": [
+        "OK changes quantity only, no purchase",
+        "Cancel restores previous quantity",
+        "Buy/Sell disabled while editing"
+      ]
+    },
+    "D1-limits": {
+      "path": "design/states/D1-quantity-limits-v2.png",
+      "status": "draft_reviewed_not_approved",
+      "covered": [
+        "L01 gold limit2",
+        "L02 cargo limit5",
+        "L03 stock limit8",
+        "L04 stock0"
+      ],
+      "checks": [
+        "Visual inspection performed",
+        "12x35=420, gold deficit320, cargo need24/free10",
+        "Maximum buy min(gold limit,cargo limit,stock) matches fixtures",
+        "Final v2 visually inspected after correction: no duplicate preview HUD; L02 complete inventory Grain10x1+Wood10x2=30; need24/free10; Sell label has Owned0 reason."
+      ],
+      "knownIssues": [
+        "Nonselected goods prices are omitted in these focused limit fixtures; canonical market list still pending.",
+        "AZ localization, canonical tokens, contrast and device sizing pending."
+      ]
+    },
+    "D1-quantity-actions": {
+      "path": "design/states/D1-quantity-actions-v1.png",
+      "status": "draft_reviewed_not_approved",
+      "covered": [
+        "F01 cancel draft12",
+        "F02 restored prior3; total105, no trade",
+        "F03 maximum14 applied; total490, no trade",
+        "F04 selected healthy batch5 versus requested6; other batch3 separate"
+      ],
+      "knownIssues": [
+        "AZ localization, tokens, contrast and device checks pending.",
+        "Legacy generic Max and unspecified digit cap are superseded by designResolutions: separate buy/sell maximum, 6-digit cap. Existing PNG is historical, not canonical."
+      ],
+      "checks": [
+        "Final PNG visually inspected after correction: F04 buy preview500-210=290; batch5+3=8, load16; cancel3 total105; maximum14 total490."
+      ],
+      "interactionStatus": "resolved_in_docs/decisions.json designResolutions.D1-quantity-review",
+      "historicalProposals": [
+        "Cancel restores applied quantity.",
+        "Max applies buy min(gold,cargo,stock) and closes keypad.",
+        "Selected-batch sell limit is independent of buy eligibility."
+      ]
+    },
+    "D1-quantity-invalid": {
+      "path": "design/states/D1-quantity-invalid-v1.png",
+      "status": "draft_reviewed_not_approved",
+      "covered": [
+        "E01 nonnumeric12a",
+        "E02 decimal1.5",
+        "E03 negative-2",
+        "E04 very long input with safe ellipsis and explicit Max14 recovery"
+      ],
+      "checks": [
+        "PNG visually inspected: warnings visible, total dash, OK/Buy/Sell disabled, Cancel available, no automatic normalization."
+      ],
+      "knownIssues": [
+        "Extra stock/owned labels appear in HUD compared with Q/F boards; unify during canonical component pass.",
+        "English mockup; token, contrast and device checks pending.",
+        "Legacy generic Max and unspecified digit cap are superseded by designResolutions: separate buy/sell maximum, 6-digit cap. Existing PNG is historical, not canonical."
+      ],
+      "interactionStatus": "resolved_in_docs/decisions.json designResolutions.D1-quantity-review",
+      "historicalProposals": [
+        "Preserve malformed input for correction; reject submission.",
+        "Reject excessive input without overflow; exact digit cap remains open."
+      ]
+    },
+    "D1-quantity-applied": {
+      "path": "design/states/D1-quantity-applied-v2.png",
+      "status": "draft_visually_checked_quantity_cases_complete",
+      "covered": [
+        "A01 gold adjustment2: total70, current100/0, preview30/4",
+        "A02 cargo adjustment5: total175, current500/30, preview325/40",
+        "A03 stock adjustment8: total280, current500/0, preview220/16",
+        "A04 selected healthy batch5: buy175 sell140, current500/16, buy325/26, sell640/6; damaged3 untouched"
+      ],
+      "knownIssues": [
+        "English fixtures; canonical tokens, contrast, target-device sizes and localization are pending in D6."
+      ],
+      "checks": [
+        "Final v2 opened with view_image: A01-A04 quantities2/5/8/5, current HUD unchanged, previews and totals correct, separate Buy max/Sell max present, transaction buttons side by side; A01-A03 Sell disabled Owned0, A04 Buy175/Sell140 active; healthy5 and damaged3 remain separate.",
+        "No implementation, device, localization or contrast verification claimed."
+      ]
+    },
+    "D1-trades": {
+      "path": "design/states/D1-market-trades-v2.png",
+      "spec": "design/states/D1-trade-spec.json",
+      "status": "draft_visually_checked",
+      "covered": [
+        "list/cards pricing corrections",
+        "actual purchase success",
+        "actual partial sale success",
+        "selected batch exhausted",
+        "nothing to sell"
+      ],
+      "knownIssues": [
+        "T03–T06 repeat HUD in a left audit summary; unify into market list/cargo component during canonical component pass.",
+        "Only three goods visible; remaining seven require scrolling in canonical screen.",
+        "Maximum controls and conditional previews from quantity boards must be retained in canonical composition.",
+        "Market repricing not finalized; T03 uses unchanged small-trade quote fixture, not an approved threshold."
+      ],
+      "checks": [
+        "PNG rendered and inspected with view_image: T01/T02 Buy and Sell adjacent; Buy/Sell/Owned prices present; T03 430/20/10/28, T04 556/12/6, T05 640/6/3 with no batch selected, T06 owned0 Sell disabled.",
+        "English fixtures only; no device, contrast or localization verification."
+      ]
+    },
+    "D1-remaining": {
+      "path": "design/states/D1-remaining-board-v1.png",
+      "spec": "design/states/D1-remaining-spec.json",
+      "status": "agent_design_draft_visually_checked",
+      "covered": [
+        "L05 Ehtiyat tükənib",
+        "L06 Pul çatmır",
+        "L07 Tutum doludur",
+        "L08 Bir neçə məhdudiyyət",
+        "U01 Təkmilləşdirmə maksimumdur",
+        "U02 Bütün təkmilləşdirmələr maksimumdur",
+        "O01 Əməliyyat saxlanır",
+        "O02 Saxlama alınmadı",
+        "O03 Nəticə yoxlanılır",
+        "O04 Yeni qiymətə baxış",
+        "O05 Bazar yenilənmədi",
+        "O06 Partiya artıq uyğun deyil"
+      ],
+      "checks": [
+        "12 vəziyyətli PNG render edildi və view_image ilə vizual baxıldı: AZ hərfləri, sətirlər, cüt əməliyyat düymələri və kart sərhədləri yoxlandı.",
+        "Review-board palette sampled from D1-market-trades-v2.png; named in D1-board-tokens.json, not canonical game tokens.",
+        "ui-craft contrast.py: nav/paper 10.99:1, ink/paper 7.85:1; reverse nav/paper button pair has same ratio.",
+        "Fixtures checked: 2×28=56; 2×35−20=50; 8×2+12×2=40; 40−2×2=36; 500+56=556.",
+        "No game code/build/device/touch-target/localization-matrix verification. Maximum level/effects remain product decisions."
+      ],
+      "knownIssues": [
+        "State-detail review board, not a full canonical market/workshop composition.",
+        "Maximum level/effect/price values remain undecided; U01/U02 define behavior only.",
+        "D6 canonical tokens, device sizing, touch targets, localization and motion remain pending."
+      ]
+    },
+    "D2": {
+      "status": "balance_aligned_canonical_design_pending",
+      "reference": "design/states/D2-travel-spec.json",
+      "output": "design/states/D2-travel-board-v1.png",
+      "covered": [
+        "M01–M05 xəritə və yol seçimi",
+        "S01–S04 xidmət müqaviləsi və yeniləmə/imtina",
+        "T01–T05 səyahət, gün, yol bağlanması, son gün, nəticə",
+        "W01 gözləmə",
+        "A01 gəliş"
+      ],
+      "knownIssues": [
+        "Kanonik tam ekranların qəbul edilmiş balansla mətn və axın birləşməsi; əvvəlki PNG tarixi vəziyyət eskizidir, yeni qaydaların vizual sübutu deyil.",
+        "D6 cihaz/toxunma/AZ/TR/RU/EN və yekun vizual yoxlamalar; runtime və real oynanış balans testi aparılmayıb."
+      ],
+      "basis": "Balans istifadəçi tərəfindən B01–B10 ilə qəbul edilib; kanonik ekran dizaynı layihədir.",
+      "balanceAlignment": {
+        "source": "docs/decisions.json#/balanceDecisions/confirmed",
+        "acceptedDecisions": [
+          "B02",
+          "B04",
+          "B05",
+          "B06",
+          "B07",
+          "B09"
+        ],
+        "precedence": "İstinad edilən qəbul edilmiş qaydaların tam mətni normativdir; köhnə PNG və eskiz rəqəmlərinə üstün gəlir. B09 gün 20-də yalnız satış/mövcud borc ödənişi/bitirməyə icazə verir.",
+        "boundary": "Balansın qəbulu dizayn/runtime yoxlaması deyil; D5 texniki açıq sualları bu vahiddə dəyişdirilmir."
+      }
+    },
+    "D3": {
+      "status": "balance_aligned_canonical_design_pending",
+      "reference": "design/states/D3-debt-spec.json",
+      "output": "design/states/D3-debt-board-v1.png",
+      "covered": [
+        "B01 Qızıl borcu forması",
+        "B02 Şərtlərin qəbulu",
+        "B03 Limit və tarix uyğun deyil",
+        "C01 Kreditor ofisi",
+        "P01 Qismən nağd ödəniş",
+        "P02 Tam ödəniş",
+        "G01 Malla ödəniş baxışı",
+        "G02 Uyğun mal yoxdur",
+        "E01 Möhlətə baxış",
+        "W01 Bərpa işi",
+        "L01 Son gün və çıxılmazlıq",
+        "X01 Saxlama və nəticə"
+      ],
+      "knownIssues": [
+        "Kanonik tam ekranların qəbul edilmiş balansla mətn və axın birləşməsi; əvvəlki PNG tarixi vəziyyət eskizidir, yeni qaydaların vizual sübutu deyil.",
+        "D6 cihaz/toxunma/AZ/TR/RU/EN və yekun vizual yoxlamalar; runtime və real oynanış balans testi aparılmayıb."
+      ],
+      "basis": "Balans istifadəçi tərəfindən B01–B10 ilə qəbul edilib; kanonik ekran dizaynı layihədir.",
+      "checks": [
+        "12 kart PNG render edildi və view_image ilə baxıldı; AZ mətnləri/sərhədlər yoxlandı.",
+        "Kontrast nav/paper10.99:1, ink/paper7.85:1. JSON və əlaqəli yollar yoxlandı.",
+        "Oyun/build/cihaz/toxunma/lokalizasiya matrisi yoxlanmayıb."
+      ],
+      "balanceAlignment": {
+        "source": "docs/decisions.json#/balanceDecisions/confirmed",
+        "acceptedDecisions": [
+          "B03",
+          "B05",
+          "B06",
+          "B09",
+          "B10"
+        ],
+        "precedence": "İstinad edilən qəbul edilmiş qaydaların tam mətni normativdir; köhnə PNG və eskiz rəqəmlərinə üstün gəlir. B09 gün 20-də yalnız satış/mövcud borc ödənişi/bitirməyə icazə verir.",
+        "boundary": "Balansın qəbulu dizayn/runtime yoxlaması deyil; D5 texniki açıq sualları bu vahiddə dəyişdirilmir."
+      }
+    },
+    "D4": {
+      "status": "balance_aligned_canonical_design_pending",
+      "reference": "design/states/D4-news-events-spec.json",
+      "output": "design/states/D4-news-events-board-v1.png",
+      "covered": [
+        "N01 Xəbər siyahısı",
+        "N02 Şayiə detalları",
+        "N03 Köhnəlmiş xəbər",
+        "N04 Xəbər yoxdur",
+        "N05 Son görülmüş qiymət",
+        "E01 Hadisə seçimi",
+        "E02 Əlçatmaz seçim",
+        "E03 Təsdiq baxışı",
+        "E04 Hadisə nəticəsi",
+        "E05 Bərpa və saxlama",
+        "E06 Son gün sərhədi",
+        "E07 Zədələnən partiya",
+        "H01–H10 qəbul edilmiş B07/B08 kataloqu spec-də; PNG əvvəlki eskizdir"
+      ],
+      "knownIssues": [
+        "Kanonik tam ekranların qəbul edilmiş balansla mətn və axın birləşməsi; əvvəlki PNG tarixi vəziyyət eskizidir, yeni qaydaların vizual sübutu deyil.",
+        "D6 cihaz/toxunma/AZ/TR/RU/EN və yekun vizual yoxlamalar; runtime və real oynanış balans testi aparılmayıb."
+      ],
+      "basis": "Balans istifadəçi tərəfindən B01–B10 ilə qəbul edilib; kanonik ekran dizaynı layihədir.",
+      "checks": [
+        "55A/58C/85B seçim lövhələri açılıb baxıldı.",
+        "12 vəziyyətli PNG render edildi və view_image ilə baxıldı; AZ mətnləri və sərhədlər yoxlandı.",
+        "ui-craft kontrast: nav/paper10.99:1, ink/paper7.85:1.",
+        "JSON, əlaqəli fayllar və 240−10=230 nümunəsi yoxlandı.",
+        "Oyun/build/real cihaz/toxunma/dörd dil matrisi yoxlanmayıb."
+      ],
+      "balanceAlignment": {
+        "source": "docs/decisions.json#/balanceDecisions/confirmed",
+        "acceptedDecisions": [
+          "B02",
+          "B03",
+          "B04",
+          "B05",
+          "B06",
+          "B07",
+          "B08",
+          "B09"
+        ],
+        "precedence": "İstinad edilən qəbul edilmiş qaydaların tam mətni normativdir; köhnə PNG və eskiz rəqəmlərinə üstün gəlir. B09 gün 20-də yalnız satış/mövcud borc ödənişi/bitirməyə icazə verir.",
+        "boundary": "Balansın qəbulu dizayn/runtime yoxlaması deyil; D5 texniki açıq sualları bu vahiddə dəyişdirilmir."
+      }
+    },
+    "D5": {
+      "status": "balance_acceptance_aligned_canonical_design_and_technical_validation_pending",
+      "reference": "design/states/D5-system-spec.json",
+      "output": "design/states/D5-system-board-v1.png",
+      "covered": [
+        "F01 İlk açılış və dil",
+        "A01 İlk Google girişi",
+        "A02 Sonrakı offline açılış",
+        "S01 Menyu və üç yuva",
+        "S02 Saxlama xətası",
+        "S03 Ehtiyat baxışı",
+        "S04 Yuva və yaddaş nöqtəsi",
+        "C01 Bulud statusu",
+        "C02 Bulud konflikti",
+        "R01 Şəxsi və online rekord",
+        "R02 Online nəticə və nailiyyət",
+        "T01 Qısa təlim",
+        "P01 Ayarlar və məxfilik",
+        "D01 Hesab silməyə baxış",
+        "D02 Silmə sorğusunun nəticəsi",
+        "M01 Kosmetika mağazası",
+        "M02 Alışın vəziyyəti",
+        "M03 Könüllü reklam"
+      ],
+      "knownIssues": [
+        "DT01: Snapshot daxili byte həddi, worst-case fixture, Rules əlavə oxu/retry/indeks daxil Spark yük və tutum hesabı; sync tezliyi/coalesce sərhədləri.",
+        "DT02: Lokal konflikt branch/previous qoruma müddəti; sync qəbzlərinin həddi/səhifəli təmizliyi; reward/start/completion replay-ni bloklayan retention/arxiv və saxlanma xərci.",
+        "DT03: OAuth debug/release/Play signing, UID izolyasiyası, CAS/getAfter/tombstone/delete baryeri Rules/schema, App Check/Play Integrity enforcement və OS Auto Backup istisnalarının konfiqurasiya/sınağı.",
+        "DT04: Privacy/deletion URL-ləri, support ünvanı/cavab müddəti, identity yoxlaması/manual Console proseduru, minimal baryer/telemetriya retention-u və PGS silmə əhatəsi.",
+        "DT05: Ləqəb uzunluq/simvol və manual şikayət/gizlətmə/operator prosesi; indeks/səhifə limiti; sabit event/PGS ID mapping və təkrarsız publication sınaqları. B10 trigger-ləri açıq deyil.",
+        "DT06: Attempt rezervasiyasının bitməsi/settle sərhədi, gecikmiş callback qaydası, placement/limit müqaviləsi; UMP yaş/region/privacy options, test/release ID konfiqurasiyası və itmiş callback davranışı.",
+        "DT07: Alış ilk Firebase UID-yə daimi bağlanır; başqa UID-yə avtomatik restore yoxdur. Hesab silindikdən sonra yeni UID-yə restore/transfer və support istisnası yoxdur. Etibarlı bağlanmanın icra modeli açıqdır; SKU/kataloq/qiymət, acknowledge retry və Play query reconcile sınaqları qalır.",
+        "DT08: Ən son cloud save-dən adi davam geri dönüş sayılmır və mövcud rewind statusunu qoruyur. Köhnə backup və ya konflikt nüsxəsindən bərpa geri dönüş sayılır; lineage üzrə rewindUsed=true qalır və sonrakı bərpa ilə silinmir.",
+        "DT09: Kotlin + Jetpack Compose seçilib; yüngül xəritə/at arabası hərəkətləri Compose Canvas/animasiya vasitələri ilə qurulacaq. targetSdk buraxılış vaxtındakı Google Play tələbinə uyğun olacaq; minSdk SDK uyğunluğu və cihaz sınaqlarına görə sonra seçiləcək. Bu qərar implementasiyaya başlama icazəsi deyil.",
+        "Konkret təlim fixture-i və addımların dizayn yoxlaması; B10 ayrımı/trigger-ləri qəbul edilib.",
+        "Kanonik sistem ekranları və D6 vizual/cihaz/dil yoxlamaları; əvvəlki PNG bu yeni mətn müqavilələrinin sübutu deyil."
+      ],
+      "basis": "B01–B10 istifadəçi tərəfindən qəbul edilib; D5 mətn müqavilələri uyğunlaşdırılıb, bütöv ekran dizaynı ayrıca təsdiqlənmiş deyil.",
+      "checks": [
+        "Statik PNG render edildi və view_image ilə baxıldı.",
+        "Review-board kontrastı: nav/paper10.99:1, ink/paper7.85:1; oyun palitrası yoxlanmayıb.",
+        "Oyun/build/real cihaz/toxunma/TalkBack/dörd dil matrisi yoxlanmayıb.",
+        "B01–B10 üzrə xəbər/son-gün/rekord/nailiyyət mətn müqavilələri əlavə edilib; yeni PNG və işlək davranış yoxlanmayıb.",
+        "D5 texniki mətnlər §6–8/12 serversiz Spark layihəsinə uyğunlaşdırıldı; JSON/istinad və balansın dəyişməzliyi yoxlandı; runtime/render yoxdur."
+      ],
+      "balanceAcceptance": {
+        "reference": "design/states/D5-system-spec.json",
+        "areas": [
+          "Xəbər və şayiə — D4 → D5 davamlılıq",
+          "Son gün və yekun hesablaşma — D2/D3/D4 → D5",
+          "Rekord kateqoriyaları — B09",
+          "Nailiyyət trigger-ləri — B10"
+        ],
+        "status": "text_contracts_aligned_not_runtime_or_visual_verified",
+        "source": "docs/decisions.json#balanceDecisions.confirmed"
+      },
+      "technicalAlignment": {
+        "reference": "design/states/D5-system-spec.json#technicalAlignment",
+        "source": "docs/IMPLEMENTATION_PLAN.az.md §6–8/12",
+        "status": "plan_design_aligned_not_implemented_or_validated"
+      },
+      "canonicalEntry": {
+        "status": "AZ_TR_RU_EN_P1_fontScale_matrix_rendered_reviewed_not_implemented",
+        "reference": "design/states/D5-entry-spec.json",
+        "output": "design/states/D5-entry-v1/overview.png",
+        "states": 16,
+        "scope": "F01/A01/A02 + entry-only C01 handoff",
+        "remaining": "Real Android/device/nonlinear fontScale/TalkBack/actual scroll and language switching; native translation review; Google branding/privacy URL. Other D5 units separate.",
+        "localizationRender": {
+          "localization": "design/states/D5-entry-localization.json",
+          "outputs": "design/states/D5-entry-localized-v2",
+          "verification": "design/states/D5-entry-localized-v2/verification.json",
+          "profiles": 12,
+          "stateProfiles": 192,
+          "fontScales": [
+            1,
+            1.3,
+            2
+          ],
+          "locales": [
+            "AZ",
+            "TR",
+            "RU",
+            "EN"
+          ]
+        },
+        "tabletRender": {
+          "status": "static_measured_selected_images_reviewed_not_runtime",
+          "output": "design/states/D5-entry-tablet-v1",
+          "verification": "design/states/D5-entry-tablet-v1/verification.json",
+          "profiles": 12,
+          "stateProfiles": 192,
+          "captures": 207,
+          "remaining": "Real Android nonlinear fontScale, touch, TalkBack, native translations and other D5 flows."
+        }
+      },
+      "cloudConflict": {
+        "status": "static_measured_selected_renders_visually_reviewed_not_runtime",
+        "reference": "design/states/D5-cloud-spec.json",
+        "review": "design/states/D5-cloud-review.json",
+        "localization": "design/states/D5-cloud-localization.json",
+        "states": 22,
+        "locales": [
+          "AZ",
+          "TR",
+          "RU",
+          "EN"
+        ],
+        "fontScales": [
+          1,
+          1.3,
+          2
+        ],
+        "renders": [
+          {
+            "device": "phone",
+            "states": 264,
+            "captures": 721,
+            "allChecksPassed": true,
+            "verification": "design/states/D5-cloud-phone-v1/verification.json"
+          },
+          {
+            "device": "tablet",
+            "states": 264,
+            "captures": 293,
+            "allChecksPassed": true,
+            "verification": "design/states/D5-cloud-tablet-v1/verification.json"
+          }
+        ],
+        "policy": "C02 CAS/explicit selection + DT08 latest-continue vs conflict/old-backup rewind + DT02 retention gates",
+        "remaining": [
+          "AZ/TR/RU/EN complete for these 22 states; native editorial review pending",
+          "Synthetic linear fontScale 1/1.3/2; not Android nonlinear scaling",
+          "P1 landscape phone and P3 landscape tablet only",
+          "Not every capture individually inspected; line/control reachability and block geometry checked across matrix",
+          "No runtime sync/CAS/Rules/receipt/device/touch/TalkBack test",
+          "D6 global tokens remain proposal"
+        ]
+      }
+    },
+    "D6": {
+      "status": "adaptation_contract_draft_canonical_tokens_and_device_validation_pending",
+      "reference": "design/states/D6-adaptation-spec.json",
+      "output": "design/states/D6-adaptation-board-v1.png",
+      "covered": [
+        "V01 Token təklifi",
+        "V02 Komponent müqavilələri",
+        "V03 Kiçik üfüqi telefon",
+        "V04 Üfüqi planşet",
+        "V05 Dörd dil və böyük şrift",
+        "V06 Toxunma və fokus",
+        "V07 Kontrast və vəziyyətlər",
+        "V08 Azaldılmış hərəkət"
+      ],
+      "knownIssues": [
+        "Kanonik ekranların D1–D5 üzrə birləşdirilməsi; mövcud lövhələr onu əvəz etmir",
+        "Kanonik tokenlər, şrift və konkret supported viewport/minSdk",
+        "Real cihaz/emulator, toxunma, dörd dil və böyük şrift render matrisi",
+        "Animasiya müddətləri və asset storyboard kadrları",
+        "D2–D4 açıq məhsul qaydaları dəyişmir"
+      ],
+      "basis": "Agent dizayn layihəsi; ayrıca istifadəçi təsdiqi deyil.",
+      "checks": [
+        "Statik PNG render edildi və view_image ilə baxıldı.",
+        "Review-board kontrastı: nav/paper10.99:1, ink/paper7.85:1; oyun palitrası yoxlanmayıb.",
+        "Oyun/build/real cihaz/toxunma/TalkBack/dörd dil matrisi yoxlanmayıb."
+      ]
+    },
+    "D1-inventory-layout": {
+      "status": "inventory_layout_stress_unit_complete_final_art_and_D1_pending",
+      "renderer": "design/tools/render-d1-inventory.swift",
+      "verification": "design/states/D1-inventory-canonical-v3/verification.json",
+      "review": "design/states/D1-inventory-canonical-v3/review.json",
+      "profiles": 72,
+      "captures": 1079,
+      "scope": "10 goods, list/cards, AZ/TR/RU/EN × 1/1.3/2 × P1/P2/P3 synthetic base insets. Layout evidence only; not final canonical art.",
+      "remaining": [
+        "Pixel panorama, parchment texture, goods icons and selected 51–85 decorative frame integration.",
+        "D1 detail, quantity keypad, paired trade actions/previews and all transaction states in unified screen system.",
+        "Bounded tablet text widths and actual Android nonlinear scaling/TalkBack/touch.",
+        "D2–D6 canonical final images."
+      ]
+    }
+  },
+  "requestedSequence": {
+    "source": "2026-11-02 user request",
+    "order": [
+      "D1 remaining",
+      "D2",
+      "D3",
+      "D4",
+      "D5 including login/cloud conflict/records/account deletion/store",
+      "D6"
+    ],
+    "implementation": "not started; complete design flows first",
+    "next": "D5 vəziyyət layihəsi və D6 ilkin uyğunlaşma müqaviləsi var; kanonik ekran/token birləşməsi və məhsul/texniki blokerlər açıqdır. Yeni chatdə bir kiçik dizayn vahidi; implementasiya yoxdur."
+  },
+  "groupProgress": {
+    "D1": {
+      "status": "state_details_drafted_canonical_composition_pending",
+      "remaining": [
+        "T01/T02 və bütün vəziyyətlərin tam kanonik bazar kompozisiyasında birləşdirilməsi",
+        "10 mal, maksimumlar və preview-lərin birlikdə görünməsi",
+        "Açıq iqtisadiyyat və təkmilləşdirmə parametrlərinin məhsul qərarı",
+        "D6 uyğunlaşma və yekun vizual yoxlamalar"
+      ]
+    },
+    "D2": {
+      "status": "balance_aligned_canonical_design_pending",
+      "remaining": [
+        "Kanonik tam ekranların qəbul edilmiş balansla mətn və axın birləşməsi; əvvəlki PNG tarixi vəziyyət eskizidir, yeni qaydaların vizual sübutu deyil.",
+        "D6 cihaz/toxunma/AZ/TR/RU/EN və yekun vizual yoxlamalar; runtime və real oynanış balans testi aparılmayıb."
+      ],
+      "next": "Qəbul edilmiş balans əsasında ayrıca kanonik dizayn vahidi; implementasiya yoxdur."
+    },
+    "D3": {
+      "status": "balance_aligned_canonical_design_pending",
+      "remaining": [
+        "Kanonik tam ekranların qəbul edilmiş balansla mətn və axın birləşməsi; əvvəlki PNG tarixi vəziyyət eskizidir, yeni qaydaların vizual sübutu deyil.",
+        "D6 cihaz/toxunma/AZ/TR/RU/EN və yekun vizual yoxlamalar; runtime və real oynanış balans testi aparılmayıb."
+      ],
+      "next": "Qəbul edilmiş balans əsasında ayrıca kanonik dizayn vahidi; implementasiya yoxdur."
+    },
+    "D4": {
+      "status": "balance_aligned_canonical_design_pending",
+      "remaining": [
+        "Kanonik tam ekranların qəbul edilmiş balansla mətn və axın birləşməsi; əvvəlki PNG tarixi vəziyyət eskizidir, yeni qaydaların vizual sübutu deyil.",
+        "D6 cihaz/toxunma/AZ/TR/RU/EN və yekun vizual yoxlamalar; runtime və real oynanış balans testi aparılmayıb."
+      ],
+      "next": "Qəbul edilmiş balans əsasında ayrıca kanonik dizayn vahidi; implementasiya yoxdur."
+    },
+    "D5": {
+      "status": "balance_acceptance_aligned_canonical_design_and_technical_validation_pending",
+      "remaining": [
+        "DT01: Snapshot daxili byte həddi, worst-case fixture, Rules əlavə oxu/retry/indeks daxil Spark yük və tutum hesabı; sync tezliyi/coalesce sərhədləri.",
+        "DT02: Lokal konflikt branch/previous qoruma müddəti; sync qəbzlərinin həddi/səhifəli təmizliyi; reward/start/completion replay-ni bloklayan retention/arxiv və saxlanma xərci.",
+        "DT03: OAuth debug/release/Play signing, UID izolyasiyası, CAS/getAfter/tombstone/delete baryeri Rules/schema, App Check/Play Integrity enforcement və OS Auto Backup istisnalarının konfiqurasiya/sınağı.",
+        "DT04: Privacy/deletion URL-ləri, support ünvanı/cavab müddəti, identity yoxlaması/manual Console proseduru, minimal baryer/telemetriya retention-u və PGS silmə əhatəsi.",
+        "DT05: Ləqəb uzunluq/simvol və manual şikayət/gizlətmə/operator prosesi; indeks/səhifə limiti; sabit event/PGS ID mapping və təkrarsız publication sınaqları. B10 trigger-ləri açıq deyil.",
+        "DT06: Attempt rezervasiyasının bitməsi/settle sərhədi, gecikmiş callback qaydası, placement/limit müqaviləsi; UMP yaş/region/privacy options, test/release ID konfiqurasiyası və itmiş callback davranışı.",
+        "DT07: Alış ilk Firebase UID-yə daimi bağlanır; başqa UID-yə avtomatik restore yoxdur. Hesab silindikdən sonra yeni UID-yə restore/transfer və support istisnası yoxdur. Etibarlı bağlanmanın icra modeli açıqdır; SKU/kataloq/qiymət, acknowledge retry və Play query reconcile sınaqları qalır.",
+        "DT08: Ən son cloud save-dən adi davam geri dönüş sayılmır və mövcud rewind statusunu qoruyur. Köhnə backup və ya konflikt nüsxəsindən bərpa geri dönüş sayılır; lineage üzrə rewindUsed=true qalır və sonrakı bərpa ilə silinmir.",
+        "DT09: Kotlin + Jetpack Compose seçilib; yüngül xəritə/at arabası hərəkətləri Compose Canvas/animasiya vasitələri ilə qurulacaq. targetSdk buraxılış vaxtındakı Google Play tələbinə uyğun olacaq; minSdk SDK uyğunluğu və cihaz sınaqlarına görə sonra seçiləcək. Bu qərar implementasiyaya başlama icazəsi deyil.",
+        "Konkret təlim fixture-i və addımların dizayn yoxlaması; B10 ayrımı/trigger-ləri qəbul edilib.",
+        "Kanonik sistem ekranları və D6 vizual/cihaz/dil yoxlamaları; əvvəlki PNG bu yeni mətn müqavilələrinin sübutu deyil."
+      ],
+      "next": "Yalnız seçilmiş bir D5 açıq texniki/policy input vahidini dəqiqləşdir və ya ayrıca kanonik dizayn vahidi; implementasiyaya başlama. D2–D4 mətn balans uyğunlaşdırılması tamamlanıb.",
+      "balanceAcceptance": {
+        "reference": "design/states/D5-system-spec.json",
+        "areas": [
+          "Xəbər və şayiə — D4 → D5 davamlılıq",
+          "Son gün və yekun hesablaşma — D2/D3/D4 → D5",
+          "Rekord kateqoriyaları — B09",
+          "Nailiyyət trigger-ləri — B10"
+        ],
+        "status": "text_contracts_aligned_not_runtime_or_visual_verified",
+        "source": "docs/decisions.json#balanceDecisions.confirmed"
+      },
+      "technicalAlignment": {
+        "reference": "design/states/D5-system-spec.json#technicalAlignment",
+        "source": "docs/IMPLEMENTATION_PLAN.az.md §6–8/12",
+        "status": "plan_design_aligned_not_implemented_or_validated"
+      },
+      "canonicalEntry": {
+        "status": "AZ_TR_RU_EN_P1_fontScale_matrix_rendered_reviewed_not_implemented",
+        "reference": "design/states/D5-entry-spec.json",
+        "output": "design/states/D5-entry-v1/overview.png",
+        "states": 16,
+        "scope": "F01/A01/A02 + entry-only C01 handoff",
+        "remaining": "Real Android/device/nonlinear fontScale/TalkBack/actual scroll and language switching; native translation review; Google branding/privacy URL. Other D5 units separate.",
+        "localizationRender": {
+          "localization": "design/states/D5-entry-localization.json",
+          "outputs": "design/states/D5-entry-localized-v2",
+          "verification": "design/states/D5-entry-localized-v2/verification.json",
+          "profiles": 12,
+          "stateProfiles": 192,
+          "fontScales": [
+            1,
+            1.3,
+            2
+          ],
+          "locales": [
+            "AZ",
+            "TR",
+            "RU",
+            "EN"
+          ]
+        }
+      },
+      "cloudConflict": {
+        "status": "static_measured_selected_renders_visually_reviewed_not_runtime",
+        "reference": "design/states/D5-cloud-spec.json",
+        "review": "design/states/D5-cloud-review.json",
+        "localization": "design/states/D5-cloud-localization.json",
+        "states": 22,
+        "locales": [
+          "AZ",
+          "TR",
+          "RU",
+          "EN"
+        ],
+        "fontScales": [
+          1,
+          1.3,
+          2
+        ],
+        "renders": [
+          {
+            "device": "phone",
+            "states": 264,
+            "captures": 721,
+            "allChecksPassed": true,
+            "verification": "design/states/D5-cloud-phone-v1/verification.json"
+          },
+          {
+            "device": "tablet",
+            "states": 264,
+            "captures": 293,
+            "allChecksPassed": true,
+            "verification": "design/states/D5-cloud-tablet-v1/verification.json"
+          }
+        ],
+        "policy": "C02 CAS/explicit selection + DT08 latest-continue vs conflict/old-backup rewind + DT02 retention gates",
+        "remaining": [
+          "AZ/TR/RU/EN complete for these 22 states; native editorial review pending",
+          "Synthetic linear fontScale 1/1.3/2; not Android nonlinear scaling",
+          "P1 landscape phone and P3 landscape tablet only",
+          "Not every capture individually inspected; line/control reachability and block geometry checked across matrix",
+          "No runtime sync/CAS/Rules/receipt/device/touch/TalkBack test",
+          "D6 global tokens remain proposal"
+        ]
+      }
+    },
+    "D6": {
+      "status": "adaptation_contract_draft_canonical_tokens_and_device_validation_pending",
+      "remaining": [
+        "Kanonik ekranların D1–D5 üzrə birləşdirilməsi; mövcud lövhələr onu əvəz etmir",
+        "Kanonik tokenlər, şrift və konkret supported viewport/minSdk",
+        "Real cihaz/emulator, toxunma, dörd dil və böyük şrift render matrisi",
+        "Animasiya müddətləri və asset storyboard kadrları",
+        "D2–D4 açıq məhsul qaydaları dəyişmir"
+      ],
+      "next": "Kanonik ekran/token layihəsi və açıq məhsul/texniki qərarlar; implementasiya yoxdur"
+    }
+  },
+  "balanceAlignmentD2D4": {
+    "source": "docs/decisions.json#/balanceDecisions/confirmed",
+    "resolvedFormerOpenTopics": [
+      "üçüncü marşrutun növü",
+      "şəhər adları və10mal bölgüsü",
+      "hadisə kataloqu",
+      "başlanğıc balansı",
+      "borc və müqavilə limitləri",
+      "gecikmiş səfərin rekord qaydası"
+    ],
+    "status": "text_specs_aligned_not_runtime_verified",
+    "boundary": "D5 spec/progress/texniki açıq sualları dəyişdirilməyib; D1 və qalan texniki/məhsul mövzuları ayrıca işdir."
+  },
+  "d1PixelCompositionTrial": {
+    "status": "art_composition_trial_complete_D1_not_final",
+    "review": "design/states/D1-pixel-composition-v5/review.json",
+    "verification": "design/states/D1-pixel-composition-v5/verification.json",
+    "renderer": "design/tools/render-d1-pixel-composition.swift",
+    "tokens": "design/states/D1-pixel-composition-tokens.json",
+    "profiles": 138,
+    "captures": 933,
+    "visuallyInspected": 12,
+    "allChecksPassed": true,
+    "scope": "Representative art review: P1 AZ1/AZ2/TR1/RU2/EN1; P3 AZ1. Full matrix pending",
+    "remaining": [
+      "Dedicated card grid, seven goods icons and polished responsive master/detail composition.",
+      "Compact3-column keypad; current individual digit keys are a scrollable one-column storyboard.",
+      "Complete empty/zero/negative/decimal/too-long input set; no-owned, price-change totals/confirmation, detailed purchase/new-batch outcome and equipment/final-level states.",
+      "Action-specific disabled targets are not separately measured when both sides disabled; production semantics pending.",
+      "D1 section/back navigation, state persistence, localization parity and full canonical matrix review.",
+      "D2–D6 final composition and animation storyboards; no game code before images complete."
+    ]
+  },
+  "D1_grid_keypad_v6": {
+    "status": "static_unit_not_D1_complete",
+    "verification": "design/states/D1-pixel-composition-v6/verification.json",
+    "review": "design/states/D1-pixel-composition-v6/review.json",
+    "gameCodeChanged": false
+  },
+  "D1_navigation_input_transaction_v7": {
+    "status": "D1_navigation_input_transaction_static_unit_not_final",
+    "review": "design/states/D1-pixel-composition-v7/review.json",
+    "verification": "design/states/D1-pixel-composition-v7/verification.json",
+    "profiles": 174,
+    "captures": 1010,
+    "remaining": [
+      "Seven goods icons and icons on cards.",
+      "Complete per-good detail renders and navigation/focus/persistence evidence; current detail fixture is cloth only.",
+      "Whole compact keypad remains scrollable; back is a scroll row, not fixed.",
+      "P3 master/detail composition and full locale/font/inset matrix.",
+      "Equipment upgrade/final-level states and remaining v5 state parity.",
+      "D2–D6 colored canonical designs and motion storyboards."
+    ],
+    "gameCodeChanged": false
+  },
+  "D1_D6_static_design_v8": {
+    "review": "design/states/D1-D6-design-v8/review.json",
+    "verification": "design/states/D1-D6-design-v8/verification.json",
+    "status": "D1_D6_static_design_pack_rendered_not_final_device_or_localization_signoff",
+    "captures": 306,
+    "scope": "All six groups have new static render artifacts; full canonical art, localization and device signoff remain. Do not infer runtime completeness.",
+    "gameCodeChanged": false
+  },
+  "D2_service_variants_v11": {
+    "review": "design/states/D2-services-v11/review.json",
+    "verification": "design/states/D2-services-v11/verification.json",
+    "status": "D2_service_static_variants_not_full_remaining_complete",
+    "captures": 16,
+    "visuallyInspected": 16,
+    "scope": "AZ P1 1x static service variants only; v10 broader remaining still open",
+    "gameCodeChanged": false
+  }
+}

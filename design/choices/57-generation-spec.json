@@ -1,0 +1,13 @@
+{
+  "tool": "image_gen built-in",
+  "jobs": [
+    [
+      "market",
+      "Create one landscape 16:9 BARTERUNE Android game UI screenshot, approved cozy pixel-art fantasy merchant style matching reference. Deep ink chrome, warm parchment, muted teal woods, terracotta buildings. Selected layout: slim top resource HUD Day 4/20 Gold 240 Load 12/20; upper quarter city caravanserai panorama; lower full-width market parchment panel. Left area goods list with List / Cards toggle (List active), columns Good Buy Sell Stock Owned, six visible rows and scroll hint for ten goods total. Goods only Grain Wood Cloth Spices Iron Salt Wool Herbs Mana Crystal Dragon Resin. Cloth selected: buy35 sell28 stock8 owned3. Right selected Cloth details Avg cost24, margin+4 per unit, quality100%, load2/unit. Quantity input 1 with minus/plus and Max. Two side-by-side buttons Buy35 and Sell28. Bottom nav Market active Map Cargo. A small separate annotated inset showing numeric keypad after tapping quantity, not obscuring main content. No extra Trade tab. Readable short English placeholder text. This is layout concept, not final rules. No phone frame."
+    ],
+    [
+      "57",
+      "Create ONE portrait comparison board titled '57 — CARGO', three large landscape 16:9 Android BARTERUNE game UI screenshots stacked vertically, labeled 57A, 57B, 57C prominently. Match reference approved cozy pixel art fantasy, ink chrome and parchment panels. SAME cargo data across choices: 5 Cloth at100% quality, 3 Cloth at60% quality, 4 Wood at100%. Show quantity quality average purchase cost, load bar. A: grouped-by-good expandable list, Cloth expanded shows both quality batches, Wood collapsed, selected batch details at right. B: flat batch list: Cloth100%, Cloth60%, Wood100% separate rows, selected batch details at right. C: illustrated goods-card grid, Cloth card total8 with quality indicator; selected Cloth side details shows two selectable batches 5 at100% and3 at60%. Consistent top HUD Day4/20 Gold240 and bottom nav Market Map Cargo active. No spoilage timers, no destruction button, no extra mechanics. Large readable controls and short English labels. Clear different organizations, same art and data. No device frames."
+    ]
+  ]
+}

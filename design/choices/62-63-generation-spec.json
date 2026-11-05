@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      62,
+      "EXPEDITION RESULTS",
+      "A: full-page merchant ledger, large Net Wealth score at top, clear settlement line items left, compact travel statistics right, bottom New Expedition / Main Menu buttons. B: cozy illustrated arrival celebration in upper quarter, large score and three summary cards below, Details button opens ledger (small inset). C: full-page route scrapbook, left illustrated journey route with three visited towns and small event markers, right score and settlement ledger, bottom New Expedition / Main Menu. Same completed expedition in all: Day20, cash before cargo sale500, automatic cargo sale+180, total debt deducted-120, Net Wealth560. These numbers must add correctly: 500+180-120=560. Upgrade residual value0; omit upgrades from settlement score. Rewind used badge prominently, show Personal Best (rewind used)620 and Best (no rewind) separate without mixing. Last town Sunport. No next-day play button. Distinct layout choices, no share or monetization buttons."
+    ],
+    [
+      63,
+      "SAVE SLOTS",
+      "A: three large horizontal save cards stacked, each with small city thumbnail and details and own Continue or New button. B: three save cards side by side, each large city illustration, details and own Continue/New button. C: left vertical list Slot1 Slot2 Slot3, selected slot details large at right with Continue, shows small map preview; empty slot entry clearly labeled Empty and New Expedition action. Same data: Slot1 Karvansara Day4/20 Gold240; Slot2 Frostgate Day12/20 Gold410 and Rewind used badge; Slot3 Empty. Landscape Android UI no device frames. Top title Your Expeditions. Bottom Back. Local saves, no account/login/cloud icon. Shared unlocks can be indicated with one small Shared unlocks label. Filled slots each have a small separate Manage button; NEVER one-tap delete or overwrite. Selected slot1. For C list labels must show day and town to distinguish them. Avoid invented additional save slots."
+    ]
+  ]
+}

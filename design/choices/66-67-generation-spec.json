@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      66,
+      "SETTINGS",
+      "A: full-page parchment settings, compact category list left Audio / Language / Display, Audio selected; right Music volume70 and Sound effects80 sliders and toggles Vibration on, Reduced motion off. Small Language preview AZ EN TR RU at lower right, no save delete. B: centered parchment settings modal over dimmed cozy main-menu caravanserai scene; tabs Audio / Language / Display across top; Audio selected with same controls and small Language preview AZ EN TR RU. C: full-page illustrated merchant desk background and a single large parchment panel with accordion sections Audio expanded (same controls), Language collapsed with current English, Display collapsed. Back button. Same options, vary layout only. No accounts, cloud, notifications, ads settings, or premium. No in-game money/day HUD. Controls proposed for confirmation, not previously settled behavior."
+    ],
+    [
+      67,
+      "RECORDS",
+      "A: full-page ledger records screen with two large clear tabs No rewind / Rewind used, No rewind selected. Left best score560 card, right expedition list with date, last city, score, Details action. B: two side-by-side large parchment panels No rewind and Rewind used, each has best score and short expedition list. C: full-page compact expedition history list, segmented filter All / No rewind / Rewind used, All selected, each row clearly marked category; top two separate best-score summary cards. Same sample data: Best no rewind560, best rewind used620; completed runs Sunport score560 No rewind, Frostgate score620 Rewind used, Sunport score430 No rewind. No global ranking, no network, no achievements or new unlock mechanisms. Back button. No in-game day/gold HUD. Short labels and clear category badges. Distinct layouts with identical records."
+    ]
+  ]
+}

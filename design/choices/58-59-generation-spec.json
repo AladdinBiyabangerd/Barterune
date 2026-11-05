@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      58,
+      "NEWS",
+      "A: news journal full page, left compact list of reports, right selected report with illustration, city, date, trust badge and effects. B: full-page illustrated news cards, each card has city/date and Fact or Rumor badge; selected detail below. C: parchment news drawer overlay on the map, compact reports list left within drawer and selected report right, map remains visible outside. All three show identical two items: FACT Frostgate cold spell, Day4, Wood demand up, lasts through Day7; RUMOR Sunport festival, Day4, Grain may rise, unconfirmed. Trust badge must use icon AND text, not color alone. Town last-seen prices clearly separate from news, no claim of guaranteed profit."
+    ],
+    [
+      59,
+      "UPGRADES",
+      "A: full-page workshop: three upgrade rows Bag / Wagon / Cargo Protection at left, selected upgrade details and before-after at right. B: workshop scene top quarter; lower area three large illustrated upgrade cards Bag / Wagon / Cargo Protection, each has current level and next benefit; selected detail section below. C: map remains behind centered workshop parchment modal; three tabs Bag / Wagon / Cargo Protection, Bag selected, large before-after preview and purchase button. All show identical selected Bag upgrade capacity20 to30, cost100, available gold240, Buy100 button. Wagon and Cargo Protection previews without invented numeric effects. Note This expedition only, no resale value. Do not show real money, premium gems, daily rewards."
+    ]
+  ]
+}

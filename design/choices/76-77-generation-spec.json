@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      76,
+      "SELL QUALITY BATCH",
+      "A: market selected Cloth details includes inline expandable batch selector before quantity. Two batch rows: 5 units at100% quality sell28 each; 3 units at60% quality sell17 each. Damaged batch selected, quantity2, Buy disabled while selecting owned batch, Sell34 button. B: centered small parchment batch-choice modal over dim market, same two rows and quantity2, selected damaged batch, Continue to sale button shows quote34 but does not execute transaction. C: small anchored parchment batch selector popover from Cloth quality field on market details, same two rows, damaged selected, Apply selection button; underlying quantity2 and Sell34 updates only after apply. Underlying market layout top-quarter town panorama, lower full-width market with goods list and right detail, List/Cards toggle, side-by-side Buy and Sell actions. The subject is how player explicitly chooses which quality batch to sell, NOT inventory layout (already grouped). Values17 and28 are mock data, no fixed price formula implied. No automatic mixing of batches, no one-click sale while choosing. Large clear quality badges, same data in all options."
+    ],
+    [
+      77,
+      "LOCAL SAVE RECOVERY",
+      "A: centered parchment warning modal over dim three-slot list, small torn ledger illustration. Title Slot1 could not be opened. A backup is available: Karvansara Day4. Actions Review backup / Retry / Back. Note Other slots and shared unlocks are safe. B: inline warning inside Slot1 card on three-slot list, same backup info and three actions, Slot2 and Slot3 remain normal and usable. C: full-page recovery screen with friendly scribe and damaged ledger left, same message and backup card right, same actions. No automatic deletion, no New expedition replacing corrupt data, no cloud/account requirements. Review backup opens preview and separate Restore confirmation, NOT instant overwriting. Backup is separate recovery snapshot, not player city rewind checkpoint; do NOT assign rewind record penalty in these mockups. Same situation and choices all layouts. No in-game gold/day HUD outside slot data."
+    ]
+  ]
+}

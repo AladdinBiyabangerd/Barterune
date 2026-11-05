@@ -1,0 +1,51 @@
+{
+  "date": "2026-11-03",
+  "firebase": {
+    "project_id": "barterune",
+    "plan": "Spark",
+    "android_package": "com.aladdin.barterune",
+    "app_id": "1:625403646183:android:566b4055abcacf41e89242",
+    "google_services_local_path": "/Users/mac/My Workspace/Barterune/config/firebase/google-services.json",
+    "analytics_enabled": false,
+    "gemini_requested_enabled": false
+  },
+  "play": {
+    "console_app_id": "4975590916599881823",
+    "sku_status": "blocked_before_creation_billing_permission_apk_required",
+    "package_bound_by_upload": false,
+    "desired_durable_skus": [
+      "barterune.skin.crimson_caravan",
+      "barterune.collection.merchants"
+    ],
+    "draft_prices_usd": {
+      "barterune.skin.crimson_caravan": "2.99",
+      "barterune.collection.merchants": "6.99"
+    },
+    "price_status": "existing_plan_hypotheses_not_activated"
+  },
+  "backend": {
+    "enabled": false,
+    "reason": "Console SKU creation, Play credential and HTTPS deployment are not ready"
+  },
+  "mobile": {
+    "module_path": "/Users/mac/My Workspace/Barterune/android-billing",
+    "kind": "library_not_uploadable_game_app",
+    "billing_library": "9.1.0",
+    "core_tests": 13,
+    "android_build": "passed",
+    "lint_errors": 0,
+    "active_modules": [
+      "core",
+      "android"
+    ]
+  },
+  "remaining": [
+    "Signed initial Play artifact with BILLING permission; upload and signing setup require a concrete next step.",
+    "Create and verify actual SKUs after Console unlock; select final prices before activation.",
+    "Dedicated Play verification credential and least-privilege access.",
+    "Firebase Auth Google provider and signing fingerprints; no auth settings were changed.",
+    "Real backend HTTPS origin and license-tester/device checks."
+  ],
+  "current_scope": "adapter_only",
+  "configuration_work": "deferred_by_user"
+}

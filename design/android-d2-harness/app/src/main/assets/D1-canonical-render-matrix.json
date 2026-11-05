@@ -1,0 +1,903 @@
+{
+  "status": "render_matrix_proposal_not_approved_not_executed",
+  "scope": "D1 tam 10 mal + seçilmiş mal detalı + ayrı alış/satış preview kompozisiyası üçün plan. Oyun implementasiyası deyil.",
+  "sources": [
+    "design/states/D6-adaptation-spec.json",
+    "design/states/D6-canonical-token-proposal.json",
+    "design/states/D1-trade-spec.json",
+    "design/states/D1-quantity-review-v2-spec.json",
+    "design/states/D1-remaining-spec.json",
+    "design/states/D1-generation-spec.json"
+  ],
+  "profiles": [
+    {
+      "id": "P1",
+      "name": "Kiçik üfüqi telefon stress profili",
+      "outerDp": [
+        640,
+        360
+      ],
+      "density": 2,
+      "outputPx": [
+        1280,
+        720
+      ],
+      "safeInsetsDp": {
+        "left": 0,
+        "top": 24,
+        "right": 0,
+        "bottom": 24
+      },
+      "usableDp": [
+        640,
+        312
+      ],
+      "insetPolicy": "Sistem barları və cutout üçün kənarların birləşmiş maksimumu; iki dəfə çıxılmır. Dekor kənara uzana bilər, məlumat və toxunma hədəfi safe rect daxilindədir.",
+      "status": "synthetic_render_fixture_not_device_measurement"
+    },
+    {
+      "id": "P2",
+      "name": "Uzun üfüqi telefon, solda cutout stress profili",
+      "outerDp": [
+        800,
+        360
+      ],
+      "density": 3,
+      "outputPx": [
+        2400,
+        1080
+      ],
+      "safeInsetsDp": {
+        "left": 32,
+        "top": 24,
+        "right": 0,
+        "bottom": 24
+      },
+      "usableDp": [
+        768,
+        312
+      ],
+      "insetPolicy": "Sistem barları və cutout üçün kənarların birləşmiş maksimumu; iki dəfə çıxılmır. Dekor kənara uzana bilər, məlumat və toxunma hədəfi safe rect daxilindədir.",
+      "status": "synthetic_render_fixture_not_device_measurement"
+    },
+    {
+      "id": "P3",
+      "name": "Üfüqi planşet",
+      "outerDp": [
+        1280,
+        800
+      ],
+      "density": 2,
+      "outputPx": [
+        2560,
+        1600
+      ],
+      "safeInsetsDp": {
+        "left": 0,
+        "top": 24,
+        "right": 0,
+        "bottom": 24
+      },
+      "usableDp": [
+        1280,
+        752
+      ],
+      "insetPolicy": "Sistem barları və cutout üçün kənarların birləşmiş maksimumu; iki dəfə çıxılmır. Dekor kənara uzana bilər, məlumat və toxunma hədəfi safe rect daxilindədir.",
+      "status": "synthetic_render_fixture_not_device_measurement"
+    }
+  ],
+  "insetVariants": [
+    {
+      "id": "I0",
+      "rule": "Profilin əsas insets dəyərləri."
+    },
+    {
+      "id": "I1",
+      "profiles": [
+        "P1",
+        "P2"
+      ],
+      "safeInsetsDp": {
+        "left": 0,
+        "top": 24,
+        "right": 32,
+        "bottom": 24
+      },
+      "rule": "Sağ cutout və RTL olmayan eyni LTR mətn; sol/sağ əlçatanlığı yoxla."
+    },
+    {
+      "id": "I2",
+      "profiles": [
+        "P1",
+        "P2"
+      ],
+      "safeInsetsDp": {
+        "left": 48,
+        "top": 24,
+        "right": 0,
+        "bottom": 0
+      },
+      "rule": "Solda üç düyməli naviqasiya sahəsi üçün sintetik stress; heç bir cihazın ölçüsü kimi qəbul edilmir."
+    }
+  ],
+  "viewportPolicy": "Bütün ölçülər bu planın namizədləridir; supported minimum, minSdk, orientation və production breakpoint qərarı deyil. Profil ölçüsü sistem sahələri daxil outer window-dur. IME bu əsas matrisə daxil deyil: miqdar daxili keypad ilə ayrıca ssenaridir.",
+  "fontCandidates": [
+    {
+      "id": "F1",
+      "body": "Noto Sans",
+      "headings": "Noto Sans",
+      "weights": [
+        400,
+        600,
+        700
+      ],
+      "purpose": "Bütün məlumat və əməliyyatlarda vahid əsas namizəd."
+    },
+    {
+      "id": "F2",
+      "body": "Noto Sans",
+      "headings": "Noto Serif",
+      "weights": [
+        400,
+        600,
+        700
+      ],
+      "purpose": "Yalnız ekran/section başlıqları serif; HUD, qiymət, miqdar, düymə və xəbərdarlıq sans qalır."
+    }
+  ],
+  "fontEvidence": {
+    "primarySource": "https://notofonts.github.io/noto-docs/website/use/",
+    "fontSource": "https://github.com/notofonts/latin-greek-cyrillic",
+    "basis": "Noto Sans və Noto Serif ailələrinin Latin/Cyrillic əhatəsi namizəd seçiminin əsaslandırılmasıdır; konkret binary üzrə qlif testi hələ yoxdur.",
+    "beforeRender": [
+      "TTF/OTF versiyası, fayl yolu, SHA-256 və lisenziya faylını qeydə al.",
+      "Əə Iı İi Şş Ğğ Çç Öö Üü və rus kiril əlifbasını hər çəkidə yoxla; səssiz fallback uğur sayılmır.",
+      "Sintetik bold istifadə etmə; ölçü və fallback manifestdə qeyd edilsin."
+    ]
+  },
+  "typeTrial": {
+    "status": "render_trial_only_not_canonical_tokens",
+    "sourcePolicy": "Kanonik typography dəyərləri hələ null-dur. Aşağıdakı ayrıca namizəd şkalası board px-dən götürülməyib; yalnız müqayisəli render üçün təklifdir.",
+    "roles": {
+      "screenTitle": {
+        "sizeSp": 20,
+        "lineHeightSp": 28,
+        "weight": 700
+      },
+      "sectionTitle": {
+        "sizeSp": 18,
+        "lineHeightSp": 24,
+        "weight": 600
+      },
+      "body": {
+        "sizeSp": 16,
+        "lineHeightSp": 24,
+        "weight": 400
+      },
+      "label": {
+        "sizeSp": 16,
+        "lineHeightSp": 24,
+        "weight": 600
+      },
+      "supporting": {
+        "sizeSp": 14,
+        "lineHeightSp": 20,
+        "weight": 400
+      },
+      "numeric": {
+        "sizeSp": 16,
+        "lineHeightSp": 24,
+        "weight": 600
+      }
+    },
+    "scaling": "Statik ilk renderdə sp və lineHeight × fontScale × density; bu xətti simulyasiya Android-in real font scaling davranışının sübutu deyil. Son emulator mərhələsində faktiki fontScale/OS və ölçülən sp→px qeyd edilir. Mətn ölçüsü layouta sığmaq üçün kiçildilmir.",
+    "numeric": "Tabular rəqəm xüsusiyyəti binary-də varsa yoxlanır; yoxdursa rəqəmlər ayrıca hizalanır. Pul/miqdar kəsilmir."
+  },
+  "composition": {
+    "regions": [
+      "Şəhər/panorama — məkan və xidmət girişləri saxlanır, dekor hündürlüyü məzmuna yer verir",
+      "Cari HUD — gün, pul, yük; preview ilə qarışmır",
+      "Mal siyahısı/kartlar — 10 malın hamısı sürüşmə ilə əlçatandır",
+      "Seçilmiş mal — alış/satış vahid qiyməti, ehtiyat, sahiblik, vahid yük, partiyalar, maya/marja",
+      "Miqdar və ayrı alış/satış maksimumları",
+      "Ayrı alış və satış preview-ləri, yanaşı Al/Sat və səbəb mətnləri",
+      "Bazar/Xəritə/Yük naviqasiyası"
+    ],
+    "goodsIds": [
+      "grain",
+      "wood",
+      "cloth",
+      "spices",
+      "iron",
+      "salt",
+      "wool",
+      "herbs",
+      "mana_crystal",
+      "dragon_resin"
+    ],
+    "goodsSource": "D1-generation-spec.json; lokal adlar və son tərcümələr ayrıca fixture faylında hazırlanmalıdır, bu plan tərcümə təsdiqi deyil.",
+    "layoutTrials": {
+      "P1": "İki sütun sınağı; sığmırsa siyahı → detal keçidi. Detaldan geri qayıdanda 10 mal, scroll və seçim qorunur.",
+      "P2": "İki sütun ilkin namizəd; siyahı və detal ayrı sürüşür. 1.3x/2x-də eyni qəbul meyarı ilə master/detail namizədi yoxlanır.",
+      "P3": "İki sütun; mətn eni nəzarətlidir, boş sahə mətnin sonsuz uzanması üçün istifadə edilmir. Maksimum en və sütun nisbəti renderdən sonra seçilir."
+    },
+    "invariants": [
+      "Tam 10 mal eyni viewportda eyni anda görünməli deyil; 1-ci və 10-cu mala çıxış sübut edilməlidir.",
+      "Al/Sat yanaşı; iki preview ayrı etiketlidir və cari HUD dəyişmir.",
+      "Əməliyyatlar sürüşmə ilə əlçatandır; kritik preview/səbəb üstünü fixed element örtmür.",
+      "2x-də daha az dekor və daha çox sürüşmə qəbul edilir; məlumatı silmək və şrifti azaltmaq qəbul edilmir.",
+      "Siyahı/kart eyni məlumat və seçimi saxlayır; sığmayan cədvəl sütunları etiketli sətirlərə çevrilə bilər."
+    ]
+  },
+  "fixturePolicy": {
+    "base": "D1-trade-spec.json fixture və T01; seçilmiş cloth, quantity2, gold500, load16/40, buy35, sell28, healthy5/damaged3. Digər malların owned=0 olması ayrıca stress fixture seçimi kimi qeyd edilməlidir.",
+    "previews": [
+      "Alış: 2×35=70; pul500→430, yük16→20",
+      "Satış: 2×28=56; pul500→556, yük16→12"
+    ],
+    "max": [
+      "Alış min(floor500/35, floor24/2,30)=12",
+      "Satış seçilmiş sağlam partiya üzrə5"
+    ],
+    "missingData": "Qalan 9 malın qiymət/ehtiyat/yük və bütün lokal adları bu spec-də yoxdur. Renderdən əvvəl ayrıca deterministik fixture hazırlanmalı; rəqəmlər balans və iqtisadiyyat təsdiqi sayılmamalıdır. Boş/uydurulmuş sütunlar yekun canonical screenshot kimi qəbul edilmir."
+  },
+  "matrix": {
+    "axes": {
+      "profiles": [
+        "P1",
+        "P2",
+        "P3"
+      ],
+      "fonts": [
+        "F1",
+        "F2"
+      ],
+      "languages": [
+        "AZ",
+        "TR",
+        "RU",
+        "EN"
+      ],
+      "fontScale": [
+        1.0,
+        1.3,
+        2.0
+      ]
+    },
+    "baseCaseCount": 72,
+    "cases": [
+      {
+        "id": "P1-F1-AZ-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-AZ-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-AZ-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-TR-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-TR-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-TR-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-RU-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-RU-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-RU-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-EN-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-EN-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F1-EN-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-AZ-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-AZ-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-AZ-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-TR-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-TR-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-TR-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-RU-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-RU-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-RU-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-EN-S1p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-EN-S1p3",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P1-F2-EN-S2p0",
+        "profile": "P1",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-AZ-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-AZ-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-AZ-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-TR-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-TR-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-TR-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-RU-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-RU-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-RU-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-EN-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-EN-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F1-EN-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-AZ-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-AZ-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-AZ-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-TR-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-TR-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-TR-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-RU-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-RU-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-RU-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-EN-S1p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-EN-S1p3",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P2-F2-EN-S2p0",
+        "profile": "P2",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-AZ-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-AZ-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-AZ-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "AZ",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-TR-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-TR-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-TR-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "TR",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-RU-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-RU-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-RU-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "RU",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-EN-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-EN-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F1-EN-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F1",
+        "language": "EN",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-AZ-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-AZ-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-AZ-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "AZ",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-TR-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-TR-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-TR-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "TR",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-RU-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-RU-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-RU-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "RU",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-EN-S1p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 1.0,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-EN-S1p3",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 1.3,
+        "status": "planned_not_rendered"
+      },
+      {
+        "id": "P3-F2-EN-S2p0",
+        "profile": "P3",
+        "fontCandidate": "F2",
+        "language": "EN",
+        "fontScale": 2.0,
+        "status": "planned_not_rendered"
+      }
+    ],
+    "perCaseCaptureSet": [
+      "C1: təsdiqlənmiş bölməli müqavilə — eyni vəziyyət üzrə ayrıca siyahı başlanğıcı, Mal, Partiyalar və ayrı alış/satış önizləmələri; detal capture-larında sabit cari HUD; ölçülmüş əlavə capture-lar mümkündür. Mənbə: D1-render-fixture.json#/captureContract/C1",
+      "C2: siyahı sonu/10-cu mal; detal scroll sonunda maksimumlar və Al/Sat",
+      "C3: kart rejimi və eyni seçilmiş mal; overflow və məna bərabərliyi"
+    ],
+    "minimumBaseCaptures": 216,
+    "masterDetailEvidence": "Əgər keçid layoutu seçilibsə C1/C2 üçün həm siyahı, həm detal screenshot-u əlavə edilir; 216 minimumdur.",
+    "localizedText": "Hər dil üçün bütün görünən etiketlər, 10 ad, partiya və səbəb mətnləri tamamlanmalıdır. D6 stress nümunələri tam D1 tərcüməsi deyil.",
+    "supplementalStress": "P1/P2 × F1/F2 × RU ×2x üçün I1 və I2 × C1/C2/C3: əlavə24 minimum capture. Bunlar baza72 kombinasiya ilə qarışdırılmır."
+  },
+  "stateStress": {
+    "cases": [
+      "L05–L08 ehtiyat/pul/tutum/çoxlu səbəb",
+      "O01/O03/O05 pending/naməlum nəticə/bazar yeniləmə xətası",
+      "T05 sağlam partiya bitməsi, avtomatik seçim yoxdur",
+      "Miqdar: boş/0/6 rəqəm/keypad açıq; Al/Sat kilidli"
+    ],
+    "sampling": "Əvvəl P1-RU-2x hər iki font; sonra P3-AZ-1x. Mətn/layout dəyişəndə həmin vəziyyəti təsirlənən dillər/profillərə genişləndir. Bu seçim bütün D1 coverage-in keçməsi deyil."
+  },
+  "acceptance": [
+    "Pul/miqdar/gün/riski və passiv səbəbini ellipsis və ya clipping gizlətmir.",
+    "Əsas və ikinci preview faktiki HUD-dan aydın ayrılır; uyğun olmayan əməliyyat aktiv görünmür.",
+    "48dp toxunma hədəfləri safe rect daxilində və üst-üstə düşmədən ölçülür; statik şəkil TalkBack testi deyil.",
+    "Düz və teksturalı real fon üzrə mətn4.5:1; mənalı fokus/seçim sərhədi3:1 ayrıca ölçülür.",
+    "Hər dildə bütün10 mal və eyni əməliyyatlar əlçatandır; bütün kritik glyphlər görünür.",
+    "Sütun/reflow seçimi hər profil/scale üçün nəticə manifestində əsaslandırılır; breakpoint bu plandan avtomatik çıxarılmır."
+  ],
+  "evidenceManifest": [
+    "caseId, captureId, fixture versiyası/hash",
+    "outerDp, usableDp, density, outputPx, real insets",
+    "font binary/hash/weight, requested və faktiki fontScale",
+    "language, localization fixture hash, layout mode, scroll offset",
+    "screenshot yolu, vizual baxış qeydi, clipping/contrast/touch ölçmələri",
+    "planned/rendered/inspected/pass/fail/blocked statusu; görülməyən iş pass deyil"
+  ],
+  "preservedOpenWork": [
+    "Teksturalı fon üzrə rəng rolları",
+    "Seçilmiş/passiv/fokus/xəta vəziyyətlərinin tam palitrası",
+    "AZ/TR/RU/EN qlifli əsas və dekorativ şrift",
+    "dp/sp spacing/type/radius ölçüləri; review-board piksel ölçüləri daşınmır",
+    "Dark mode əhatəsi təsdiqlənməyib; avtomatik inversiya yoxdur",
+    "Kanonik ekranların D1–D5 üzrə birləşdirilməsi; mövcud lövhələr onu əvəz etmir",
+    "Kanonik tokenlər, şrift və konkret supported viewport/minSdk",
+    "Real cihaz/emulator, toxunma, dörd dil və böyük şrift render matrisi",
+    "Animasiya müddətləri və asset storyboard kadrları",
+    "D2–D4 açıq məhsul qaydaları dəyişmir"
+  ],
+  "productBlockers": "Əvvəlki current-task.md D5/D6 qeydlərindəki D1 iqtisadiyyat, D2–D5 məhsul/kompozisiya, Spark save/sync/alış/deletion və digər texniki açıq məsələlər dəyişmir. Bu plan font, viewport və token təsdiqi deyil.",
+  "checks": {
+    "json": "passed",
+    "matrix": "72 unique cases; 216 base minimum captures +24 inset stress; profile safe rectangles checked",
+    "render": "not_executed",
+    "device": "not_executed",
+    "implementation": "not_started"
+  },
+  "nextStep": "Yalnız ayrıca D1 render fixture/localization və font binary manifestini hazırla; sonra P1-RU-2x-də F1/F2 ilk statik kompozisiya renderini müqayisə et. Oyun implementasiyasına başlama.",
+  "captureContractSource": "design/states/D1-render-fixture.json#/captureContract; C1 revised by user approval 2026-11-03; C2 unchanged"
+}

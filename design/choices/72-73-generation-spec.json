@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      72,
+      "ROAD BLOCKED",
+      "A: illustrated central event modal over dim map, washed-out wooden bridge scene on top; three clearly stacked choice rows beneath. B: same central event modal and same illustration but three side-by-side choice cards below. C: same central event modal with illustration on left and three stacked choices on right. Keep already-approved central illustrated event-window family for ALL alternatives, no new fullscreen style. Same situation Day8/20 travelling from Karvansara to Pinehaven, Gold50. Title Bridge washed out. Choice Wait: +1 day, 0 gold; Detour: +0 days, 15 gold; Return: +1 day, 0 gold, back to Karvansara. Show selected choice preview and Confirm button; no consequence applied until confirm. All action costs visible. No combat, no invented price information. Exact same event content and numbers each layout."
+    ],
+    [
+      73,
+      "LAST DAY EMERGENCY",
+      "A: centered illustrated event modal on dim map, exhausted wagon near city gate, title No time left, two side-by-side choice cards: Emergency aid / Arrive Day20 / Adds30 debt; Finish the road / Arrive Day21 / Marked Late. B: same modal family, image at left and two stacked choice rows at right, same consequences. C: same modal family with small image banner top and wide two-row comparison table labelled Option / Arrival / Cost, selecting a row shows Confirm below. Same situation Day20/20 Gold0, no tradable cargo, one day of road remains due event. Both choices stay available; do not propose unavailable cash or cargo payment. Note Existing debt unchanged except aid adds30. No unconfirmed score penalty for late arrival, only Late marker. Costs are sample data pending final balance. Explicit Confirm and Cancel back to decision; cancel cannot dismiss unresolved emergency to bypass choice. No real money."
+    ]
+  ]
+}

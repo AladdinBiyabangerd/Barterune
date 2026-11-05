@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      64,
+      "MAIN MENU",
+      "A: full cozy pixel-art caravanserai courtyard illustration, title at upper left, vertical menu on parchment panel at right. B: full landscape road panorama with merchant wagon central, title centered top, large horizontal menu buttons across lower third. C: merchant desk foreground with ledger, folded map and coins, town visible through window; parchment menu panel left and title above. Same menu actions in all: Continue (small subtitle Slot1 Day4), Expeditions (opens three slots), Records, Settings. Small separate Tutorial link. No Play purchase, Shop, daily rewards, account or locked modes; permanent progression mode planned later and not offered as playable now. NO in-game day/gold/load HUD on main menu. Clear Continue primary and Expeditions secondary. Same original fantasy visual identity, distinguish only composition."
+    ],
+    [
+      65,
+      "FIRST TRADE TUTORIAL",
+      "A: live market UI with a spotlight on Cloth row, rest dimmed, compact attached coachmark with guide portrait, text 'Select Cloth to inspect its price', Step1/4 and Skip tutorial. B: live market UI fully visible, bottom-quarter parchment guide dialogue strip with portrait, same instruction Step1/4 and Skip tutorial, Cloth row highlighted. C: before live market interaction, large illustrated parchment instruction modal over dimmed market, guide portrait, same instruction and large Try it button, Step1/4 and Skip tutorial. Same underlying selected market layout: top-quarter town panorama, lower market list at left, selected good details right, List/Cards toggle, side-by-side Buy35 and Sell28 buttons, editable quantity. Header Day1/20 Gold240. Exact tutorial instruction short and readable. Do not claim passive modal is interactive; C Try it dismisses instruction for actual interaction. Tutorial is skippable, no compulsory purchase or premium currency. Only show first step, no made-up rewards."
+    ]
+  ]
+}

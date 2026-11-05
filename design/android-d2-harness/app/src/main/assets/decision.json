@@ -1,0 +1,62 @@
+{
+  "status": "full_static_control_matrix_verified_and_sampled_d2_design_accepted_not_production_approved",
+  "caseCount": 19488,
+  "captures": 49278,
+  "scope": "All 40 payment fixtures × AZ/TR/RU/EN × 1/1.3/2 linear scale × P1/P2 I0/I1/I2 and P3 I0; normal, primary/back pressed, focused, focused+pressed; disabled primary interactions excluded.",
+  "selectionEvidence": "Full fixture cross-product; no widest-label subset.",
+  "bindings": {
+    "focusedPressed": "Outer paper frameEdge perimeter; nav inset frameEdge contour; paper inset 2×frameEdge fill; nav label. Focus and pressed both remain represented.",
+    "otherStates": "Prior pilot candidate appearance retained; disabled primary has no focused/pressed variants."
+  },
+  "geometryDecision": "Accepted by explicit user instruction on 2026-11-04 for D2 static design: inset on each vertical side in all action variants; height=max(target, shaped label height + 2×inset). Horizontal inset unchanged. Normal and interaction geometry identical. Pagination follows the enlarged action geometry; previous canonical geometry is not the baseline.",
+  "tokens": {
+    "colors": "D6-canonical-token-proposal.json referenceColors nav/paper",
+    "geometry": "D1-pixel-composition-tokens.json inset/frameEdge/target/margin/gap/maxTextWidth",
+    "type": "D1-canonical-render-matrix.json typeTrial; bundled NotoSans and Symbols"
+  },
+  "verification": "verification.json",
+  "visualReview": "visual-review.json",
+  "contrast": 10.994183518955204,
+  "unchanged": [
+    "source tokens and hashes",
+    "localization",
+    "fixtures and payment semantics",
+    "previous pilot and matrices",
+    "game code"
+  ],
+  "limits": [
+    "Full static matrix only; no production approval.",
+    "Static linear scale and simulated pages are not Android nonlinear scaling or interactive scroll proof.",
+    "No device, real focus navigation, TalkBack, press timing, persistence or provider proof.",
+    "Disabled explanation accessibility association, global disabled tokens and native-language editorial signoff remain open."
+  ],
+  "nextStep": "This full static control matrix is complete. Await a separate design/device/accessibility scope. Do not begin game implementation.",
+  "designAcceptance": {
+    "date": "2026-11-04",
+    "authority": "Explicit user instruction in continuation chat",
+    "scope": "D2 static design only",
+    "accepted": [
+      "focusedPressed binding as documented",
+      "inset vertical padding on both sides for all action variants; max(target, shaped label height + 2×inset)"
+    ],
+    "limits": [
+      "No production, global token or game implementation approval"
+    ],
+    "nextStep": "Full control matrix using accepted rules"
+  },
+  "rendering": "Normal geometry is measured for all 3360 base cases. Interaction variants reuse identical normal page pixels and repaint only the selected control. Unchanged pages are hardlinked; all captures have independent manifest entries. --resume is only for unchanged sources and renderer.",
+  "layoutCounts": {
+    "two-pane": 6828,
+    "reflow": 12660
+  },
+  "extensionRegression": {
+    "geometryCases": 232,
+    "pixelCaptures": 545,
+    "pixelMismatches": 0,
+    "evidence": "extension-pixel-regression.json"
+  },
+  "visualReviewCounts": {
+    "contactSheets": 12,
+    "nativeCaptures": 14
+  }
+}

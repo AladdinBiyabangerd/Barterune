@@ -1,0 +1,16 @@
+{
+  "tool": "image_gen built-in",
+  "reference": "design/reference/selected-pixel-map.png",
+  "jobs": [
+    [
+      78,
+      "WAIT ONE DAY",
+      "A: compact central parchment confirm modal over dim city market, day transition8 to9, gold cost0, next loan due Day10 stays unchanged; note Market stocks, prices and news may change; buttons Cancel / Wait1day. B: same content in right parchment action drawer over town panorama and market, day calendar illustration and stacked summary; same Cancel / Wait1day. C: small anchored parchment confirmation popover attached to Wait1day button on city screen, same information in compact lines. All same state Gold240, Day8/20. Do not preview future price numbers or reveal future news, only indicate changes possible. Waiting does not charge daily fee. No realtime timer. No automatic passage until confirm. Note no guarantee of better prices. Only compare confirmation layout, not new mechanics."
+    ],
+    [
+      79,
+      "FINAL CARGO SALE",
+      "A: centered parchment end-of-expedition review modal over dim Sunport market, title Finish expedition, summary Cargo sale+180, Cash500, Debt-120, Net wealth560, collapsed expandable View cargo batches row; primary Sell cargo and finish, secondary Back to market. B: full-page ledger with left cargo batch list totaling180 and right same settlement summary and actions. C: market-right panel replaces selected-good details with same settlement preview, market list left still visible, title Finish expedition, View cargo batches expandable, same actions. All same Day20/20, 3 Cloth100% at28 each=84, 4 Wood100% at24 each=96, total180; cash500, debt120, net560. No upgrade resale included. The cargo sale and debt settlement happen ONCE only after explicit finish confirmation; Back returns to same final-day market and does not pass time. This is pre-result review, not celebratory result screen already chosen. No new routes, no purchase prompts, no invented tax."
+    ]
+  ]
+}
