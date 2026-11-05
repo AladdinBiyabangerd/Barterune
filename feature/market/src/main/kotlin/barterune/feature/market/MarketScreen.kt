@@ -85,8 +85,7 @@ data class MarketActions(
 val DesignSafeInsets = WindowInsets(top = BarteruneSpacing.SafeTop, bottom = BarteruneSpacing.SafeBottom)
 
 /**
- * Adaptive market: two columns (D1-P3-master-detail, D6 V04) when list and detail both get the full
- * maxTextWidth; otherwise phone master/detail (D1-pixel-composition-v7, D6 V03).
+ * Market: D1 v7 composition on every profile (P1 v7, P2/P3 D1-device-matrix-v15); quantity uses D1-keypad-fixed-v16.
  */
 @Composable
 fun MarketScreen(
@@ -98,36 +97,9 @@ fun MarketScreen(
     BoxWithConstraints(modifier.fillMaxSize().background(BarteruneColors.Background)) {
         val inner = Modifier.windowInsetsPadding(safeInsets)
         val keypad = state.keypad
-        if (keypad != null) QuantityKeypad(keypad, actions.onDigit, actions.onBackspace, actions.onApply, actions.onCancel, inner)
-        else if (maxWidth >= BarteruneSpacing.MaxTextWidth * 2) TwoColumnMarket(state, actions, inner)
+        // v16 keypad: tablet pair is bounded to 2×maxTextWidth and vertically centred. Profile switch width is not designed (design-gaps.md §5).
+        val tablet = maxWidth >= BarteruneSpacing.MaxTextWidth * 2
+        if (keypad != null) QuantityKeypad(keypad, state.detail.goodId, tablet, actions.onDigit, actions.onBackspace, actions.onApply, actions.onCancel, inner)
         else CompactMarketScreen(state, actions, inner)
-    }
-}
-
-/** D1-P3 master/detail market: HUD, panorama, goods list, selected-good detail with Al/Sat. */
-@Composable
-private fun TwoColumnMarket(state: MarketUiState, actions: MarketActions, modifier: Modifier = Modifier) {
-    Column(
-        modifier
-            .fillMaxSize()
-            .padding(horizontal = BarteruneSpacing.Margin),
-    ) {
-        GameHud(stringResource(R.string.market_hud, state.day, state.totalDays, state.gold, state.load, state.capacity))
-        Spacer(Modifier.height(BarteruneSpacing.Gap))
-        PixelArt(GoodArt.MarketPanorama, Modifier.fillMaxWidth().height(BarteruneSpacing.ArtHeight))
-        Spacer(Modifier.height(BarteruneSpacing.Gap))
-        BoxWithConstraints(Modifier.fillMaxWidth().weight(1f)) {
-            // P3 list width is maxTextWidth; narrower windows split the row evenly (no phone master/detail PNG yet).
-            val listWidth = min(BarteruneSpacing.MaxTextWidth, (maxWidth - BarteruneSpacing.Gap) / 2)
-            Row(Modifier.fillMaxSize()) {
-                ParchmentPanel(Modifier.width(listWidth).fillMaxHeight()) {
-                    GoodList(state.rows, actions.onSelect, Modifier.fillMaxSize())
-                }
-                Spacer(Modifier.width(BarteruneSpacing.Gap))
-                ParchmentPanel(Modifier.weight(1f).fillMaxHeight()) {
-                    GoodDetailPanel(state.detail, state.busy, actions.onQuantity, actions.onBuy, actions.onSell)
-                }
-            }
-        }
     }
 }
