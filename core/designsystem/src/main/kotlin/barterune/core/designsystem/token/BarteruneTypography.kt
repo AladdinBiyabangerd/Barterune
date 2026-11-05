@@ -6,6 +6,7 @@ import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontVariation
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.LineHeightStyle
 import androidx.compose.ui.unit.sp
 import com.aladdin.barterune.core.designsystem.R
 
@@ -24,7 +25,14 @@ object BarteruneTypography {
     val NotoSans = FontFamily(noto(400), noto(600), noto(700))
 
     private fun role(size: Int, line: Int, weight: Int) =
-        TextStyle(fontFamily = NotoSans, fontSize = size.sp, lineHeight = line.sp, fontWeight = FontWeight(weight))
+        TextStyle(
+            fontFamily = NotoSans,
+            fontSize = size.sp,
+            lineHeight = line.sp,
+            fontWeight = FontWeight(weight),
+            // Full line box like the CoreText renderer (lines advance by lineHeightSp, no trimming).
+            lineHeightStyle = LineHeightStyle(LineHeightStyle.Alignment.Center, LineHeightStyle.Trim.None),
+        )
 
     val ScreenTitle = role(20, 28, 700)
     val SectionTitle = role(18, 24, 600)
