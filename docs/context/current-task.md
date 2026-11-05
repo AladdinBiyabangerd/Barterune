@@ -2977,3 +2977,53 @@
 - Paparazzi render-ləri D1-P3 və D1-keypad PNG-ləri ilə yan-yana müqayisə edildi (output/m1/, commit edilmir). Emulator/cihazda yoxlanmayıb.
 ### Exact next step
 - İstifadəçi branch-ı nəzərdən keçirib OK versin; sonra M1.5 üçün ayrıca branch.
+
+## D1 P2/P3 dil və şrift matrisi — 5 noyabr 2026
+
+### Completed
+- P2 və P3 üçün mövcud 30 D1 vəziyyəti × AZ/TR/RU/EN × 1.0/1.3/2.0: 720 kombinasiya, 3313 scroll PNG. İndeks və 8 kontakt lövhəsi hazırdır.
+### Current state
+- `design/states/D1-device-matrix-v15/`; yalnız statik Swift/CoreText dizayn renderi. Oyun/harness kodu dəyişməyib; əvvəlki v15 saxlanılıb.
+### Decisions
+- Mənbə generator 29 vəziyyət verirdi; ayrıca tarixi `equipment-final` 30-cu vəziyyət kimi daxil edildi.
+- P2 2400×1080/3×, sol cutout 32dp; P3 2560×1600/2×. Mövcud token/art/localization saxlanılıb.
+- 1.3x/2.0x kartlarda bir sütun; məlumat və detalları aç düyməsi ayrıdır. Scroll kənarında qismən sətirlər nəzərdə tutulur; hər sətir və bütöv action ən az bir capture-da görünür.
+### Remaining work
+- Android nonlinear font scaling, real scroll/touch/TalkBack və ana dili redaktəsi yoxlanmayıb. Bütün 3313 PNG fərdi nəzərdən keçirilməyib.
+### Relevant files
+- design/tools/render-d1-device-matrix-v15.swift
+- design/tools/verify-d1-device-matrix-v15.py
+- design/tools/render-d1-device-matrix-contact.swift
+- design/states/D1-device-matrix-v15/{index.html,README.md,review.json,verification.json,coverage.json}
+### Checks performed
+- Swift compile/render exit0; verifier:720 kombinasiya,3313 düzgün native PNG ölçüsü,missingGlyphs=0,allChecksPassed=true. Nav/paper kontrast10.994:1.
+- 8 kontakt lövhəsində128 başlanğıc thumbnail, əlavə native P2 AZ preview/P3 AZ detail/P2 AZ2 cards/P2 RU1.3 cards/P3 RU2 preview/P2 RU2 quantity nümunələri açılıb baxıldı. Native scroll kənar clipping nəzərdə tutulur.
+### Exact next step
+- Bu vahid tamamdır. İstifadəçi `D1-device-matrix-v15/index.html` ilə nəticələrə baxsın; yeni iş verilərsə yalnız konkret ekran/device düzəlişindən başla. Bu nəticə oyun implementasiyasına yeni göstəriş deyil.
+
+## D1 sabit klaviatura + Qızıl qərarı — 5 noyabr 2026
+
+### Completed
+- İstifadəçinin 12 bəndlik siyahısından 2/7: telefon və planşet üçün sabit klaviatura statik dizaynı. P1/P2/P3 × AZ/EN/RU/TR × 1.0/1.3/2.0 × 6 valid/error vəziyyəti:216 hal,222 PNG.
+- 9: istifadəçi açıq seçim sualında “Qızıl” seçdi; docs/decisions.json → designResolutions.D1-currency-name daxilində təsdiqlənmiş qərardır.
+### Current state
+- `design/states/D1-keypad-fixed-v16/`; əvvəlki v15 matrisinə toxunulmayıb. Yeni renderer və verifier ayrıca fayllardır. Oyun/runtime kodu dəyişməyib.
+### Decisions
+- Giriş sahəsi,12 düymə və Geri sabitdir; yalnız sol təlimat sahəsi lazım olsa scroll olur. Telefon split layout; planşetdə bounded iki panel və vertikal mərkəzlənən klaviatura.
+- Geri redaktəni ləğv edir, əvvəlki miqdarı bərpa edir və açıldığı detal/önbaxışa qaytarır. ✓ yalnız miqdarı tətbiq edir; ticarət etmir. Invalid giriş saxlanır, ✓ passivdir.
+- Mövcud proposal tokenləri saxlanılıb; bu iş onları production-approved etmir. Tarixi PNG-lərdə Pul qalır; Qızıl ümumi localization/yenidən render mərhələsində tətbiq olunmalıdır.
+### Remaining work
+- 3/4: Al/Sat önbaxışına açıq giriş düymələri və axın; bazar siyahısında Back göstərilməməsi/qaydasının dizaynı.
+- 5/6: v15 normalized atlas-dakı yeddi ikonun v7 tipli siyahı/kartlara tətbiqi; zədəli partiyanın satış qiyməti ilə marjanın qaydasını tutuşdurmaq.
+- 10/11/12: təsdiqlənmiş token cədvəli, animasiya müddətləri/storyboard,1160dp həddinin ölçmə ilə yoxlanması. Bunlar hazırlanmayıb/təsdiqlənməyib.
+- 1/8 əvvəlki D1-device-matrix-v15 daxilində statik hazırdır; yeni fixed keypad revision həmin tarixi PNG-lərə birləşdirilməyib. Android nonlinear scale, real cihaz və TalkBack yoxlanmayıb.
+### Relevant files
+- design/tools/render-d1-keypad-fixed-v16.swift; design/tools/verify-d1-keypad-fixed-v16.py
+- design/states/D1-keypad-fixed-v16/{index.html,verification.json,decision.json}
+- docs/decisions.json → designResolutions.D1-currency-name
+- design/states/D1-device-matrix-v15/; design/states/D1-render-localization.json
+### Checks performed
+- Swift compile/render exit0:216 hal,allFit=true,missingGlyphs=0. Verifier:222 düzgün native PNG ölçüsü,13 control minimum48dp/safe bounds,geometry eyni profil/dil/scale daxilində valid/error vəziyyətlərində sabitdir. Palitra dəyişməyib.
+- view_image: P2 AZ2 valid,P1 RU2 seven-digits,P3 EN2 valid native renderləri baxılıb; sabit düymələr və Geri görünür. Bütün PNG fərdi baxılmayıb. Runtime/device test yoxdur.
+### Exact next step
+- Yeni chatdə bu son bölmə və D1-keypad-fixed-v16/decision.json oxunsun. Növbəti kiçik vahid kimi yalnız 3/4: detal → Al/Sat önbaxış axını və bazar kök ekranının Back davranışı hazırlansın. Sonra 5/6 ayrıca vahid olsun; bütün12 bəndin bitdiyini iddia etmə.
