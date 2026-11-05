@@ -1,6 +1,5 @@
 package barterune.feature.market.ui
 
-import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -38,8 +37,7 @@ internal fun QuantityKeypad(
     Row(
         modifier
             .fillMaxSize()
-            .background(BarteruneColors.Background)
-            .padding(start = BarteruneSpacing.Margin, end = BarteruneSpacing.Margin, top = BarteruneSpacing.SafeTop, bottom = BarteruneSpacing.SafeBottom),
+            .padding(horizontal = BarteruneSpacing.Margin),
     ) {
         ParchmentPanel(Modifier.width(BarteruneSpacing.ArtWidth).fillMaxHeight()) {
             Column(Modifier.padding(BarteruneSpacing.Inset)) {
