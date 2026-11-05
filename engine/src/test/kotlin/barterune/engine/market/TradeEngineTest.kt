@@ -40,7 +40,7 @@ class TradeEngineTest {
         val cloth = start.market.good("cloth")!!
         assertEquals(83L, engine.pricing.buyUnit("sunbulova", cloth))
         assertEquals(67L, engine.pricing.sellUnit("sunbulova", cloth, 100))
-        assertEquals(1L, engine.pricing.sellUnit("sunbulova", grain, 1)) // floor 0 → minimum 1
+        assertEquals(3L, engine.pricing.sellUnit("sunbulova", grain, 1)) // B07: quality floors at 25%
     }
 
     @Test

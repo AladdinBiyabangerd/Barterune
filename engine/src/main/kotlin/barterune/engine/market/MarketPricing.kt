@@ -9,7 +9,7 @@ import kotlin.math.sign
 /**
  * B03 prices with exact integer fractions; only the final unit price is rounded.
  * P = base × city ratio × daily fluctuation; buy = ceil(P × (1+impact) × 1.10),
- * sell = max(1, floor(P × (1+impact) × 0.90 × quality/100)).
+ * sell = max(1, floor(P × (1+impact) × 0.90 × quality/100)); quality is clamped to [25, 100] (B07: minimum 25%).
  */
 class MarketPricing(private val content: ContentPack) {
 
@@ -19,8 +19,9 @@ class MarketPricing(private val content: ContentPack) {
     }
 
     fun sellUnit(cityId: String, market: MarketGoodState, quality: Int): Long {
+        val q = quality.coerceIn(MIN_QUALITY, MAX_QUALITY)
         val (num, den) = basePriceFraction(cityId, market)
-        val n = Math.multiplyExact(Math.multiplyExact(num, content.pricing.sellSpreadPercent.toLong()), quality.toLong())
+        val n = Math.multiplyExact(Math.multiplyExact(num, content.pricing.sellSpreadPercent.toLong()), q.toLong())
         return maxOf(1L, n / (den * PERCENT * PERCENT))
     }
 
@@ -47,8 +48,11 @@ class MarketPricing(private val content: ContentPack) {
 
     private fun ceilDiv(a: Long, b: Long): Long = -Math.floorDiv(-a, b)
 
-    private companion object {
-        const val PERCENT = 100L
-        const val PER_MILLE = 1000L
+    companion object {
+        /** B07: damage never takes quality below 25%. */
+        const val MIN_QUALITY = 25
+        const val MAX_QUALITY = 100
+        private const val PERCENT = 100L
+        private const val PER_MILLE = 1000L
     }
 }
