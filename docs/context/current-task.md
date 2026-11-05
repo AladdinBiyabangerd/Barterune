@@ -3027,3 +3027,22 @@
 - view_image: P2 AZ2 valid,P1 RU2 seven-digits,P3 EN2 valid native renderləri baxılıb; sabit düymələr və Geri görünür. Bütün PNG fərdi baxılmayıb. Runtime/device test yoxdur.
 ### Exact next step
 - Yeni chatdə bu son bölmə və D1-keypad-fixed-v16/decision.json oxunsun. Növbəti kiçik vahid kimi yalnız 3/4: detal → Al/Sat önbaxış axını və bazar kök ekranının Back davranışı hazırlansın. Sonra 5/6 ayrıca vahid olsun; bütün12 bəndin bitdiyini iddia etmə.
+
+
+## D1 beş hissə — v17 baxış paketi, 5 noyabr 2026
+
+### Completed
+- Yeddi mövcud atlas ikonunun P1/P2/P3 siyahı/kart nümunələri; token cədvəli; Back davranışı; planşet hədd təklifi; üç keçidin müddət/easing/reduced-motion spesifikasiyası və sxematik storyboard.
+### Current state
+- Yalnız statik dizayn paketi; runtime dəyişməyib. 32 PNG. İstifadəçi təsdiqi deyil. Əvvəlki uncommitted kod və sənəd dəyişiklikləri ayrıca saxlanıb.
+### Decisions
+- Root Back gizli; detail → LIST, keypad cancel → açıldığı bölmə. Master-detail safeWidth616dp; fontScale≥1.3 üçün1196dp namizəddir; kodun1160dp həddi dəyişməyib. Motion800/240/180ms, reduced0ms təklifdir.
+### Remaining work
+- İstifadəçi rəyi; planşet real boundary ölçmə/state matrisi; Android nonlinear scaling/cihaz/scroll/touch; final animasiya art və runtime. Dizaynı olmayan hissələr gözləyir.
+### Relevant files
+- design/states/D1-review-v17/{README.md,tokens.json,interaction.json,motion.json,verification.json}
+- design/tools/render-d1-review-v17.swift
+### Checks performed
+- Swift compile/render;32PNG;missingGlyphs0; JSON/PNG sanity. Kontrast7.85/10.99. P1 kart/P2 son ikon səhifəsi/P3 RU2/storyboard nümunələri vizual baxılıb. Bütün PNG fərdi yoxlanmayıb; app build və runtime test yoxdur.
+### Exact next step
+- Yeni chatdə v17 README və istifadəçinin konkret rəyini oxu; yalnız göstərilən düzəlişi et. Təsdiq olmadan production token/hədd/motion qərarı kimi tətbiq etmə.
