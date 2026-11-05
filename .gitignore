@@ -16,3 +16,4 @@ google-services.json
 *.p12
 *.pass
 .DS_Store
+.kotlin/
