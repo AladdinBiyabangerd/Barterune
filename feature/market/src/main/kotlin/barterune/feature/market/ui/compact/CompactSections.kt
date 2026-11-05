@@ -69,7 +69,7 @@ private fun batchRows(state: MarketUiState, actions: MarketActions): List<Compac
         val bn = batchName(b.quality)
         add(CompactRow(stringResource(if (selected) R.string.c_batch_selected else R.string.c_batch_unselected, bn), Type.Label))
         add(CompactRow(stringResource(R.string.c_quality_count, b.quality, b.quantity), Type.Body))
-        add(CompactRow(stringResource(R.string.c_cost_margin, b.averageCost, MarketText.signed(b.unitMargin)), Type.Body))
+        add(CompactRow(if (b.quality < 100) stringResource(R.string.c_cost_no_sell, b.averageCost) else stringResource(R.string.c_cost_margin, b.averageCost, MarketText.signed(b.unitMargin)), Type.Body))
         if (!selected) add(CompactRow(stringResource(R.string.c_choose_batch, bn), Type.Label, onClick = { actions.onSelectBatch(b.batchId) }))
     }
     add(CompactRow(stringResource(R.string.c_margin_note), Type.Supporting))

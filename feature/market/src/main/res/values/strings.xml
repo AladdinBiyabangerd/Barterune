@@ -45,7 +45,7 @@
     <string name="good_mana_crystal">Mana kristalı</string>
     <string name="good_dragon_resin">Əjdaha qatranı</string>
     <!-- Compact (P1/P2) copy: D1-pixel-composition-v7 via D1-render-localization.json (AZ). -->
-    <string name="c_hud">Gün %1$d/%2$d · Pul %3$d · Yük %4$d/%5$d</string>
+    <string name="c_hud">Gün %1$d/%2$d · Qızıl %3$d · Yük %4$d/%5$d</string>
     <string name="c_back_to_market">← Bazara qayıt</string>
     <string name="c_goods_list">Mallar · Siyahı</string>
     <string name="c_good_selected">%1$s · ✓ Seçilib</string>
@@ -60,6 +60,7 @@
     <string name="c_batch_selected">✓ %1$s · Seçilib</string>
     <string name="c_batch_unselected">%1$s · Seçilməyib</string>
     <string name="c_quality_count">Keyfiyyət: %1$d%% · Partiyada: %2$d</string>
+    <string name="c_cost_no_sell">Orta maya dəyəri %1$d · Vahid satış qiyməti —</string>
     <string name="c_cost_margin">Orta maya dəyəri %1$d · Vahid marja %2$s</string>
     <string name="c_choose_batch">%1$s: partiyanı seç</string>
     <string name="c_margin_note">Səfər xərcləri daxil deyil</string>
@@ -70,7 +71,7 @@
     <string name="c_no_owned">Satılacaq mal yoxdur</string>
     <string name="c_buy_total">Alış cəmi: %1$d</string>
     <string name="c_sell_total">Satış cəmi: %1$d</string>
-    <string name="c_gold_load">Pul %1$d → %2$d · Yük %3$d/%4$d → %5$d/%4$d</string>
+    <string name="c_gold_load">Qızıl %1$d → %2$d · Yük %3$d/%4$d → %5$d/%4$d</string>
     <string name="c_buy_max">Alış maksimumu: %1$d</string>
     <string name="c_sell_max">Satış maksimumu: %1$d</string>
     <string name="c_max_note">Yalnız miqdar dəyişir</string>
@@ -85,7 +86,7 @@
     <string name="c_quantity_context">Miqdar: %1$s · %2$s</string>
     <string name="c_purchase_saved">Alış saxlanıldı</string>
     <string name="c_sale_saved">Satış saxlanıldı</string>
-    <string name="c_saved_gold_load">Pul %1$d · Yük %2$d/%3$d</string>
+    <string name="c_saved_gold_load">Qızıl %1$d · Yük %2$d/%3$d</string>
     <string name="c_quantity_kept">Miqdar saxlanıldı</string>
     <string name="c_back_plain">Bazara qayıt</string>
     <string name="c_nav_market">✓ Bazar</string>
