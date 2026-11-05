@@ -30,6 +30,7 @@ class MarketViewModel(
     private var busy = false
     private var selectedBatchId: String? = null
     private var section = CompactSection.LIST
+    private var keypadOrigin = CompactSection.GOOD
     private var lastTrade: TradeOutcome? = null
 
     init {
@@ -41,7 +42,7 @@ class MarketViewModel(
     /** Phone: list → good detail. */
     fun openGood(goodId: String) { selectGood(goodId); navigate(CompactSection.GOOD) }
 
-    fun selectBatch(batchId: String) { selectedBatchId = batchId; navigate(CompactSection.SELL_PREVIEW) }
+    fun selectBatch(batchId: String) { selectedBatchId = batchId; publish() }
 
     fun navigate(target: CompactSection) {
         if (target != CompactSection.QUANTITY) keypad = null
@@ -55,7 +56,7 @@ class MarketViewModel(
     /** Max rows only change the quantity (designResolutions); 0 is never applied. */
     fun applyMax(max: Int) { if (max > 0) { quantity = max; publish() } }
 
-    fun openKeypad() { keypad = KeypadState(quantity.toString()); section = CompactSection.QUANTITY; publish() }
+    fun openKeypad() { keypadOrigin = section; keypad = KeypadState(quantity.toString()); section = CompactSection.QUANTITY; publish() }
 
     fun keypadDigit(digit: Char) {
         val k = keypad ?: return
@@ -66,14 +67,14 @@ class MarketViewModel(
     fun keypadBackspace() { keypad = keypad?.let { it.copy(raw = it.raw.dropLast(1)) }; publish() }
 
     /** Cancel/back restores the last applied quantity. */
-    fun keypadCancel() { keypad = null; if (section == CompactSection.QUANTITY) section = CompactSection.GOOD; publish() }
+    fun keypadCancel() { keypad = null; if (section == CompactSection.QUANTITY) section = keypadOrigin; publish() }
 
     /** Applies the quantity only; buying/selling stays a separate action. */
     fun keypadApply() {
         val value = keypad?.value ?: return
         quantity = value
         keypad = null
-        if (section == CompactSection.QUANTITY) section = CompactSection.BUY_PREVIEW
+        if (section == CompactSection.QUANTITY) section = keypadOrigin
         publish()
     }
 

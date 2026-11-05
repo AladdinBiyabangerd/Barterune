@@ -39,14 +39,14 @@ class MarketNavigationTest {
     private fun viewModel() = MarketViewModel(FakeRepository(engine, NewRunFactory(content).create("r", 1)), MarketStateMapper(content, engine), 1)
 
     @Test
-    fun phoneFlowListGoodQuantityPreviewBuySaved() {
+    fun phoneFlowListGoodQuantityBuySaved() {
         val vm = viewModel()
         vm.openGood("salt")
         assertEquals(CompactSection.GOOD, vm.state.value!!.section)
         vm.openKeypad(); vm.keypadBackspace(); vm.keypadDigit('3')
         assertEquals(CompactSection.QUANTITY, vm.state.value!!.section)
         vm.keypadApply()
-        assertEquals(CompactSection.BUY_PREVIEW, vm.state.value!!.section)
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section) // v16: back/apply return to origin
         assertEquals(3, vm.state.value!!.detail.quantity)
         vm.buy()
         val s = vm.state.value!!
