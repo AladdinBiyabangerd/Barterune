@@ -92,4 +92,7 @@
     <string name="c_nav_market">✓ Bazar</string>
     <string name="c_nav_map">Xəritə</string>
     <string name="c_nav_cargo">Yük</string>
+    <string name="t_market">Bazar</string>
+    <string name="t_gold_load">%1$d · %2$d / %3$d</string>
+    <string name="t_buy_sell">Al / Sat</string>
 </resources>
