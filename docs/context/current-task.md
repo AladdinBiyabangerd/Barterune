@@ -2951,3 +2951,98 @@
 
 ### Exact next step
 - Yeni chatdə bu son bölmə və iki D2 scope/spec sənədi oxunsun. İstifadəçi harness implementasiyasını istəsə yalnız toolchain/cihaz inventarı və minimal confirm/pending spike vahidindən başla; oyun koduna toxunma.
+
+
+## M1 — skeleton + engine (feat/m1-skeleton-engine) — 5 noyabr 2026
+
+### Completed
+- Root Gradle (AGP 8.9.1, Kotlin 2.1.10, Gradle 8.13, version catalog). Modullar: `:app` (com.aladdin.barterune, target/compile 36, minSdk 24 müvəqqəti), `:engine` (saf JVM), `:content` (schema + `classic-v1.json`, B01–B03), `:core:designsystem`, `:core:database` (Room), `:core:data` (GameRepository), `:feature:market`.
+- Engine: `BuyGoods`/`SellBatch`, revision yoxlaması, bütün imtina səbəbləri, B03 qiymət/təsir/ehtiyat tavanı, Long pul + overflow yoxlaması.
+- Room: `save_slot` (versiyalı JSON snapshot) + `command_log` (eyni commandId iki dəfə tətbiq olunmur).
+- UI: D1-P3 master/detail bazar + D1-keypad miqdar ekranı; tokenlər D6 proposal + D1 composition geometry (2 px = 1 dp); art `design/tools/export-m1-drawables.swift` ilə kəsilib.
+### Current state
+- `android-billing` toxunulmayıb, ayrıca build kimi qalır (host inteqrasiyası M5).
+- `config/firebase/google-services.json` varsa app build-i onu `app/`-a kopyalayıb google-services plugin-i tətbiq edir (gitignored). Firebase SDK hələ əlavə edilməyib.
+### Decisions
+- Hilt əvəzinə M1-də manual `AppContainer`. Telefon üçün P3 düzülüşü: siyahı eni = min(580dp, yarı en) — telefon master/detail PNG-si yoxdur.
+- `feature:market` compileSdk 35 (Paparazzi 1.3.5 + android-36 crash; Arrowz ilə eyni workaround).
+### Remaining work
+- M1.5 playtest (iki şəhər, səyahət); WaitDay/gün dalğalanması; batch seçimi UI; TR/RU/EN; real cihaz/emulator yoxlaması; minSdk qərarı.
+### Relevant files
+- engine/src/main/kotlin/barterune/engine/TradeEngine.kt, content/src/main/resources/content/classic-v1.json
+- core/data/src/main/kotlin/barterune/core/data/RoomGameRepository.kt
+- feature/market/src/main/kotlin/barterune/feature/market/MarketScreen.kt
+### Checks performed
+- `./gradlew clean assembleDebug testDebugUnitTest :engine:test :content:test :feature:market:verifyPaparazziDebug` — BUILD SUCCESSFUL; 22 test, 0 xəta. Restart testi (Robolectric, DB bağla/yenidən aç) eyni RunState verdi.
+- Paparazzi render-ləri D1-P3 və D1-keypad PNG-ləri ilə yan-yana müqayisə edildi (output/m1/, commit edilmir). Emulator/cihazda yoxlanmayıb.
+### Exact next step
+- İstifadəçi branch-ı nəzərdən keçirib OK versin; sonra M1.5 üçün ayrıca branch.
+
+## D1 P2/P3 dil və şrift matrisi — 5 noyabr 2026
+
+### Completed
+- P2 və P3 üçün mövcud 30 D1 vəziyyəti × AZ/TR/RU/EN × 1.0/1.3/2.0: 720 kombinasiya, 3313 scroll PNG. İndeks və 8 kontakt lövhəsi hazırdır.
+### Current state
+- `design/states/D1-device-matrix-v15/`; yalnız statik Swift/CoreText dizayn renderi. Oyun/harness kodu dəyişməyib; əvvəlki v15 saxlanılıb.
+### Decisions
+- Mənbə generator 29 vəziyyət verirdi; ayrıca tarixi `equipment-final` 30-cu vəziyyət kimi daxil edildi.
+- P2 2400×1080/3×, sol cutout 32dp; P3 2560×1600/2×. Mövcud token/art/localization saxlanılıb.
+- 1.3x/2.0x kartlarda bir sütun; məlumat və detalları aç düyməsi ayrıdır. Scroll kənarında qismən sətirlər nəzərdə tutulur; hər sətir və bütöv action ən az bir capture-da görünür.
+### Remaining work
+- Android nonlinear font scaling, real scroll/touch/TalkBack və ana dili redaktəsi yoxlanmayıb. Bütün 3313 PNG fərdi nəzərdən keçirilməyib.
+### Relevant files
+- design/tools/render-d1-device-matrix-v15.swift
+- design/tools/verify-d1-device-matrix-v15.py
+- design/tools/render-d1-device-matrix-contact.swift
+- design/states/D1-device-matrix-v15/{index.html,README.md,review.json,verification.json,coverage.json}
+### Checks performed
+- Swift compile/render exit0; verifier:720 kombinasiya,3313 düzgün native PNG ölçüsü,missingGlyphs=0,allChecksPassed=true. Nav/paper kontrast10.994:1.
+- 8 kontakt lövhəsində128 başlanğıc thumbnail, əlavə native P2 AZ preview/P3 AZ detail/P2 AZ2 cards/P2 RU1.3 cards/P3 RU2 preview/P2 RU2 quantity nümunələri açılıb baxıldı. Native scroll kənar clipping nəzərdə tutulur.
+### Exact next step
+- Bu vahid tamamdır. İstifadəçi `D1-device-matrix-v15/index.html` ilə nəticələrə baxsın; yeni iş verilərsə yalnız konkret ekran/device düzəlişindən başla. Bu nəticə oyun implementasiyasına yeni göstəriş deyil.
+
+## D1 sabit klaviatura + Qızıl qərarı — 5 noyabr 2026
+
+### Completed
+- İstifadəçinin 12 bəndlik siyahısından 2/7: telefon və planşet üçün sabit klaviatura statik dizaynı. P1/P2/P3 × AZ/EN/RU/TR × 1.0/1.3/2.0 × 6 valid/error vəziyyəti:216 hal,222 PNG.
+- 9: istifadəçi açıq seçim sualında “Qızıl” seçdi; docs/decisions.json → designResolutions.D1-currency-name daxilində təsdiqlənmiş qərardır.
+### Current state
+- `design/states/D1-keypad-fixed-v16/`; əvvəlki v15 matrisinə toxunulmayıb. Yeni renderer və verifier ayrıca fayllardır. Oyun/runtime kodu dəyişməyib.
+### Decisions
+- Giriş sahəsi,12 düymə və Geri sabitdir; yalnız sol təlimat sahəsi lazım olsa scroll olur. Telefon split layout; planşetdə bounded iki panel və vertikal mərkəzlənən klaviatura.
+- Geri redaktəni ləğv edir, əvvəlki miqdarı bərpa edir və açıldığı detal/önbaxışa qaytarır. ✓ yalnız miqdarı tətbiq edir; ticarət etmir. Invalid giriş saxlanır, ✓ passivdir.
+- Mövcud proposal tokenləri saxlanılıb; bu iş onları production-approved etmir. Tarixi PNG-lərdə Pul qalır; Qızıl ümumi localization/yenidən render mərhələsində tətbiq olunmalıdır.
+### Remaining work
+- 3/4: Al/Sat önbaxışına açıq giriş düymələri və axın; bazar siyahısında Back göstərilməməsi/qaydasının dizaynı.
+- 5/6: v15 normalized atlas-dakı yeddi ikonun v7 tipli siyahı/kartlara tətbiqi; zədəli partiyanın satış qiyməti ilə marjanın qaydasını tutuşdurmaq.
+- 10/11/12: təsdiqlənmiş token cədvəli, animasiya müddətləri/storyboard,1160dp həddinin ölçmə ilə yoxlanması. Bunlar hazırlanmayıb/təsdiqlənməyib.
+- 1/8 əvvəlki D1-device-matrix-v15 daxilində statik hazırdır; yeni fixed keypad revision həmin tarixi PNG-lərə birləşdirilməyib. Android nonlinear scale, real cihaz və TalkBack yoxlanmayıb.
+### Relevant files
+- design/tools/render-d1-keypad-fixed-v16.swift; design/tools/verify-d1-keypad-fixed-v16.py
+- design/states/D1-keypad-fixed-v16/{index.html,verification.json,decision.json}
+- docs/decisions.json → designResolutions.D1-currency-name
+- design/states/D1-device-matrix-v15/; design/states/D1-render-localization.json
+### Checks performed
+- Swift compile/render exit0:216 hal,allFit=true,missingGlyphs=0. Verifier:222 düzgün native PNG ölçüsü,13 control minimum48dp/safe bounds,geometry eyni profil/dil/scale daxilində valid/error vəziyyətlərində sabitdir. Palitra dəyişməyib.
+- view_image: P2 AZ2 valid,P1 RU2 seven-digits,P3 EN2 valid native renderləri baxılıb; sabit düymələr və Geri görünür. Bütün PNG fərdi baxılmayıb. Runtime/device test yoxdur.
+### Exact next step
+- Yeni chatdə bu son bölmə və D1-keypad-fixed-v16/decision.json oxunsun. Növbəti kiçik vahid kimi yalnız 3/4: detal → Al/Sat önbaxış axını və bazar kök ekranının Back davranışı hazırlansın. Sonra 5/6 ayrıca vahid olsun; bütün12 bəndin bitdiyini iddia etmə.
+
+
+## D1 beş hissə — v17 baxış paketi, 5 noyabr 2026
+
+### Completed
+- Yeddi mövcud atlas ikonunun P1/P2/P3 siyahı/kart nümunələri; token cədvəli; Back davranışı; planşet hədd təklifi; üç keçidin müddət/easing/reduced-motion spesifikasiyası və sxematik storyboard.
+### Current state
+- Yalnız statik dizayn paketi; runtime dəyişməyib. 32 PNG. İstifadəçi təsdiqi deyil. Əvvəlki uncommitted kod və sənəd dəyişiklikləri ayrıca saxlanıb.
+### Decisions
+- Root Back gizli; detail → LIST, keypad cancel → açıldığı bölmə. Master-detail safeWidth616dp; fontScale≥1.3 üçün1196dp namizəddir; kodun1160dp həddi dəyişməyib. Motion800/240/180ms, reduced0ms təklifdir.
+### Remaining work
+- İstifadəçi rəyi; planşet real boundary ölçmə/state matrisi; Android nonlinear scaling/cihaz/scroll/touch; final animasiya art və runtime. Dizaynı olmayan hissələr gözləyir.
+### Relevant files
+- design/states/D1-review-v17/{README.md,tokens.json,interaction.json,motion.json,verification.json}
+- design/tools/render-d1-review-v17.swift
+### Checks performed
+- Swift compile/render;32PNG;missingGlyphs0; JSON/PNG sanity. Kontrast7.85/10.99. P1 kart/P2 son ikon səhifəsi/P3 RU2/storyboard nümunələri vizual baxılıb. Bütün PNG fərdi yoxlanmayıb; app build və runtime test yoxdur.
+### Exact next step
+- Yeni chatdə v17 README və istifadəçinin konkret rəyini oxu; yalnız göstərilən düzəlişi et. Təsdiq olmadan production token/hədd/motion qərarı kimi tətbiq etmə.

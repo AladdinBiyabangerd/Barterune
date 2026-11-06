@@ -1,0 +1,30 @@
+{
+  "status": "review_candidate_not_user_approved",
+  "rootBack": "LIST kökündə ← Bazara qayıt göstərilmir; boş callback yoxdur. Sistem Back host naviqasiyasına verilir; yeni çıxış dialoqu dizayn edilmir.",
+  "detailBack": "good/batches/buyPreview/sellPreview → LIST; seçilmiş mal, miqdar, partiya və scroll qorunur; heç bir ticarət əmri göndərilmir.",
+  "quantityBack": "redaktə ləğv olunur, əvvəlki miqdar bərpa edilir və açıldığı bölməyə qayıdır.",
+  "tablet": {
+    "choice": "bounded master-detail",
+    "basis": "minimum pane = maxTextWidth/2 =290dp; two readable panes + margins + gap",
+    "minimumPaneDp": 290,
+    "thresholdSafeWidthDp": 616,
+    "formula": "2×290 +2×12 margin +12 gap =616; safeWidth=windowWidth−leftInset−rightInset",
+    "largeFont": "fontScale>=1.3: hər panel min580dp, threshold1196dp; uyğun gəlmirsə single pane. Mətn kəsilmir, panel scroll olur.",
+    "root": "tablet LIST: solda mallar, sağda seçilmiş mal; Back sətri yoxdur.",
+    "boundaryChecks": "615/616/617dp və fontScale1.3 üçün1195/1196/1197dp; insets əvvəl çıxılır.",
+    "note": "Bu hədd yalnız təklifdir. 1160dp mövcud kodda dəyişdirilməyib; faktiki Android ölçmə/resize gözləyir."
+  },
+  "icons": {
+    "source": "atlas-normalized-v13/review.json",
+    "mapping": {
+      "spices": 0,
+      "iron": 1,
+      "salt": 2,
+      "wool": 3,
+      "herbs": 4,
+      "mana_crystal": 5,
+      "dragon_resin": 6
+    },
+    "policy": "Mövcud binary-alpha ikonlar; nearest-neighbor; ad ayrıca görünür; dekorativ ikon accessibility-də adı təkrarlamır. Yeni rəsm yaradılmayıb."
+  }
+}

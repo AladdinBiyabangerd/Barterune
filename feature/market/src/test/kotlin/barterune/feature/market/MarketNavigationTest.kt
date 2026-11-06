@@ -1,0 +1,121 @@
+package barterune.feature.market
+
+import barterune.content.ContentLoader
+import barterune.core.data.GameRepository
+import barterune.engine.TradeEngine
+import barterune.engine.command.CommandResult
+import barterune.engine.command.GameCommand
+import barterune.engine.model.RunState
+import barterune.engine.run.NewRunFactory
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.test.UnconfinedTestDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.setMain
+import org.junit.After
+import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
+import org.junit.Before
+import org.junit.Test
+
+@OptIn(ExperimentalCoroutinesApi::class)
+class MarketNavigationTest {
+    private val content = ContentLoader.loadClassic()
+    private val engine = TradeEngine(content)
+
+    private class FakeRepository(private val engine: TradeEngine, start: RunState) : GameRepository {
+        val state = MutableStateFlow(start)
+        override suspend fun loadOrCreate(slotId: Int) = state.value
+        override fun observe(slotId: Int): Flow<RunState?> = state
+        override suspend fun execute(slotId: Int, command: GameCommand): CommandResult =
+            engine.apply(state.value, command).also { if (it is CommandResult.Accepted) state.value = it.state }
+    }
+
+    @Before fun setUp() = Dispatchers.setMain(UnconfinedTestDispatcher())
+    @After fun tearDown() = Dispatchers.resetMain()
+
+    private fun viewModel() = MarketViewModel(FakeRepository(engine, NewRunFactory(content).create("r", 1)), MarketStateMapper(content, engine), 1)
+
+    @Test
+    fun phoneFlowListGoodQuantityBuySaved() {
+        val vm = viewModel()
+        vm.openGood("salt")
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section)
+        vm.openKeypad(); vm.keypadBackspace(); vm.keypadDigit('3')
+        assertEquals(CompactSection.QUANTITY, vm.state.value!!.section)
+        vm.keypadApply()
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section) // v16: back/apply return to origin
+        assertEquals(3, vm.state.value!!.detail.quantity)
+        vm.buy()
+        val s = vm.state.value!!
+        assertEquals(CompactSection.TRADE_SAVED, s.section)
+        assertEquals(TradeOutcome(bought = true), s.lastTrade)
+        vm.backToMarket()
+        assertEquals(CompactSection.LIST, vm.state.value!!.section)
+        assertEquals("salt", vm.state.value!!.detail.goodId) // selection preserved
+    }
+
+    @Test
+    fun cancelDiscardsDraftAndKeepsCommittedQuantity() {
+        val vm = viewModel()
+        vm.openGood("grain"); vm.openKeypad(); vm.keypadDigit('9'); vm.keypadCancel()
+        assertNull(vm.state.value!!.keypad)
+        assertEquals(1, vm.state.value!!.detail.quantity)
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section)
+    }
+
+    @Test
+    fun maxRowsOnlyChangeQuantity() {
+        val vm = viewModel()
+        vm.openGood("grain")
+        val max = vm.state.value!!.detail.buyMax
+        vm.applyMax(max)
+        assertEquals(max, vm.state.value!!.detail.quantity)
+        assertEquals(300L, vm.state.value!!.gold)
+        vm.applyMax(0)
+        assertEquals(max, vm.state.value!!.detail.quantity)
+    }
+
+    @Test
+    fun previewBackReturnsToGoodDetail() {
+        val vm = viewModel()
+        vm.openGood("cloth")
+        vm.navigate(CompactSection.BUY_PREVIEW)
+        assertEquals(CompactSection.BUY_PREVIEW, vm.state.value!!.section)
+        vm.back()
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section)
+        vm.navigate(CompactSection.SELL_PREVIEW)
+        vm.back()
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section)
+    }
+
+    @Test
+    fun keypadSignAndDecimalDoNotApply() {
+        val vm = viewModel()
+        vm.openGood("grain"); vm.openKeypad()
+        vm.keypadBackspace()
+        vm.keypadDigit('2'); vm.keypadToggleSign()
+        assertEquals("−2", vm.state.value!!.keypad!!.raw)
+        assertFalse(vm.state.value!!.keypad!!.valid)
+        vm.keypadApply()
+        assertEquals(CompactSection.QUANTITY, vm.state.value!!.section) // apply ignored
+        vm.keypadToggleSign(); vm.keypadDecimal(); vm.keypadDigit('5')
+        assertEquals("2.5", vm.state.value!!.keypad!!.raw)
+        assertFalse(vm.state.value!!.keypad!!.valid)
+    }
+
+    @Test
+    fun buyPreviewCommitsFromGoodDetail() {
+        val vm = viewModel()
+        vm.openGood("salt")
+        vm.navigate(CompactSection.BUY_PREVIEW)
+        assertTrue(vm.state.value!!.detail.buy.enabled)
+        vm.buy()
+        assertEquals(CompactSection.TRADE_SAVED, vm.state.value!!.section)
+        assertEquals(TradeOutcome(bought = true), vm.state.value!!.lastTrade)
+    }
+}

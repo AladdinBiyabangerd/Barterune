@@ -1,0 +1,59 @@
+{
+  "status": "new_timing_proposal_for_review_not_runtime",
+  "newTokenReason": "Mövcud motion tokeni yoxdur; bu fayl adlandırılmış namizədləri təqdim edir.",
+  "tokens": {
+    "travelMs": 800,
+    "dayMs": 240,
+    "tradeMs": 180,
+    "ease": "cubic-bezier(0.4,0,0.2,1)",
+    "reducedMotionMs": 0
+  },
+  "travel": {
+    "framesMs": [
+      0,
+      200,
+      600,
+      800
+    ],
+    "frames": [
+      "Marşrut təsdiqi; idarələr kilidlənir",
+      "Araba başlanğıcdan ayrılır",
+      "Araba hədəfə yaxınlaşır",
+      "Təsdiqlənmiş gəliş göstərilir"
+    ],
+    "rule": "Müddət gameplay vaxtı deyil; engine nəticəsi yalnız bir dəfə tətbiq edilir. Event varsa ayrıca mövcud event ekranında dayanır; animasiya event seçmir."
+  },
+  "day": {
+    "framesMs": [
+      0,
+      80,
+      160,
+      240
+    ],
+    "frames": [
+      "Cari gün",
+      "Başlıq yumşaq sönür",
+      "Təsdiqlənmiş yeni gün",
+      "Yeni gün sabit"
+    ],
+    "rule": "Sadəcə HUD crossfade; yeni qiymət/gün yalnız committed snapshot-dan."
+  },
+  "trade": {
+    "framesMs": [
+      0,
+      60,
+      120,
+      180
+    ],
+    "frames": [
+      "Əmr pending, təkrar klik bağlı",
+      "Nəticə gözlənilir",
+      "Committed snapshot görünür",
+      "Mətn nəticəsi sabit"
+    ],
+    "rule": "180ms server/DB timeout deyil; cavab gecdirsə pending qalır, xəta uğur animasiyasını göstərmir. Sayğac animasiyası, konfetti və yeni iqtisadiyyat yoxdur."
+  },
+  "interrupt": "background/resize/restart: committed state göstərilir; əmr təkrar icra edilmir.",
+  "reducedMotion": "Araba hərəkəti və fade yoxdur, eyni status mətnləri dərhal; pending cavab gələnədək qalır.",
+  "storyboards": "P1/P3; sxematik hərəkət kadrları, final travel/day art deyil. Dizaynı olmayan ekranlar implementasiya olunmur."
+}

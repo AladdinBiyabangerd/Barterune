@@ -1,0 +1,34 @@
+{
+  "contentVersion": "classic-v1",
+  "rulesetVersion": "B01-B10-2026-11-03",
+  "start": { "gold": 300, "capacity": 30, "cityId": "sunbulova", "totalDays": 20 },
+  "pricing": {
+    "producerPerMille": 750,
+    "highDemandPerMille": 1250,
+    "neutralPerMille": 1000,
+    "buySpreadPercent": 110,
+    "sellSpreadPercent": 90,
+    "impactStepPercent": 5,
+    "impactCapPercent": 8,
+    "stockCapMultiplier": 2,
+    "day1StockPercent": { "PRODUCER": 100, "HIGH_DEMAND": 50, "NEUTRAL": 75 }
+  },
+  "goods": [
+    { "id": "grain", "basePrice": 20, "unitLoad": 2, "normalStock": 60, "dailyRestock": 12 },
+    { "id": "wood", "basePrice": 28, "unitLoad": 3, "normalStock": 45, "dailyRestock": 9 },
+    { "id": "cloth", "basePrice": 60, "unitLoad": 1, "normalStock": 24, "dailyRestock": 5 },
+    { "id": "spices", "basePrice": 100, "unitLoad": 1, "normalStock": 16, "dailyRestock": 3 },
+    { "id": "iron", "basePrice": 75, "unitLoad": 3, "normalStock": 20, "dailyRestock": 4 },
+    { "id": "salt", "basePrice": 30, "unitLoad": 2, "normalStock": 45, "dailyRestock": 9 },
+    { "id": "wool", "basePrice": 40, "unitLoad": 2, "normalStock": 30, "dailyRestock": 6 },
+    { "id": "herbs", "basePrice": 55, "unitLoad": 1, "normalStock": 24, "dailyRestock": 5 },
+    { "id": "mana_crystal", "basePrice": 140, "unitLoad": 2, "normalStock": 12, "dailyRestock": 2 },
+    { "id": "dragon_resin", "basePrice": 90, "unitLoad": 2, "normalStock": 16, "dailyRestock": 3 }
+  ],
+  "cities": [
+    { "id": "sunbulova", "produces": ["grain", "salt", "wool"], "highDemand": ["cloth", "spices"] },
+    { "id": "yasildere", "produces": ["wood", "herbs", "dragon_resin"], "highDemand": ["iron", "mana_crystal"] },
+    { "id": "duzliman", "produces": ["cloth", "spices"], "highDemand": ["wood", "herbs", "dragon_resin"] },
+    { "id": "dasqala", "produces": ["iron", "mana_crystal"], "highDemand": ["grain", "salt", "wool"] }
+  ]
+}

@@ -786,6 +786,13 @@
         "Animasiya müddətləri və asset storyboard kadrları",
         "D2–D4 açıq məhsul qaydaları dəyişmir"
       ]
+    },
+    "D1-currency-name": {
+      "status": "user_confirmed",
+      "date": "2026-11-05",
+      "az": "Qızıl",
+      "source": "User selected Qızıl in the explicit Pul/Qızıl question.",
+      "migration": "Existing historical PNGs may still say Pul; apply the confirmed name in subsequent renders."
     }
   },
   "balanceDecisions": {
