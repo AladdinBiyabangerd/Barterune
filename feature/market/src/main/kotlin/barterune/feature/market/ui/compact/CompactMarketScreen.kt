@@ -65,9 +65,8 @@ internal fun CompactMarketScreen(state: MarketUiState, actions: MarketActions, m
             val detailScroll = rememberLazyListState()
             CompactPanel(
                 compactRows(state, actions),
-                Modifier.weight(1f).widthIn(max = S.MaxTextWidth).fillMaxWidth().align(Alignment.CenterHorizontally),
+                tradeFade.weight(1f).widthIn(max = S.MaxTextWidth).fillMaxWidth().align(Alignment.CenterHorizontally),
                 if (state.section == CompactSection.LIST) listScroll else detailScroll,
-                informationModifier = tradeFade,
             )
         }
         Spacer(Modifier.height(S.Gap))

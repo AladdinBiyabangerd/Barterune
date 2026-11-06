@@ -20,7 +20,7 @@ import kotlinx.coroutines.launch
  * Compose supplies Android's live animator-duration scale to the effect's coroutine context.
  */
 @Composable
-internal fun Modifier.committedTradeFade(event: Any?): Modifier {
+internal fun committedTradeAlpha(event: Any?): Float {
     val alpha = remember { Animatable(1f) }
     val initialEvent = remember { event }
     // No entrance animation on restoration/resize. Only changes observed by this composition animate.
@@ -30,7 +30,13 @@ internal fun Modifier.committedTradeFade(event: Any?): Modifier {
         previous[0] = event
         if (changed && event != null) revealCommittedTrade(alpha) else alpha.snapTo(1f)
     }
-    return graphicsLayer { this.alpha = alpha.value }
+    return alpha.value
+}
+
+@Composable
+internal fun Modifier.committedTradeFade(event: Any?): Modifier {
+    val a = committedTradeAlpha(event)
+    return graphicsLayer { this.alpha = a }
 }
 
 internal suspend fun revealCommittedTrade(alpha: Animatable<Float, AnimationVector1D>) {

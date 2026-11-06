@@ -10,21 +10,29 @@ import barterune.feature.market.MarketUiState
 import barterune.feature.market.ui.MarketText
 import com.aladdin.barterune.feature.market.R
 
-/** Rows of one v7 section. D1-review-v17 interaction.json: detail sections start with the back row; the LIST root has none. */
+/**
+ * Compact rows. LIST has no rootBack (v17). GOOD/BATCHES/PREVIEW follow D1-trade-flow-v20:
+ * preview and batches back to good detail; batch labels use D1-damaged-label-v19.
+ */
 @Composable
 internal fun compactRows(state: MarketUiState, actions: MarketActions): List<CompactRow> {
-    val back = CompactRow(stringResource(R.string.c_back_to_market), Type.Label, onClick = actions.onBackToMarket)
     val rows = when (state.section) {
         CompactSection.LIST -> listRows(state, actions)
         CompactSection.GOOD -> goodRows(state, actions)
         CompactSection.BATCHES -> batchRows(state, actions)
-        // Quantity uses the fixed D1-keypad-fixed-v16 screen.
         CompactSection.QUANTITY -> goodRows(state, actions)
         CompactSection.BUY_PREVIEW -> previewRows(state, actions, buy = true)
         CompactSection.SELL_PREVIEW -> previewRows(state, actions, buy = false)
         CompactSection.TRADE_SAVED -> savedRows(state, actions)
     }
-    return if (state.section == CompactSection.LIST) rows else listOf(back) + rows
+    val back = when (state.section) {
+        CompactSection.LIST -> null
+        CompactSection.BUY_PREVIEW, CompactSection.SELL_PREVIEW, CompactSection.BATCHES ->
+            CompactRow(stringResource(R.string.c_back_to_detail), Type.Label, onClick = actions.onBack)
+        CompactSection.GOOD, CompactSection.QUANTITY, CompactSection.TRADE_SAVED ->
+            CompactRow(stringResource(R.string.c_back_to_market), Type.Label, onClick = actions.onBackToMarket)
+    }
+    return if (back == null) rows else listOf(back) + rows
 }
 
 @Composable
@@ -45,20 +53,40 @@ private fun listRows(state: MarketUiState, actions: MarketActions): List<Compact
 
 private fun ownedOf(state: MarketUiState, goodId: String): Int = state.rows.first { it.goodId == goodId }.owned
 
+/** D1-trade-flow-v20 mal detalı: info → Miqdar → Partiyalar → Alış/Satış önbaxışı. */
 @Composable
 private fun goodRows(state: MarketUiState, actions: MarketActions): List<CompactRow> {
     val d = state.detail
-    return listOf(
-        CompactRow(name(d.goodId), Type.ScreenTitle, icon = GoodArt.of(d.goodId)),
-        CompactRow(stringResource(R.string.c_unit_prices, d.buyUnit, d.sellUnit), Type.Body),
-        CompactRow(stringResource(R.string.c_stock_owned_load, d.stock, d.owned, d.unitLoad), Type.Body),
-        CompactRow(stringResource(R.string.c_batches), Type.Label, onClick = { actions.onNavigate(CompactSection.BATCHES) }),
-        CompactRow(stringResource(R.string.c_quantity, d.quantity), Type.Label, onClick = actions.onQuantity),
-    )
+    val batch = d.sellBatch
+    val batchLabel = batch?.let { qualityLabel(it.quality) }
+    return buildList {
+        add(CompactRow(name(d.goodId), Type.ScreenTitle, icon = GoodArt.of(d.goodId)))
+        add(CompactRow(stringResource(R.string.c_gold_load_short, state.gold, state.load, state.capacity), Type.Body))
+        add(CompactRow(stringResource(R.string.c_buy_sell_prices, d.buyUnit, d.sellUnit), Type.Body))
+        add(CompactRow(stringResource(R.string.c_quantity_change, d.quantity), Type.Label, onClick = actions.onQuantity))
+        add(
+            CompactRow(
+                if (batchLabel != null) stringResource(R.string.c_batches_with_quality, batchLabel)
+                else stringResource(R.string.c_batches),
+                Type.Label,
+                onClick = { actions.onNavigate(CompactSection.BATCHES) },
+            ),
+        )
+        add(CompactRow(stringResource(R.string.c_buy_preview_go), Type.Label, onClick = { actions.onNavigate(CompactSection.BUY_PREVIEW) }))
+        if (batch == null) {
+            add(CompactRow(stringResource(R.string.c_no_sell_batch), Type.Body))
+            add(CompactRow(stringResource(R.string.c_batches), Type.Label, onClick = { actions.onNavigate(CompactSection.BATCHES) }))
+        } else {
+            add(CompactRow(stringResource(R.string.c_sell_preview_go), Type.Label, onClick = { actions.onNavigate(CompactSection.SELL_PREVIEW) }))
+        }
+    }
 }
 
+/** D1-damaged-label-v19: `Zədəli · {q}%` / `Sağlam · 100%`; quantity is separate. */
 @Composable
-private fun batchName(quality: Int) = stringResource(if (quality == 100) R.string.c_healthy else R.string.c_damaged)
+private fun qualityLabel(quality: Int): String =
+    if (quality == 100) stringResource(R.string.c_healthy_quality, quality)
+    else stringResource(R.string.c_damaged_quality, quality)
 
 @Composable
 private fun batchRows(state: MarketUiState, actions: MarketActions): List<CompactRow> = buildList {
@@ -66,52 +94,62 @@ private fun batchRows(state: MarketUiState, actions: MarketActions): List<Compac
     if (state.detail.batches.isEmpty()) add(CompactRow(stringResource(R.string.c_no_owned), Type.Label))
     state.detail.batches.forEach { b ->
         val selected = b.batchId == state.detail.sellBatch?.batchId
-        val bn = batchName(b.quality)
-        add(CompactRow(stringResource(if (selected) R.string.c_batch_selected else R.string.c_batch_unselected, bn), Type.Label))
-        add(CompactRow(stringResource(R.string.c_quality_count, b.quality, b.quantity), Type.Body))
-        add(CompactRow(if (b.quality < 100) stringResource(R.string.c_cost_no_sell, b.averageCost) else stringResource(R.string.c_cost_margin, b.averageCost, MarketText.signed(b.unitMargin)), Type.Body))
-        if (!selected) add(CompactRow(stringResource(R.string.c_choose_batch, bn), Type.Label, onClick = { actions.onSelectBatch(b.batchId) }))
+        val label = qualityLabel(b.quality)
+        add(CompactRow(stringResource(if (selected) R.string.c_batch_selected else R.string.c_batch_unselected, label), Type.Label))
+        add(CompactRow(stringResource(R.string.c_count_separate, b.quantity), Type.Body))
+        add(CompactRow(stringResource(R.string.c_quality_affects_price), Type.Supporting))
+        add(CompactRow(stringResource(R.string.c_cost_margin, b.averageCost, MarketText.signed(b.unitMargin)), Type.Body))
+        if (!selected) add(CompactRow(stringResource(R.string.c_choose_batch, label), Type.Label, onClick = { actions.onSelectBatch(b.batchId) }))
     }
     add(CompactRow(stringResource(R.string.c_margin_note), Type.Supporting))
 }
 
+/** D1-trade-flow-v20 önbaxış: yalnız öz Al və ya Sat təsdiqi; limitdə səbəb + düzəliş yolları. */
 @Composable
 private fun previewRows(state: MarketUiState, actions: MarketActions, buy: Boolean): List<CompactRow> {
     val d = state.detail
     val p = if (buy) d.buy else d.sell
     val batch = d.sellBatch
-    return listOf(
-        CompactRow(stringResource(if (buy) R.string.c_buy_preview else R.string.c_sell_preview), Type.SectionTitle),
-        CompactRow(stringResource(R.string.c_good_quantity, name(d.goodId), d.quantity), Type.Body, icon = GoodArt.of(d.goodId)),
-        if (batch == null) CompactRow(stringResource(R.string.c_no_owned), Type.Body)
-        else CompactRow(stringResource(R.string.c_batch_count, batchName(batch.quality), batch.quantity), Type.Body),
-        CompactRow(stringResource(if (buy) R.string.c_buy_total else R.string.c_sell_total, p.total), Type.Numeric),
-        CompactRow(stringResource(R.string.c_gold_load, p.goldFrom, p.goldTo, p.loadFrom, state.capacity, p.loadTo), Type.Numeric),
-        CompactRow(stringResource(R.string.c_buy_max, d.buyMax), Type.Label, onClick = { actions.onApplyMax(d.buyMax) }, enabled = d.buyMax > 0),
-        CompactRow(stringResource(R.string.c_sell_max, d.sellMax), Type.Label, onClick = { actions.onApplyMax(d.sellMax) }, enabled = d.sellMax > 0),
-        CompactRow(stringResource(R.string.c_max_note), Type.Supporting),
-        CompactRow(
-            buyLabel(state), Type.Label, onClick = actions.onBuy, enabled = d.buy.enabled && !state.busy,
-            pair = CompactRow(sellLabel(state), Type.Label, onClick = actions.onSell, enabled = d.sell.enabled && !state.busy),
-        ),
-    )
-}
-
-@Composable
-private fun buyLabel(state: MarketUiState): String {
-    val b = state.detail.buy
-    return when (b.blockers.size) {
-        0 -> stringResource(R.string.market_buy, b.total)
-        1 -> stringResource(R.string.market_buy_blocked, b.total, stringResource(MarketText.reason(b.blockers.single())))
-        else -> stringResource(R.string.market_buy_many, b.blockers.size)
+    return buildList {
+        add(CompactRow(stringResource(if (buy) R.string.c_buy_preview_title else R.string.c_sell_preview_title), Type.SectionTitle))
+        add(CompactRow(stringResource(R.string.c_good_units, name(d.goodId), d.quantity), Type.Body, icon = GoodArt.of(d.goodId)))
+        if (!buy) {
+            if (batch == null) add(CompactRow(stringResource(R.string.c_no_owned), Type.Body))
+            else add(CompactRow(stringResource(R.string.c_batch_in_stock, qualityLabel(batch.quality), batch.quantity), Type.Body))
+        }
+        if (p.enabled) {
+            add(CompactRow(stringResource(R.string.c_total_gold, p.total), Type.Numeric))
+            add(CompactRow(stringResource(R.string.c_gold_arrow, p.goldFrom, p.goldTo), Type.Numeric))
+            add(CompactRow(stringResource(R.string.c_load_arrow, p.loadFrom, state.capacity, p.loadTo), Type.Numeric))
+            add(
+                CompactRow(
+                    stringResource(if (buy) R.string.c_confirm_buy else R.string.c_confirm_sell, p.total),
+                    Type.Label,
+                    onClick = if (buy) actions.onBuy else actions.onSell,
+                    enabled = !state.busy,
+                ),
+            )
+        } else {
+            val reason = p.blockers.firstOrNull()?.let { stringResource(MarketText.reason(it)) }
+                ?: stringResource(R.string.c_trade_blocked)
+            add(CompactRow(blockerMessage(buy, d, reason), Type.Body))
+            add(CompactRow(stringResource(R.string.c_change_quantity), Type.Label, onClick = actions.onQuantity))
+            if (!buy) {
+                add(CompactRow(stringResource(R.string.c_change_batch), Type.Label, onClick = { actions.onNavigate(CompactSection.BATCHES) }))
+                add(CompactRow(stringResource(R.string.c_sell_impossible), Type.Body))
+            }
+        }
     }
 }
 
 @Composable
-private fun sellLabel(state: MarketUiState): String {
-    val s = state.detail.sell
-    return if (s.enabled) stringResource(R.string.market_sell, s.total)
-    else stringResource(R.string.market_sell_blocked, stringResource(MarketText.reason(s.blockers.first())))
+private fun blockerMessage(buy: Boolean, d: barterune.feature.market.GoodDetail, reason: String): String {
+    val batch = d.sellBatch
+    return when {
+        !buy && batch != null && d.quantity > batch.quantity ->
+            stringResource(R.string.c_batch_only_count, batch.quantity)
+        else -> reason
+    }
 }
 
 @Composable

@@ -33,7 +33,6 @@ internal fun CompactPanel(
     rows: List<CompactRow>,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState(),
-    informationModifier: Modifier = Modifier,
 ) {
     ParchmentPanel(modifier) {
         LazyColumn(
@@ -42,10 +41,7 @@ internal fun CompactPanel(
             contentPadding = PaddingValues(top = BarteruneSpacing.Inset, bottom = BarteruneSpacing.Inset),
             verticalArrangement = Arrangement.spacedBy(BarteruneSpacing.Gap),
         ) {
-            items(rows) { row ->
-                // Frame and navigation remain visible and interactive during result feedback.
-                Block(row, Modifier.fillMaxWidth().then(if (row.onClick == null) informationModifier else Modifier))
-            }
+            items(rows) { row -> Block(row, Modifier.fillMaxWidth()) }
         }
     }
 }

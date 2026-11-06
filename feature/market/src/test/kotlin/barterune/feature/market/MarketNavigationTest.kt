@@ -16,7 +16,9 @@ import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertNull
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Test
 
@@ -76,5 +78,44 @@ class MarketNavigationTest {
         assertEquals(300L, vm.state.value!!.gold)
         vm.applyMax(0)
         assertEquals(max, vm.state.value!!.detail.quantity)
+    }
+
+    @Test
+    fun previewBackReturnsToGoodDetail() {
+        val vm = viewModel()
+        vm.openGood("cloth")
+        vm.navigate(CompactSection.BUY_PREVIEW)
+        assertEquals(CompactSection.BUY_PREVIEW, vm.state.value!!.section)
+        vm.back()
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section)
+        vm.navigate(CompactSection.SELL_PREVIEW)
+        vm.back()
+        assertEquals(CompactSection.GOOD, vm.state.value!!.section)
+    }
+
+    @Test
+    fun keypadSignAndDecimalDoNotApply() {
+        val vm = viewModel()
+        vm.openGood("grain"); vm.openKeypad()
+        vm.keypadBackspace()
+        vm.keypadDigit('2'); vm.keypadToggleSign()
+        assertEquals("−2", vm.state.value!!.keypad!!.raw)
+        assertFalse(vm.state.value!!.keypad!!.valid)
+        vm.keypadApply()
+        assertEquals(CompactSection.QUANTITY, vm.state.value!!.section) // apply ignored
+        vm.keypadToggleSign(); vm.keypadDecimal(); vm.keypadDigit('5')
+        assertEquals("2.5", vm.state.value!!.keypad!!.raw)
+        assertFalse(vm.state.value!!.keypad!!.valid)
+    }
+
+    @Test
+    fun buyPreviewCommitsFromGoodDetail() {
+        val vm = viewModel()
+        vm.openGood("salt")
+        vm.navigate(CompactSection.BUY_PREVIEW)
+        assertTrue(vm.state.value!!.detail.buy.enabled)
+        vm.buy()
+        assertEquals(CompactSection.TRADE_SAVED, vm.state.value!!.section)
+        assertEquals(TradeOutcome(bought = true), vm.state.value!!.lastTrade)
     }
 }
