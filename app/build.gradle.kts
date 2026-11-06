@@ -17,7 +17,7 @@ android {
     compileSdk = 36
     defaultConfig {
         applicationId = "com.aladdin.barterune"
-        // Product minSdk is still open (DT09); 24 mirrors Arrowz for the local M1 prototype.
+        // Product minSdk 24, same as Arrowz (Aladdin, 2026-11-06).
         minSdk = 24
         targetSdk = 36
         versionCode = 1
