@@ -1,5 +1,9 @@
 package barterune.feature.market.ui.compact
 
+import androidx.compose.animation.Crossfade
+import androidx.compose.animation.core.tween
+import barterune.core.designsystem.token.BarteruneMotion
+import barterune.feature.market.ui.committedTradeFade
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -24,6 +28,7 @@ import barterune.core.designsystem.component.PixelArt
 import barterune.core.designsystem.token.BarteruneColors
 import barterune.core.designsystem.token.BarteruneSpacing as S
 import barterune.core.designsystem.token.BarteruneTypography
+import barterune.feature.market.CompactSection
 import barterune.feature.market.MarketActions
 import barterune.feature.market.MarketUiState
 import com.aladdin.barterune.feature.market.R
@@ -36,21 +41,33 @@ import com.aladdin.barterune.feature.market.R
 internal fun CompactMarketScreen(state: MarketUiState, actions: MarketActions, modifier: Modifier = Modifier) {
     Column(modifier.fillMaxSize().padding(horizontal = S.Margin)) {
         Box(Modifier.fillMaxWidth().background(BarteruneColors.Surface)) {
-            BasicText(
-                stringResource(R.string.c_hud, state.day, state.totalDays, state.gold, state.load, state.capacity),
-                style = BarteruneTypography.Numeric.copy(color = BarteruneColors.TextPrimary),
-                modifier = Modifier.padding(start = S.Inset, end = S.Inset, top = S.Inset / 2, bottom = S.Inset / 2),
-            )
+            // Key only by committed day: trades update gold/load immediately, without a HUD fade.
+            Crossfade(targetState = state.day,
+                animationSpec = tween(BarteruneMotion.DayMs, easing = BarteruneMotion.Easing),
+                label = "committed-day",
+            ) { day ->
+                BasicText(
+                    stringResource(R.string.c_hud, day, state.totalDays, state.gold, state.load, state.capacity),
+                    style = BarteruneTypography.Numeric.copy(color = BarteruneColors.TextPrimary),
+                    modifier = Modifier.padding(start = S.Inset, end = S.Inset, top = S.Inset / 2, bottom = S.Inset / 2),
+                )
+            }
         }
         Spacer(Modifier.height(S.Gap))
         PixelArt(GoodArt.MarketPanorama, Modifier.fillMaxWidth().height(S.ArtHeight))
         Spacer(Modifier.height(S.Gap))
-        // New scroll position per destination.
+        // New scroll position per detail destination; LIST keeps its scroll (interaction.json detailBack).
+        val listScroll = rememberLazyListState()
+        val tradeFade = Modifier.committedTradeFade(
+            state.lastTrade.takeIf { state.section == CompactSection.TRADE_SAVED && !state.busy },
+        )
         key(state.section) {
+            val detailScroll = rememberLazyListState()
             CompactPanel(
                 compactRows(state, actions),
                 Modifier.weight(1f).widthIn(max = S.MaxTextWidth).fillMaxWidth().align(Alignment.CenterHorizontally),
-                rememberLazyListState(),
+                if (state.section == CompactSection.LIST) listScroll else detailScroll,
+                informationModifier = tradeFade,
             )
         }
         Spacer(Modifier.height(S.Gap))

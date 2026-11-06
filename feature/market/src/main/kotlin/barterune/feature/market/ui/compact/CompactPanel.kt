@@ -29,7 +29,12 @@ import barterune.core.designsystem.token.BarteruneSpacing
 
 /** Framed, scrolling list of [CompactRow] blocks (v7: rows inset by `inset`, separated by `gap`). */
 @Composable
-internal fun CompactPanel(rows: List<CompactRow>, modifier: Modifier = Modifier, listState: LazyListState = rememberLazyListState()) {
+internal fun CompactPanel(
+    rows: List<CompactRow>,
+    modifier: Modifier = Modifier,
+    listState: LazyListState = rememberLazyListState(),
+    informationModifier: Modifier = Modifier,
+) {
     ParchmentPanel(modifier) {
         LazyColumn(
             state = listState,
@@ -37,7 +42,10 @@ internal fun CompactPanel(rows: List<CompactRow>, modifier: Modifier = Modifier,
             contentPadding = PaddingValues(top = BarteruneSpacing.Inset, bottom = BarteruneSpacing.Inset),
             verticalArrangement = Arrangement.spacedBy(BarteruneSpacing.Gap),
         ) {
-            items(rows) { row -> Block(row, Modifier.fillMaxWidth()) }
+            items(rows) { row ->
+                // Frame and navigation remain visible and interactive during result feedback.
+                Block(row, Modifier.fillMaxWidth().then(if (row.onClick == null) informationModifier else Modifier))
+            }
         }
     }
 }
