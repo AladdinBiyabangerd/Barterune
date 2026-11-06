@@ -14,29 +14,25 @@ Bu sənəd AI dizayner üçün hazır tapşırıqdır. Aşağıdakı hər bənd 
 - Pul vahidinin adı: **Qızıl** (bütün ekranlarda; istifadəçi 2026-11-05 təsdiqləyib). Köhnə PNG-lərdəki "Pul" yeniləmə gözləyir.
 - Çıxış: hər vəziyyət üçün `scroll-N.png` + `verification.json` (rect-lər dp ilə), renderer skripti `design/tools/` altında.
 
-## 1. Maldan Alış/Satış önizləməsinə keçid (bütün profillər)
-- Vəziyyət: v7 bölmələrində (list → good → batches) `buyPreview` və `sellPreview` ekranları var, amma ora aparan düymə/keçid yoxdur (v16 decision.json "remaining.3"; v17-də də yoxdur).
-- Kodda: önizləmə ekranları hazırdır, lakin telefonda onlara keçid **yoxdur** — telefonda alış/satış hazırda əlçatmazdır.
-- Lazım olan: "Mal" bölməsində (və/və ya Partiyalar bölməsində) Al/Sat önizləməsinə aparan sətirlərin yeri, mətni (4 dil), aktiv/passiv halları; önizləmədən geri qayıdış hədəfi. P1, P2, P3; AZ/EN/RU/TR; 1.0x/1.3x/2.0x.
-- Planşet (v17 master-detail): sağ paneldə "Al / Sat" yalnız statik mətndir — planşetdə də alış/satış idarəetmələri, miqdar girişi, partiyalar və önizləmələr dizayn edilməyib.
+## 1. Maldan Alış/Satış önizləməsinə keçid — v20 tətbiq olunub (qalanlar)
+- `D1-trade-flow-v20` telefonda tətbiq olunub: mal detalı → Alış/Satış önbaxışı → təsdiq; geri mal detalına qayıdır. Limitdə səbəb + Miqdarı/Partiyanı dəyiş.
+- Planşet: P3 trade chrome yoxdur (v20 yalnız P1). Siyahıdan mal açılınca kompakt v20 axınına keçir — P3-ə uyğun iki panelli Al/Sat dizaynı hələ yoxdur.
+- Lazım olan: P2/P3 × EN/RU/TR × 1.3x/2.0x trade-flow renderləri; planşet master-detail içində Al/Sat/miqdar/partiya.
 
-## 2. Zədəli partiyanın satış qiyməti — balans ilə ziddiyyət
-- Qəbul olunmuş balans (docs/BALANCE_PROPOSAL.az.md B03/B07): `floor(P × (1+təsir) × 0,90 × keyfiyyət/100)`, minimum 1, keyfiyyət ≥25%. Mühərrik bunu hesablayır (q60 partiya satıla bilər).
-- Dizayn (D1-render-fixture.json `sellUnit: null`, v7 "Vahid satış qiyməti —") isə zədəli partiya üçün qiymət göstərmir. UI hazırda dizayna uyğun "—" göstərir.
-- Lazım olan: zədəli partiyanın Partiyalar və satış önizləməsi ekranları real qiymət və marja ilə (P1/P2/P3, 4 dil, 3 miqyas), Sat düyməsinin halı.
+## 2. Zədəli partiya etiketi — v19 tətbiq olunub (qiymət açıq)
+- Etiket: `Zədəli · {quality}%` / `Sağlam · 100%` (Aladdin 2026-11-06, variant 02). "—" çıxarılıb; maya/marja göstərilir.
+- v19 README: satış qiyməti/marja layout-u bu paketə daxil deyil. Lazım olan: zədəli partiya üçün Partiyalar/satış önizləməsinin təsdiqlənmiş qiymət sətirləri (P1/P2/P3, 4 dil, 3 miqyas).
 
-## 3. Mal ikonlarının sırası və planşet siyahısı
-- v17 ikon renderləri 10 malın hamısını mövcud ikonlarla göstərir; kod eyni faylları istifadə edir (həll olunub).
-- v17 P3 nümunəsi yalnız 7 sətir və sıra cloth, grain, wood, … göstərir; kod məzmun sırası ilə (grain, wood, cloth, …) 10 malın hamısını sürüşmə ilə göstərir. Lazım olan: sıra qaydası və 10 sətirlik tam planşet siyahısı, seçilmiş malın vurğusu.
+## 3. Planşet siyahısı — v18 tətbiq olunub
+- classic-v1 sırası, 10 mal, müstəqil scroll, seçim qorunur, header/footer hint. Qalan: böyük şrift/EN/RU/TR siyahı renderləri; görünən sətir sayının dizaynla sıx uyğunluğu.
 
 ## 4. P3 planşet — tam vəziyyətlər və keçid həddi
 - Kod v17 `P3-*-master-detail` kompozisiyasını tətbiq edir (fərq 1,2%). README: nümunə sadələşdirilib, bütün vəziyyətlər yoxdur.
 - Lazım olan: master-detail üçün Partiyalar, Al/Sat önizləməsi, uğur/xəta, stress (L05–L08, O01–O05, T05) vəziyyətləri; 4 dil × 3 miqyas.
 - Keçid həddi: **Aladdin 2026-11-05 təsdiqləyib** — bütün şrift miqyaslarında safeWidth ≥ **1196dp** (`DefaultTabletMinWidth` = 2×580 + 2×12 margin + 12 gap). Safe inset-lər ölçmədən əvvəl çıxılır; 1196dp-dən aşağı tək panel qalır. v17-dəki 616dp namizədi istifadə olunmur (P1/P2 master-detail renderi yoxdur; dar panellər üçün ayrıca adaptiv dizayn lazımdır).
 
-## 5. Sabit klaviatura (v16) — tamamlanma
-- `D1-keypad-fixed-v16` tətbiq olunub (P1/P2/P3). Status: "static_design_revision_in_progress".
-- Lazım olan: yekun təsdiq; mənfi/onluq daxiletmə hallarının (negative, decimal) necə yarana biləcəyi — klaviaturada "−" və "." yoxdur, bu vəziyyətlər əldə edilə bilmir.
+## 5. Klaviatura — v18 tətbiq olunub
+- Dörd sütun `1 2 3 ←` / `4 5 6 −` / `7 8 9 .` / `0 [✓×3]`; README validasiya qaydaları + unit testlər. Qalan: digər dillər/şrift miqyası üçün yekun vizual təsdiq.
 
 ## 6. Token cədvəli — təsdiq gözləyir
 - `design/states/D1-review-v17/tokens.json` təklifdir; kodda qəbul edilməyib. Lazım olan: istifadəçi təsdiqi (margin, gap, inset, target, safe inset, maxTextWidth, artWidth/artHeight, frameEdge; tip rolları).
@@ -61,5 +57,5 @@ Planşet keçidi: bütün şrift miqyaslarında **1196dp** (`DefaultTabletMinWid
 - Android/Compose MotionDurationScale istifadə olunur: sistemdə0 olduqda ticarət dərhal snap edir, Crossfade isə Compose-un0 miqyasını izləyir. Mövcud1.7.6 versiyasında davam edən animasiya söndürüldükdə iki kadradək tamamlanma test edilib.
 - Səyahət runtime ekranı/əmri yoxdur; TravelMs800 hələ qoşulmayıb. Gün consumer-i hazırdır, amma WaitDay/StartTravel əmrləri hələ yoxdur. Bu iş onları yaratmır.
 
-## 2026-11-05 — D1 v18 dizayn aydınlaşdırması
-- `design/states/D1-input-list-v18/README.md`: −/. düymələri və mənfi/kəsr validasiya yolu; content pack sırası ilə10 mallıq planşet siyahısı,7 görünən sətrin viewport nümunəsi olması. Statik render yoxlanıb; runtime tətbiqi yoxdur.
+## 2026-11-06 — v18/v19/v20 runtime
+- v18 klaviatura + planşet siyahısı, v19 zədəli etiket, v20 Al/Sat keçidi `feat/m1-skeleton-engine`-ə tətbiq olunub. §1/§2/§3/§5 yuxarıda qalan dizayn boşluqları ilə yenilənib.
