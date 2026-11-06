@@ -50,5 +50,8 @@ class MarketProfileScreenshotTest(private val profile: Profile) {
     @Test fun sellPreview() = shot("sellPreview", base.copy(section = CompactSection.SELL_PREVIEW))
     @Test fun quantity() = shot("quantity", base.copy(section = CompactSection.QUANTITY, keypad = KeypadState("2")))
     @Test fun quantityEmpty() = shot("quantity-empty", base.copy(section = CompactSection.QUANTITY, keypad = KeypadState("")))
+    @Test fun quantityZero() = shot("quantity-zero", base.copy(section = CompactSection.QUANTITY, keypad = KeypadState("0")))
+    @Test fun quantityNegative() = shot("quantity-negative", base.copy(section = CompactSection.QUANTITY, keypad = KeypadState("−2")))
+    @Test fun quantityDecimal() = shot("quantity-decimal", base.copy(section = CompactSection.QUANTITY, keypad = KeypadState("2.5")))
     @Test fun quantitySevenDigits() = shot("quantity-seven-digits", base.copy(section = CompactSection.QUANTITY, keypad = KeypadState("1234567")))
 }
