@@ -10,7 +10,7 @@ import barterune.feature.market.MarketUiState
 import barterune.feature.market.ui.MarketText
 import com.aladdin.barterune.feature.market.R
 
-/** Rows of one v7 section; every section starts with the explicit back row. */
+/** Rows of one v7 section. D1-review-v17 interaction.json: detail sections start with the back row; the LIST root has none. */
 @Composable
 internal fun compactRows(state: MarketUiState, actions: MarketActions): List<CompactRow> {
     val back = CompactRow(stringResource(R.string.c_back_to_market), Type.Label, onClick = actions.onBackToMarket)
@@ -18,13 +18,13 @@ internal fun compactRows(state: MarketUiState, actions: MarketActions): List<Com
         CompactSection.LIST -> listRows(state, actions)
         CompactSection.GOOD -> goodRows(state, actions)
         CompactSection.BATCHES -> batchRows(state, actions)
-        // Quantity uses the fixed D1-keypad screen (v15), which supersedes the scrolling v7 keypad.
+        // Quantity uses the fixed D1-keypad-fixed-v16 screen.
         CompactSection.QUANTITY -> goodRows(state, actions)
         CompactSection.BUY_PREVIEW -> previewRows(state, actions, buy = true)
         CompactSection.SELL_PREVIEW -> previewRows(state, actions, buy = false)
         CompactSection.TRADE_SAVED -> savedRows(state, actions)
     }
-    return listOf(back) + rows
+    return if (state.section == CompactSection.LIST) rows else listOf(back) + rows
 }
 
 @Composable
