@@ -6,7 +6,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxWithConstraints
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -33,10 +32,8 @@ import barterune.feature.market.KeypadState
 import com.aladdin.barterune.feature.market.R
 
 /**
- * D1-keypad-fixed-v16 (render-d1-keypad-fixed-v16.swift): two equal panes. Left: scrollable instructions
- * (enter quantity, good, rule) above a fixed "← Geri". Right: value field and the 12 keys, top-aligned on
- * phones, vertically centred on tablets where the pair is bounded to 2×maxTextWidth and centred.
- * Back cancels and restores the prior quantity; ✓ only applies the quantity.
+ * D1-input-list-v18 keypad: two panes; right grid is `1 2 3 ←` / `4 5 6 −` / `7 8 9 .` / `0 [✓ ×3]`.
+ * ← deletes; Geri cancels; − toggles sign; . appends once (empty → 0.); ✓ applies quantity only.
  */
 @Composable
 internal fun QuantityKeypad(
@@ -45,6 +42,8 @@ internal fun QuantityKeypad(
     tablet: Boolean,
     onDigit: (Char) -> Unit,
     onBackspace: () -> Unit,
+    onToggleSign: () -> Unit,
+    onDecimal: () -> Unit,
     onApply: () -> Unit,
     onCancel: () -> Unit,
     modifier: Modifier = Modifier,
@@ -62,6 +61,7 @@ internal fun QuantityKeypad(
                     val reason = when (keypad.problem) {
                         null -> R.string.c_editing
                         KeypadProblem.MINIMUM -> R.string.c_minimum
+                        KeypadProblem.WHOLE_NUMBERS -> R.string.c_whole_numbers
                         KeypadProblem.DIGIT_CAP -> R.string.c_digit_cap
                     }
                     InfoLine(stringResource(R.string.c_enter_quantity), BarteruneTypography.Label)
@@ -80,20 +80,34 @@ internal fun QuantityKeypad(
                 ) {
                     BasicText(keypad.raw.ifEmpty { "—" }, style = BarteruneTypography.Numeric.copy(color = BarteruneColors.TextPrimary))
                 }
-                listOf("123", "456", "789", "←0✓").forEach { keys ->
+                listOf(
+                    listOf("1", "2", "3", "←"),
+                    listOf("4", "5", "6", "−"),
+                    listOf("7", "8", "9", "."),
+                    listOf("0", "✓"),
+                ).forEach { keys ->
                     Row(horizontalArrangement = Arrangement.spacedBy(gap)) {
                         keys.forEach { key ->
-                            val keyModifier = Modifier.weight(1f)
+                            val weight = if (key == "✓") 3f else 1f
+                            val keyModifier = Modifier.weight(weight)
                             when (key) {
-                                '←' -> {
+                                "←" -> {
                                     val label = stringResource(R.string.keypad_backspace)
                                     GameButton("←", onBackspace, keyModifier.semantics { contentDescription = label })
                                 }
-                                '✓' -> {
+                                "−" -> {
+                                    val label = stringResource(R.string.keypad_sign)
+                                    GameButton("−", onToggleSign, keyModifier.semantics { contentDescription = label })
+                                }
+                                "." -> {
+                                    val label = stringResource(R.string.keypad_decimal)
+                                    GameButton(".", onDecimal, keyModifier.semantics { contentDescription = label })
+                                }
+                                "✓" -> {
                                     val label = stringResource(R.string.keypad_apply)
                                     GameButton("✓", onApply, keyModifier.semantics { contentDescription = label }, enabled = keypad.valid)
                                 }
-                                else -> GameButton(key.toString(), { onDigit(key) }, keyModifier)
+                                else -> GameButton(key, { onDigit(key[0]) }, keyModifier)
                             }
                         }
                     }

@@ -66,16 +66,38 @@ data class TradePreview(
     val enabled: Boolean get() = blockers.isEmpty()
 }
 
+/**
+ * D1-input-list-v18 keypad draft. Sign (−) and decimal point do not count toward the 6-digit cap.
+ * Validation order: empty/sign-only → MINIMUM; dotted → WHOLE_NUMBERS; zero/negative int → MINIMUM;
+ * more than 6 digits → DIGIT_CAP. Only a positive whole number applies; apply never buys/sells.
+ */
 data class KeypadState(val raw: String) {
-    val value: Int? get() = raw.takeIf { it.length in 1..6 }?.toIntOrNull()?.takeIf { it >= 1 }
+    val digitCount: Int get() = raw.count { it.isDigit() }
+
+    val value: Int? get() {
+        if ('.' in raw) return null
+        if (raw.isEmpty() || raw == SIGN) return null
+        if (digitCount > 6) return null
+        return normalize().toIntOrNull()?.takeIf { it >= 1 }
+    }
+
     val valid: Boolean get() = value != null
 
-    /** Which rule the draft breaks (D1 invalid-* fixtures); null when valid. */
     val problem: KeypadProblem? get() = when {
         valid -> null
-        raw.length > 6 -> KeypadProblem.DIGIT_CAP
+        raw.isEmpty() || raw == SIGN -> KeypadProblem.MINIMUM
+        '.' in raw -> KeypadProblem.WHOLE_NUMBERS
+        normalize().toIntOrNull()?.let { it <= 0 } == true -> KeypadProblem.MINIMUM
+        digitCount > 6 -> KeypadProblem.DIGIT_CAP
         else -> KeypadProblem.MINIMUM
+    }
+
+    private fun normalize(): String = raw.replace(SIGN, "-")
+
+    companion object {
+        const val SIGN = "−"
+        const val DIGIT_SOFT_CAP = 12
     }
 }
 
-enum class KeypadProblem { MINIMUM, DIGIT_CAP }
+enum class KeypadProblem { MINIMUM, WHOLE_NUMBERS, DIGIT_CAP }

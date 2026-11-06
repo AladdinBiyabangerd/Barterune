@@ -38,10 +38,12 @@ class MarketStateMapperTest {
     }
 
     @Test
-    fun keypadAcceptsOnlyOneToSixDigits() {
+    fun keypadAcceptsOnlyPositiveWholeNumbersUpToSixDigits() {
         assertTrue(KeypadState("999999").valid)
         assertFalse(KeypadState("1234567").valid)
         assertFalse(KeypadState("").valid)
         assertFalse(KeypadState("0").valid)
+        assertFalse(KeypadState("2.5").valid)
+        assertFalse(KeypadState("−2").valid)
     }
 }

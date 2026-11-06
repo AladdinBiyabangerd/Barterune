@@ -8,40 +8,23 @@ import androidx.compose.foundation.layout.safeDrawing
 import androidx.compose.foundation.layout.union
 import androidx.compose.foundation.layout.windowInsetsPadding
 import barterune.feature.market.ui.compact.CompactMarketScreen
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.min
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import barterune.core.designsystem.component.GameHud
-import barterune.core.designsystem.component.GoodArt
-import barterune.core.designsystem.component.ParchmentPanel
-import barterune.core.designsystem.component.PixelArt
 import barterune.core.designsystem.token.BarteruneColors
 import barterune.core.designsystem.token.BarteruneSpacing
-import barterune.feature.market.ui.GoodDetailPanel
-import barterune.feature.market.ui.GoodList
 import barterune.feature.market.ui.QuantityKeypad
 import barterune.feature.market.ui.TabletMarket
 import androidx.compose.ui.unit.Dp
-import com.aladdin.barterune.feature.market.R
 
 @Composable
 fun MarketRoute(viewModel: MarketViewModel, modifier: Modifier = Modifier) {
     val state by viewModel.state.collectAsStateWithLifecycle()
     val current = state ?: return
     BackHandler(enabled = current.keypad != null || current.section != CompactSection.LIST) {
-        if (current.keypad != null) viewModel.keypadCancel() else viewModel.backToMarket()
+        if (current.keypad != null) viewModel.keypadCancel() else viewModel.back()
     }
     MarketScreen(
         state = current,
@@ -52,8 +35,11 @@ fun MarketRoute(viewModel: MarketViewModel, modifier: Modifier = Modifier) {
             onSell = viewModel::sell,
             onDigit = viewModel::keypadDigit,
             onBackspace = viewModel::keypadBackspace,
+            onToggleSign = viewModel::keypadToggleSign,
+            onDecimal = viewModel::keypadDecimal,
             onApply = viewModel::keypadApply,
             onCancel = viewModel::keypadCancel,
+            onBack = viewModel::back,
             onBackToMarket = viewModel::backToMarket,
             onOpenGood = viewModel::openGood,
             onNavigate = viewModel::navigate,
@@ -71,8 +57,11 @@ data class MarketActions(
     val onSell: () -> Unit = {},
     val onDigit: (Char) -> Unit = {},
     val onBackspace: () -> Unit = {},
+    val onToggleSign: () -> Unit = {},
+    val onDecimal: () -> Unit = {},
     val onApply: () -> Unit = {},
     val onCancel: () -> Unit = {},
+    val onBack: () -> Unit = {},
     val onBackToMarket: () -> Unit = {},
     val onOpenGood: (String) -> Unit = {},
     val onNavigate: (CompactSection) -> Unit = {},
@@ -91,7 +80,9 @@ val DefaultTabletMinWidth: Dp = BarteruneSpacing.MaxTextWidth * 2 +
     BarteruneSpacing.Margin * 2 + BarteruneSpacing.Gap
 
 /**
- * Market: D1 v7 composition on phones (P1 v7, P2 D1-device-matrix-v15), D1-review-v17 master-detail on tablets; quantity uses D1-keypad-fixed-v16.
+ * Market: phone uses compact v7/v20; tablet LIST uses D1-input-list-v18 master-detail; other tablet
+ * sections reuse the compact trade flow so Al/Sat stay reachable without inventing a P3 trade layout.
+ * Quantity uses D1-input-list-v18 keypad.
  */
 @Composable
 fun MarketScreen(
@@ -104,10 +95,17 @@ fun MarketScreen(
     BoxWithConstraints(modifier.fillMaxSize().background(BarteruneColors.Background).windowInsetsPadding(safeInsets)) {
         val inner = Modifier
         val keypad = state.keypad
-        // Constraints already exclude safe insets; resizing preserves the hoisted screen state.
         val tablet = maxWidth >= tabletMinWidth
-        if (keypad != null) QuantityKeypad(keypad, state.detail.goodId, tablet, actions.onDigit, actions.onBackspace, actions.onApply, actions.onCancel, inner)
-        else if (tablet) TabletMarket(state, actions, inner)
-        else CompactMarketScreen(state, actions, inner)
+        if (keypad != null) {
+            QuantityKeypad(
+                keypad, state.detail.goodId, tablet,
+                actions.onDigit, actions.onBackspace, actions.onToggleSign, actions.onDecimal,
+                actions.onApply, actions.onCancel, inner,
+            )
+        } else if (tablet && state.section == CompactSection.LIST) {
+            TabletMarket(state, actions, inner)
+        } else {
+            CompactMarketScreen(state, actions, inner)
+        }
     }
 }

@@ -60,11 +60,26 @@ class MarketViewModel(
 
     fun keypadDigit(digit: Char) {
         val k = keypad ?: return
-        if (k.raw.length < KEYPAD_MAX_CHARS) keypad = k.copy(raw = k.raw + digit)
+        keypad = k.copy(raw = KeypadInput.appendDigit(k.raw, digit))
         publish()
     }
 
-    fun keypadBackspace() { keypad = keypad?.let { it.copy(raw = it.raw.dropLast(1)) }; publish() }
+    fun keypadBackspace() {
+        keypad = keypad?.let { it.copy(raw = KeypadInput.backspace(it.raw)) }
+        publish()
+    }
+
+    fun keypadToggleSign() {
+        val k = keypad ?: return
+        keypad = k.copy(raw = KeypadInput.toggleSign(k.raw))
+        publish()
+    }
+
+    fun keypadDecimal() {
+        val k = keypad ?: return
+        keypad = k.copy(raw = KeypadInput.appendDecimal(k.raw))
+        publish()
+    }
 
     /** Cancel/back restores the last applied quantity. */
     fun keypadCancel() { keypad = null; if (section == CompactSection.QUANTITY) section = keypadOrigin; publish() }
@@ -75,6 +90,21 @@ class MarketViewModel(
         quantity = value
         keypad = null
         if (section == CompactSection.QUANTITY) section = keypadOrigin
+        publish()
+    }
+
+    /** Preview/batches back to good detail (D1-trade-flow-v20); good/saved back to list. */
+    fun back() {
+        when (section) {
+            CompactSection.BUY_PREVIEW, CompactSection.SELL_PREVIEW, CompactSection.BATCHES, CompactSection.QUANTITY -> {
+                keypad = null
+                section = CompactSection.GOOD
+            }
+            else -> {
+                keypad = null
+                section = CompactSection.LIST
+            }
+        }
         publish()
     }
 
@@ -114,5 +144,4 @@ class MarketViewModel(
             .copy(keypad = keypad, busy = busy, section = section, lastTrade = lastTrade)
     }
 
-    private companion object { const val KEYPAD_MAX_CHARS = 7 }
 }
